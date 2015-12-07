@@ -1,0 +1,17 @@
+//
+//  AMWPhotoDetailsFooterView.h
+//  ParseStarterProject
+//
+//  Created by Andrew on 11/29/15.
+//
+//
+
+#import <UIKit/UIKit.h>
+
+@interface AMWPhotoDetailsFooterView : UIView
+
+@property (nonatomic) BOOL hideDropShadow;
+
++ (CGRect)rectForView;
+
+@end
