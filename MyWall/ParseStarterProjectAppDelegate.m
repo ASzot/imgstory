@@ -52,7 +52,9 @@
     self.window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
     
     //[ParseCrashReporting enable];
-    [Parse setApplicationId:@"your_application_id" clientKey:@"your_client_key"];
+    NSString *appId = @"xLMm2VLcNHOhSLy7DXeOohEcExyZQMdovI759MYm";
+    NSString *clientKey = @"buH1i2ML3usHLGLnZDzR7xK9uqlkwroX8CGEhm88";
+    [Parse setApplicationId: appId clientKey: clientKey];
 
     if (application.applicationIconBadgeNumber != 0) {
         application.applicationIconBadgeNumber = 0;
@@ -229,8 +231,8 @@
 - (void)setuAMWpearance {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:254.0f / 255.0f green:149.0f / 255.0f blue:50.0f / 255.0f alpha:1.0f]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0f / 255.0f green:0.0f / 255.0f blue:0.0f / 255.0f alpha:1.0f]];
     
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSForegroundColorAttributeName: [UIColor whiteColor]

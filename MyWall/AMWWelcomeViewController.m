@@ -23,7 +23,7 @@
 
 #pragma mark - UIViewController
 - (void)loadView {
-    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [backgroundImageView setImage:[UIImage imageNamed:@"Default.png"]];
     self.view = backgroundImageView;
 }

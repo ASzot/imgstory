@@ -93,7 +93,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setBackgroundImage:[UIImage imageNamed:@"ActivityFeedBlank.png"] forState:UIControlStateNormal];
     [button setFrame:CGRectMake(24.0f, 113.0f, 271.0f, 140.0f)];
-    [button addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [button addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.blankTimelineView addSubview:button];
     
     lastRefresh = [[NSUserDefaults standardUserDefaults] objectForKey:kAMWUserDefaultsActivityFeedViewControllerLastRefreshKey];

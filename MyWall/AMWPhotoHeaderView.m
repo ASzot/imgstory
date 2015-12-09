@@ -126,7 +126,8 @@
     
     if (self.buttons & AMWPhotoHeaderButtonsRepost) {
         constrainWidth = self.repostButton.frame.origin.x;
-        [self.repostButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        // Add the selector for the did tap photo repost button.
+//        [self.repostButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     // we resize the button to fit the user's name to avoid having a huge touch area

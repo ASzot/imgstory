@@ -90,7 +90,7 @@ static const CGFloat kAMWCellInsetWidth = 0.0f;
     
     // Register to be notified when the keyboard will be shown to scroll the view
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedPhoto:) name:AMWUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:self.photo];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLikedOrUnlikedPhoto:) name:AMWUtilityUserLikedUnlikedPhotoCallbackFinishedNotification object:self.photo];
 }
 
 

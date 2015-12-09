@@ -53,21 +53,6 @@
 }
 
 
-#pragma mark - FBSDKLoginButtonDelegate
-
-- (void)handleFacebookSession {
-    if ([PFUser currentUser]) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(logInViewControllerDidLogUserIn:)]) {
-            [self.delegate performSelector:@selector(logInViewControllerDidLogUserIn:) withObject:[PFUser currentUser]];
-        }
-        return;
-    }
-    
-    
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-}
-
-
 #pragma mark - ()
 
 - (void)cancelLogIn:(NSError *)error {
@@ -77,7 +62,6 @@
     }
     
     [self.hud removeFromSuperview];
-    //[FBSDKAccessToken setCurrentAccessToken:nil];
     [PFUser logOut];
     [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] presentLoginViewController:NO];
 }
@@ -85,8 +69,9 @@
 - (void)handleLogInError:(NSError *)error {
     if (error) {
         NSLog(@"Error: %@", [[error userInfo] objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"]);
-        NSString *title = NSLocalizedString(@"Login Error", @"Login error title in PAPLogInViewController");
-        NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Login error message in PAPLogInViewController");
+        NSString *title = NSLocalizedString(@"Login Error", @"Login error title in AMWLogInViewController");
+        NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Login error message in AMWLogInViewController");
+        NSString *okStr = NSLocalizedString(@"OK", @"OK");
         
         if ([[[error userInfo] objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"] isEqualToString:@"com.facebook.sdk:UserLoginCancelled"]) {
             return;
@@ -98,27 +83,20 @@
         }
         
         if (error.code == kPFErrorConnectionFailed) {
-            NSString *ok = NSLocalizedString(@"OK", @"OK");
-            NSString *title = NSLocalizedString(@"Offline Error", @"Offline Error");
-            NSString *message = NSLocalizedString(@"Something went wrong. Please try again.", @"Offline message");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                            message:message
-                                                           delegate:nil
-                                                  cancelButtonTitle:nil
-                                                  otherButtonTitles:ok, nil];
-            [alert show];
-            
-            return;
+            title = NSLocalizedString(@"Offline Error", @"Offline Error");
+            message = NSLocalizedString(@"Something went wrong. Please try again.", @"Offline message");
         }
         
-        NSString *ok = NSLocalizedString(@"OK", @"OK");
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message: message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:okStr style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
-                                                            message:message
-                                                           delegate:self
-                                                  cancelButtonTitle:nil
-                                                  otherButtonTitles:ok, nil];
-        [alertView show];
+        [alert addAction:ok];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

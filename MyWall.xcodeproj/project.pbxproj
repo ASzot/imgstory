@@ -289,68 +289,212 @@
 		4952A0BE1C156E6100646A61 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				49FA01631C156EFC0041CC1A /* MBProgressHUD.h */,
-				49FA01691C156F0B0041CC1A /* Reachability.h */,
+				49A490BD1C180F8200685660 /* Helper */,
+				49A490BC1C180F7D00685660 /* View */,
+				49A490BB1C180F7400685660 /* Controllers */,
 				49FA01661C156F050041CC1A /* ParseStarterProjectAppDelegate.h */,
-				49FA01641C156F000041CC1A /* MBProgressHUD.m */,
 				49FA01671C156F080041CC1A /* ParseStarterProjectAppDelegate.m */,
-				49FA016C1C156F140041CC1A /* TTTTimeIntervalFormatter.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		49A490BB1C180F7400685660 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				49A490CB1C18107600685660 /* Settings */,
+				49A490CA1C18105F00685660 /* Timeline */,
+				49A490C91C18105400685660 /* Activity */,
+				49A490C71C18102E00685660 /* Home */,
+				49A490C61C18101F00685660 /* Account */,
+				49A490C41C180FE900685660 /* Photo */,
+				49A490C11C180FB700685660 /* Login */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		49A490BC1C180F7D00685660 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				49A490CC1C18107B00685660 /* Settings */,
+				49A490C81C18104300685660 /* Photo */,
+				49A490C51C18101700685660 /* Profile */,
+				49A490C31C180FD900685660 /* Cells */,
+				49A490C01C180FAD00685660 /* Login */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		49A490BD1C180F8200685660 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				49A490C21C180FCF00685660 /* App */,
+				49A490BF1C180F9D00685660 /* UI */,
+				49A490BE1C180F9300685660 /* Core */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		49A490BE1C180F9300685660 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				49FA016A1C156F0E0041CC1A /* Reachability.m */,
+				49FA01691C156F0B0041CC1A /* Reachability.h */,
+				49FA01631C156EFC0041CC1A /* MBProgressHUD.h */,
+				49FA01641C156F000041CC1A /* MBProgressHUD.m */,
 				49FA016D1C156F140041CC1A /* TTTTimeIntervalFormatter.m */,
+				49FA016C1C156F140041CC1A /* TTTTimeIntervalFormatter.h */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		49A490BF1C180F9D00685660 /* UI */ = {
+			isa = PBXGroup;
+			children = (
 				49FA016E1C156F140041CC1A /* UIImage+AlphaAdditions.h */,
 				49FA016F1C156F140041CC1A /* UIImage+AlphaAdditions.m */,
 				49FA01701C156F140041CC1A /* UIImage+ResizeAdditions.h */,
 				49FA01711C156F140041CC1A /* UIImage+ResizeAdditions.m */,
 				49FA01721C156F140041CC1A /* UIImage+RoundedCornerAdditions.h */,
 				49FA01731C156F140041CC1A /* UIImage+RoundedCornerAdditions.m */,
-				49FA016A1C156F0E0041CC1A /* Reachability.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		49A490C01C180FAD00685660 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		49A490C11C180FB700685660 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				49FA01321C156EDF0041CC1A /* AMWLoginViewController.h */,
+				49FA01331C156EDF0041CC1A /* AMWLoginViewController.m */,
 				49FA01601C156EF20041CC1A /* AMWWelcomeViewController.h */,
 				49FA01611C156EF20041CC1A /* AMWWelcomeViewController.m */,
-				49FA011E1C156EDF0041CC1A /* AMWAccountViewController.h */,
-				49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */,
-				49FA01201C156EDF0041CC1A /* AMWActivityCell.h */,
-				49FA01211C156EDF0041CC1A /* AMWActivityCell.m */,
-				49FA01221C156EDF0041CC1A /* AMWActivityFeedViewController.h */,
-				49FA01231C156EDF0041CC1A /* AMWActivityFeedViewController.m */,
-				49FA01241C156EDF0041CC1A /* AMWBaseTextCell.h */,
-				49FA01251C156EDF0041CC1A /* AMWBaseTextCell.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		49A490C21C180FCF00685660 /* App */ = {
+			isa = PBXGroup;
+			children = (
 				49FA01261C156EDF0041CC1A /* AMWCache.h */,
 				49FA01271C156EDF0041CC1A /* AMWCache.m */,
 				49FA01281C156EDF0041CC1A /* AMWConstants.h */,
 				49FA01291C156EDF0041CC1A /* AMWConstants.m */,
-				49FA012A1C156EDF0041CC1A /* AMWEditPhotoViewController.h */,
-				49FA012B1C156EDF0041CC1A /* AMWEditPhotoViewController.m */,
+				49FA01481C156EDF0041CC1A /* AMWUtility.h */,
+				49FA01491C156EDF0041CC1A /* AMWUtility.m */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		49A490C31C180FD900685660 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				49FA01201C156EDF0041CC1A /* AMWActivityCell.h */,
+				49FA01211C156EDF0041CC1A /* AMWActivityCell.m */,
+				49FA01241C156EDF0041CC1A /* AMWBaseTextCell.h */,
 				49FA012C1C156EDF0041CC1A /* AMWFindFriendsCell.h */,
-				49FA012D1C156EDF0041CC1A /* AMWFindFriendsCell.m */,
-				49FA012E1C156EDF0041CC1A /* AMWHomeViewController.h */,
-				49FA012F1C156EDF0041CC1A /* AMWHomeViewController.m */,
 				49FA01301C156EDF0041CC1A /* AMWLoadMoreCell.h */,
 				49FA01311C156EDF0041CC1A /* AMWLoadMoreCell.m */,
-				49FA01321C156EDF0041CC1A /* AMWLoginViewController.h */,
-				49FA01331C156EDF0041CC1A /* AMWLoginViewController.m */,
 				49FA01341C156EDF0041CC1A /* AMWPhotoCell.h */,
 				49FA01351C156EDF0041CC1A /* AMWPhotoCell.m */,
+				49FA012D1C156EDF0041CC1A /* AMWFindFriendsCell.m */,
+				49FA01251C156EDF0041CC1A /* AMWBaseTextCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		49A490C41C180FE900685660 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				49FA013A1C156EDF0041CC1A /* AMWPhotoDetailsViewController.h */,
+				49FA013B1C156EDF0041CC1A /* AMWPhotoDetailsViewController.m */,
+				49FA012A1C156EDF0041CC1A /* AMWEditPhotoViewController.h */,
+				49FA012B1C156EDF0041CC1A /* AMWEditPhotoViewController.m */,
+			);
+			name = Photo;
+			sourceTree = "<group>";
+		};
+		49A490C51C18101700685660 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				49FA01401C156EDF0041CC1A /* AMWProfileImageView.h */,
+				49FA01411C156EDF0041CC1A /* AMWProfileImageView.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		49A490C61C18101F00685660 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				49FA011E1C156EDF0041CC1A /* AMWAccountViewController.h */,
+				49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */,
+			);
+			name = Account;
+			sourceTree = "<group>";
+		};
+		49A490C71C18102E00685660 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				49FA012E1C156EDF0041CC1A /* AMWHomeViewController.h */,
+				49FA012F1C156EDF0041CC1A /* AMWHomeViewController.m */,
+				49FA01461C156EDF0041CC1A /* AMWTabBarController.h */,
+				49FA01471C156EDF0041CC1A /* AMWTabBarController.m */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		49A490C81C18104300685660 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				49FA013C1C156EDF0041CC1A /* AMWPhotoHeaderView.h */,
+				49FA013D1C156EDF0041CC1A /* AMWPhotoHeaderView.m */,
 				49FA01361C156EDF0041CC1A /* AMWPhotoDetailsFooterView.h */,
 				49FA01371C156EDF0041CC1A /* AMWPhotoDetailsFooterView.m */,
 				49FA01381C156EDF0041CC1A /* AMWPhotoDetailsHeaderView.h */,
 				49FA01391C156EDF0041CC1A /* AMWPhotoDetailsHeaderView.m */,
-				49FA013A1C156EDF0041CC1A /* AMWPhotoDetailsViewController.h */,
-				49FA013B1C156EDF0041CC1A /* AMWPhotoDetailsViewController.m */,
-				49FA013C1C156EDF0041CC1A /* AMWPhotoHeaderView.h */,
-				49FA013D1C156EDF0041CC1A /* AMWPhotoHeaderView.m */,
+			);
+			name = Photo;
+			sourceTree = "<group>";
+		};
+		49A490C91C18105400685660 /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				49FA01221C156EDF0041CC1A /* AMWActivityFeedViewController.h */,
+				49FA01231C156EDF0041CC1A /* AMWActivityFeedViewController.m */,
+			);
+			name = Activity;
+			sourceTree = "<group>";
+		};
+		49A490CA1C18105F00685660 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
 				49FA013E1C156EDF0041CC1A /* AMWPhotoTimelineViewController.h */,
 				49FA013F1C156EDF0041CC1A /* AMWPhotoTimelineViewController.m */,
-				49FA01401C156EDF0041CC1A /* AMWProfileImageView.h */,
-				49FA01411C156EDF0041CC1A /* AMWProfileImageView.m */,
+			);
+			name = Timeline;
+			sourceTree = "<group>";
+		};
+		49A490CB1C18107600685660 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
 				49FA01421C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.h */,
 				49FA01431C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		49A490CC1C18107B00685660 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
 				49FA01441C156EDF0041CC1A /* AMWSettingsButtonItem.h */,
 				49FA01451C156EDF0041CC1A /* AMWSettingsButtonItem.m */,
-				49FA01461C156EDF0041CC1A /* AMWTabBarController.h */,
-				49FA01471C156EDF0041CC1A /* AMWTabBarController.m */,
-				49FA01481C156EDF0041CC1A /* AMWUtility.h */,
-				49FA01491C156EDF0041CC1A /* AMWUtility.m */,
 			);
-			name = Source;
+			name = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
