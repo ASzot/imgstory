@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AMWLoginViewController.h"
+#import "AMWStartViewController.h"
 
-@interface AMWWelcomeViewController : UIViewController<AMWLoginViewControllerDelegate>
+@interface AMWWelcomeViewController : UIViewController<AMWStartViewControllerDelegate>
 
 - (void)presentLoginViewController:(BOOL)animated;
 

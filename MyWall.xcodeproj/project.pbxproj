@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		494790EF1C2603B200D695E5 /* AMWSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494790ED1C2603B200D695E5 /* AMWSignupViewController.m */; };
+		494790F01C2603B200D695E5 /* AMWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494790EE1C2603B200D695E5 /* AMWSignupViewController.xib */; };
 		4952A0691C156B1A00646A61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4952A0681C156B1A00646A61 /* main.m */; };
 		4952A0751C156B1A00646A61 /* MyWall.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4952A0731C156B1A00646A61 /* MyWall.xcdatamodeld */; };
 		4952A0771C156B1A00646A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4952A0761C156B1A00646A61 /* Assets.xcassets */; };
 		4952A0851C156B1A00646A61 /* MyWallTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4952A0841C156B1A00646A61 /* MyWallTests.m */; };
 		4952A0901C156B1A00646A61 /* MyWallUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4952A08F1C156B1A00646A61 /* MyWallUITests.m */; };
-		4952A09E1C156BA100646A61 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A09D1C156BA100646A61 /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
-		4952A0A01C156BAA00646A61 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A09F1C156BAA00646A61 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		4952A09E1C156BA100646A61 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A09D1C156BA100646A61 /* Bolts.framework */; };
+		4952A0A01C156BAA00646A61 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A09F1C156BAA00646A61 /* Parse.framework */; };
 		4952A0A31C156BFD00646A61 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0A21C156BFD00646A61 /* Accounts.framework */; };
 		4952A0A51C156C0800646A61 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0A41C156C0800646A61 /* AudioToolbox.framework */; };
 		4952A0A71C156C2000646A61 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0A61C156C2000646A61 /* CFNetwork.framework */; };
@@ -26,37 +28,39 @@
 		4952A0B51C156C5E00646A61 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0B41C156C5E00646A61 /* SystemConfiguration.framework */; };
 		4952A0B71C156C6800646A61 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0B61C156C6800646A61 /* libz.tbd */; };
 		4952A0B91C156C7300646A61 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0B81C156C7300646A61 /* libsqlite3.tbd */; };
-		4952A0BD1C156DD600646A61 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0BC1C156DD600646A61 /* ParseUI.framework */; settings = {ASSET_TAGS = (); }; };
-		49FA014A1C156EDF0041CC1A /* AMWAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA014B1C156EDF0041CC1A /* AMWActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01211C156EDF0041CC1A /* AMWActivityCell.m */; settings = {ASSET_TAGS = (); }; };
-		49FA014C1C156EDF0041CC1A /* AMWActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01231C156EDF0041CC1A /* AMWActivityFeedViewController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA014D1C156EDF0041CC1A /* AMWBaseTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01251C156EDF0041CC1A /* AMWBaseTextCell.m */; settings = {ASSET_TAGS = (); }; };
-		49FA014E1C156EDF0041CC1A /* AMWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01271C156EDF0041CC1A /* AMWCache.m */; settings = {ASSET_TAGS = (); }; };
-		49FA014F1C156EDF0041CC1A /* AMWConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01291C156EDF0041CC1A /* AMWConstants.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01501C156EDF0041CC1A /* AMWEditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA012B1C156EDF0041CC1A /* AMWEditPhotoViewController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01511C156EDF0041CC1A /* AMWFindFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA012D1C156EDF0041CC1A /* AMWFindFriendsCell.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01521C156EDF0041CC1A /* AMWHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA012F1C156EDF0041CC1A /* AMWHomeViewController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01531C156EDF0041CC1A /* AMWLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01311C156EDF0041CC1A /* AMWLoadMoreCell.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01541C156EDF0041CC1A /* AMWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01331C156EDF0041CC1A /* AMWLoginViewController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01551C156EDF0041CC1A /* AMWPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01351C156EDF0041CC1A /* AMWPhotoCell.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01561C156EDF0041CC1A /* AMWPhotoDetailsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01371C156EDF0041CC1A /* AMWPhotoDetailsFooterView.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01571C156EDF0041CC1A /* AMWPhotoDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01391C156EDF0041CC1A /* AMWPhotoDetailsHeaderView.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01581C156EDF0041CC1A /* AMWPhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA013B1C156EDF0041CC1A /* AMWPhotoDetailsViewController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01591C156EDF0041CC1A /* AMWPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA013D1C156EDF0041CC1A /* AMWPhotoHeaderView.m */; settings = {ASSET_TAGS = (); }; };
-		49FA015A1C156EDF0041CC1A /* AMWPhotoTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA013F1C156EDF0041CC1A /* AMWPhotoTimelineViewController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA015B1C156EDF0041CC1A /* AMWProfileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01411C156EDF0041CC1A /* AMWProfileImageView.m */; settings = {ASSET_TAGS = (); }; };
-		49FA015C1C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01431C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.m */; settings = {ASSET_TAGS = (); }; };
-		49FA015D1C156EDF0041CC1A /* AMWSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01451C156EDF0041CC1A /* AMWSettingsButtonItem.m */; settings = {ASSET_TAGS = (); }; };
-		49FA015E1C156EDF0041CC1A /* AMWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01471C156EDF0041CC1A /* AMWTabBarController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA015F1C156EDF0041CC1A /* AMWUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01491C156EDF0041CC1A /* AMWUtility.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01621C156EF20041CC1A /* AMWWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01611C156EF20041CC1A /* AMWWelcomeViewController.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01651C156F000041CC1A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01641C156F000041CC1A /* MBProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01681C156F080041CC1A /* ParseStarterProjectAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01671C156F080041CC1A /* ParseStarterProjectAppDelegate.m */; settings = {ASSET_TAGS = (); }; };
-		49FA016B1C156F0E0041CC1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016A1C156F0E0041CC1A /* Reachability.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01741C156F140041CC1A /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016D1C156F140041CC1A /* TTTTimeIntervalFormatter.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01751C156F140041CC1A /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016F1C156F140041CC1A /* UIImage+AlphaAdditions.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01761C156F140041CC1A /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01711C156F140041CC1A /* UIImage+ResizeAdditions.m */; settings = {ASSET_TAGS = (); }; };
-		49FA01771C156F140041CC1A /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01731C156F140041CC1A /* UIImage+RoundedCornerAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		4952A0BD1C156DD600646A61 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0BC1C156DD600646A61 /* ParseUI.framework */; };
+		4981E4BF1C214AC000882888 /* AMWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4981E4BD1C214AC000882888 /* AMWLoginViewController.m */; };
+		4981E4C01C214AC000882888 /* AMWLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4981E4BE1C214AC000882888 /* AMWLoginViewController.xib */; };
+		49FA014A1C156EDF0041CC1A /* AMWAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */; };
+		49FA014B1C156EDF0041CC1A /* AMWActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01211C156EDF0041CC1A /* AMWActivityCell.m */; };
+		49FA014C1C156EDF0041CC1A /* AMWActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01231C156EDF0041CC1A /* AMWActivityFeedViewController.m */; };
+		49FA014D1C156EDF0041CC1A /* AMWBaseTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01251C156EDF0041CC1A /* AMWBaseTextCell.m */; };
+		49FA014E1C156EDF0041CC1A /* AMWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01271C156EDF0041CC1A /* AMWCache.m */; };
+		49FA014F1C156EDF0041CC1A /* AMWConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01291C156EDF0041CC1A /* AMWConstants.m */; };
+		49FA01501C156EDF0041CC1A /* AMWEditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA012B1C156EDF0041CC1A /* AMWEditPhotoViewController.m */; };
+		49FA01511C156EDF0041CC1A /* AMWFindFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA012D1C156EDF0041CC1A /* AMWFindFriendsCell.m */; };
+		49FA01521C156EDF0041CC1A /* AMWHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA012F1C156EDF0041CC1A /* AMWHomeViewController.m */; };
+		49FA01531C156EDF0041CC1A /* AMWLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01311C156EDF0041CC1A /* AMWLoadMoreCell.m */; };
+		49FA01541C156EDF0041CC1A /* AMWStartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01331C156EDF0041CC1A /* AMWStartViewController.m */; };
+		49FA01551C156EDF0041CC1A /* AMWPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01351C156EDF0041CC1A /* AMWPhotoCell.m */; };
+		49FA01561C156EDF0041CC1A /* AMWPhotoDetailsFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01371C156EDF0041CC1A /* AMWPhotoDetailsFooterView.m */; };
+		49FA01571C156EDF0041CC1A /* AMWPhotoDetailsHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01391C156EDF0041CC1A /* AMWPhotoDetailsHeaderView.m */; };
+		49FA01581C156EDF0041CC1A /* AMWPhotoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA013B1C156EDF0041CC1A /* AMWPhotoDetailsViewController.m */; };
+		49FA01591C156EDF0041CC1A /* AMWPhotoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA013D1C156EDF0041CC1A /* AMWPhotoHeaderView.m */; };
+		49FA015A1C156EDF0041CC1A /* AMWPhotoTimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA013F1C156EDF0041CC1A /* AMWPhotoTimelineViewController.m */; };
+		49FA015B1C156EDF0041CC1A /* AMWProfileImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01411C156EDF0041CC1A /* AMWProfileImageView.m */; };
+		49FA015C1C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01431C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.m */; };
+		49FA015D1C156EDF0041CC1A /* AMWSettingsButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01451C156EDF0041CC1A /* AMWSettingsButtonItem.m */; };
+		49FA015E1C156EDF0041CC1A /* AMWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01471C156EDF0041CC1A /* AMWTabBarController.m */; };
+		49FA015F1C156EDF0041CC1A /* AMWUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01491C156EDF0041CC1A /* AMWUtility.m */; };
+		49FA01621C156EF20041CC1A /* AMWWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01611C156EF20041CC1A /* AMWWelcomeViewController.m */; };
+		49FA01651C156F000041CC1A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01641C156F000041CC1A /* MBProgressHUD.m */; };
+		49FA01681C156F080041CC1A /* ParseStarterProjectAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01671C156F080041CC1A /* ParseStarterProjectAppDelegate.m */; };
+		49FA016B1C156F0E0041CC1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016A1C156F0E0041CC1A /* Reachability.m */; };
+		49FA01741C156F140041CC1A /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016D1C156F140041CC1A /* TTTTimeIntervalFormatter.m */; };
+		49FA01751C156F140041CC1A /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016F1C156F140041CC1A /* UIImage+AlphaAdditions.m */; };
+		49FA01761C156F140041CC1A /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01711C156F140041CC1A /* UIImage+ResizeAdditions.m */; };
+		49FA01771C156F140041CC1A /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01731C156F140041CC1A /* UIImage+RoundedCornerAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +81,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		494790EC1C2603B200D695E5 /* AMWSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWSignupViewController.h; sourceTree = "<group>"; };
+		494790ED1C2603B200D695E5 /* AMWSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWSignupViewController.m; sourceTree = "<group>"; };
+		494790EE1C2603B200D695E5 /* AMWSignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWSignupViewController.xib; sourceTree = "<group>"; };
+		494790F11C261B7500D695E5 /* AMWLogSignDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMWLogSignDelegate.h; sourceTree = "<group>"; };
 		4952A0641C156B1A00646A61 /* MyWall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4952A0681C156B1A00646A61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4952A0741C156B1A00646A61 /* MyWall.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyWall.xcdatamodel; sourceTree = "<group>"; };
@@ -103,6 +111,9 @@
 		4952A0B61C156C6800646A61 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		4952A0B81C156C7300646A61 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		4952A0BC1C156DD600646A61 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		4981E4BC1C214AC000882888 /* AMWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWLoginViewController.h; sourceTree = "<group>"; };
+		4981E4BD1C214AC000882888 /* AMWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWLoginViewController.m; sourceTree = "<group>"; };
+		4981E4BE1C214AC000882888 /* AMWLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWLoginViewController.xib; sourceTree = "<group>"; };
 		49FA011E1C156EDF0041CC1A /* AMWAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWAccountViewController.h; sourceTree = "<group>"; };
 		49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWAccountViewController.m; sourceTree = "<group>"; };
 		49FA01201C156EDF0041CC1A /* AMWActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWActivityCell.h; sourceTree = "<group>"; };
@@ -123,8 +134,8 @@
 		49FA012F1C156EDF0041CC1A /* AMWHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWHomeViewController.m; sourceTree = "<group>"; };
 		49FA01301C156EDF0041CC1A /* AMWLoadMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWLoadMoreCell.h; sourceTree = "<group>"; };
 		49FA01311C156EDF0041CC1A /* AMWLoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWLoadMoreCell.m; sourceTree = "<group>"; };
-		49FA01321C156EDF0041CC1A /* AMWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWLoginViewController.h; sourceTree = "<group>"; };
-		49FA01331C156EDF0041CC1A /* AMWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWLoginViewController.m; sourceTree = "<group>"; };
+		49FA01321C156EDF0041CC1A /* AMWStartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWStartViewController.h; sourceTree = "<group>"; };
+		49FA01331C156EDF0041CC1A /* AMWStartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWStartViewController.m; sourceTree = "<group>"; };
 		49FA01341C156EDF0041CC1A /* AMWPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWPhotoCell.h; sourceTree = "<group>"; };
 		49FA01351C156EDF0041CC1A /* AMWPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWPhotoCell.m; sourceTree = "<group>"; };
 		49FA01361C156EDF0041CC1A /* AMWPhotoDetailsFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWPhotoDetailsFooterView.h; sourceTree = "<group>"; };
@@ -205,6 +216,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		494790E91C26037100D695E5 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				49FA01321C156EDF0041CC1A /* AMWStartViewController.h */,
+				49FA01331C156EDF0041CC1A /* AMWStartViewController.m */,
+				49FA01601C156EF20041CC1A /* AMWWelcomeViewController.h */,
+				49FA01611C156EF20041CC1A /* AMWWelcomeViewController.m */,
+			);
+			name = Start;
+			sourceTree = "<group>";
+		};
+		494790EA1C26037C00D695E5 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				4981E4BC1C214AC000882888 /* AMWLoginViewController.h */,
+				4981E4BD1C214AC000882888 /* AMWLoginViewController.m */,
+				4981E4BE1C214AC000882888 /* AMWLoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		494790EB1C26038100D695E5 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				494790EC1C2603B200D695E5 /* AMWSignupViewController.h */,
+				494790ED1C2603B200D695E5 /* AMWSignupViewController.m */,
+				494790EE1C2603B200D695E5 /* AMWSignupViewController.xib */,
+			);
+			name = Signup;
+			sourceTree = "<group>";
+		};
 		4952A05B1C156B1900646A61 = {
 			isa = PBXGroup;
 			children = (
@@ -370,10 +412,10 @@
 		49A490C11C180FB700685660 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				49FA01321C156EDF0041CC1A /* AMWLoginViewController.h */,
-				49FA01331C156EDF0041CC1A /* AMWLoginViewController.m */,
-				49FA01601C156EF20041CC1A /* AMWWelcomeViewController.h */,
-				49FA01611C156EF20041CC1A /* AMWWelcomeViewController.m */,
+				494790EB1C26038100D695E5 /* Signup */,
+				494790EA1C26037C00D695E5 /* Login */,
+				494790E91C26037100D695E5 /* Start */,
+				494790F11C261B7500D695E5 /* AMWLogSignDelegate.h */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -600,6 +642,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				494790F01C2603B200D695E5 /* AMWSignupViewController.xib in Resources */,
+				4981E4C01C214AC000882888 /* AMWLoginViewController.xib in Resources */,
 				4952A0771C156B1A00646A61 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -642,15 +686,17 @@
 				49FA014B1C156EDF0041CC1A /* AMWActivityCell.m in Sources */,
 				49FA01761C156F140041CC1A /* UIImage+ResizeAdditions.m in Sources */,
 				49FA014C1C156EDF0041CC1A /* AMWActivityFeedViewController.m in Sources */,
+				4981E4BF1C214AC000882888 /* AMWLoginViewController.m in Sources */,
 				49FA01561C156EDF0041CC1A /* AMWPhotoDetailsFooterView.m in Sources */,
 				49FA01521C156EDF0041CC1A /* AMWHomeViewController.m in Sources */,
+				494790EF1C2603B200D695E5 /* AMWSignupViewController.m in Sources */,
 				49FA015B1C156EDF0041CC1A /* AMWProfileImageView.m in Sources */,
 				49FA01681C156F080041CC1A /* ParseStarterProjectAppDelegate.m in Sources */,
 				49FA01551C156EDF0041CC1A /* AMWPhotoCell.m in Sources */,
 				4952A0691C156B1A00646A61 /* main.m in Sources */,
 				49FA01501C156EDF0041CC1A /* AMWEditPhotoViewController.m in Sources */,
 				49FA015C1C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.m in Sources */,
-				49FA01541C156EDF0041CC1A /* AMWLoginViewController.m in Sources */,
+				49FA01541C156EDF0041CC1A /* AMWStartViewController.m in Sources */,
 				49FA01751C156F140041CC1A /* UIImage+AlphaAdditions.m in Sources */,
 				49FA01511C156EDF0041CC1A /* AMWFindFriendsCell.m in Sources */,
 				49FA014D1C156EDF0041CC1A /* AMWBaseTextCell.m in Sources */,
@@ -778,6 +824,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyWall",
@@ -793,6 +840,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyWall",

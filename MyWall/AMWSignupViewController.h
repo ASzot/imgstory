@@ -1,15 +1,15 @@
 //
-//  AMWLoginViewController.h
+//  SignupViewController.h
 //  MyWall
 //
-//  Created by Andrew on 12/15/15.
+//  Created by Andrew on 12/19/15.
 //  Copyright © 2015 AndrewSzot. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "AMWLogSignDelegate.h"
 
-@interface AMWLoginViewController : UIViewController
+@interface AMWSignupViewController : UIViewController
 
 @property (nonatomic, strong) id<AMWLogSignDelegate> delegate;
 

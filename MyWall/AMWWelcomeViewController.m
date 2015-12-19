@@ -52,7 +52,7 @@
     }
     
     _presentedLoginViewController = YES;
-    AMWLoginViewController *loginViewController = [[AMWLoginViewController alloc] init];
+    AMWStartViewController *loginViewController = [[AMWStartViewController alloc] init];
     loginViewController.delegate = self;
     [self presentViewController:loginViewController animated:animated completion:nil];
 }
@@ -60,7 +60,7 @@
 
 #pragma mark - PAPLoginViewControllerDelegate
 
-- (void)logInViewControllerDidLogUserIn:(AMWLoginViewController *)logInViewController {
+- (void)logInViewControllerDidLogUserIn:(AMWStartViewController *)logInViewController {
     if (_presentedLoginViewController) {
         _presentedLoginViewController = NO;
         [self dismissViewControllerAnimated:YES completion:nil];
