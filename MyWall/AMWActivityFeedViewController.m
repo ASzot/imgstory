@@ -293,6 +293,10 @@
 
 #pragma mark - ()
 
+- (void)searchButtonAction:(id)sender {
+    
+}
+
 - (void)settingsButtonAction:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"My Profile",@"Find Friends",@"Log Out", nil];
     

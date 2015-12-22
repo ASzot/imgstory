@@ -12,6 +12,7 @@
 @interface AMWSignupViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *usernameTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTxtField;
+@property (weak, nonatomic) IBOutlet UITextField *displayNameTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *checkPassTxtField;
 @property (weak, nonatomic) IBOutlet UILabel *errorMsgLbl;
 
@@ -39,10 +40,13 @@
     
     NSString *password = self.passwordTxtField.text;
     NSString *username = self.usernameTxtField.text;
+    NSString *displayName = self.displayNameTxtField.text;
     
     PFUser *user = [PFUser user];
     user.username = username;
     user.password = password;
+    
+    user[@"displayName"] = displayName;
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {

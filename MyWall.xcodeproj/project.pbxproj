@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		494790EF1C2603B200D695E5 /* AMWSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494790ED1C2603B200D695E5 /* AMWSignupViewController.m */; };
 		494790F01C2603B200D695E5 /* AMWSignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 494790EE1C2603B200D695E5 /* AMWSignupViewController.xib */; };
+		494790F41C28A8ED00D695E5 /* AMWPeopleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494790F31C28A8EC00D695E5 /* AMWPeopleTableViewController.m */; };
 		4952A0691C156B1A00646A61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4952A0681C156B1A00646A61 /* main.m */; };
 		4952A0751C156B1A00646A61 /* MyWall.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4952A0731C156B1A00646A61 /* MyWall.xcdatamodeld */; };
 		4952A0771C156B1A00646A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4952A0761C156B1A00646A61 /* Assets.xcassets */; };
@@ -31,6 +32,8 @@
 		4952A0BD1C156DD600646A61 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4952A0BC1C156DD600646A61 /* ParseUI.framework */; };
 		4981E4BF1C214AC000882888 /* AMWLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4981E4BD1C214AC000882888 /* AMWLoginViewController.m */; };
 		4981E4C01C214AC000882888 /* AMWLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4981E4BE1C214AC000882888 /* AMWLoginViewController.xib */; };
+		49AC6A701C28BA4A00823718 /* AMWSearchButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC6A6F1C28BA4A00823718 /* AMWSearchButtonItem.m */; };
+		49AC6A731C28C88300823718 /* AMWUserSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC6A721C28C88300823718 /* AMWUserSearchViewController.m */; };
 		49FA014A1C156EDF0041CC1A /* AMWAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */; };
 		49FA014B1C156EDF0041CC1A /* AMWActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01211C156EDF0041CC1A /* AMWActivityCell.m */; };
 		49FA014C1C156EDF0041CC1A /* AMWActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01231C156EDF0041CC1A /* AMWActivityFeedViewController.m */; };
@@ -85,6 +88,8 @@
 		494790ED1C2603B200D695E5 /* AMWSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWSignupViewController.m; sourceTree = "<group>"; };
 		494790EE1C2603B200D695E5 /* AMWSignupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWSignupViewController.xib; sourceTree = "<group>"; };
 		494790F11C261B7500D695E5 /* AMWLogSignDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AMWLogSignDelegate.h; sourceTree = "<group>"; };
+		494790F21C28A8EC00D695E5 /* AMWPeopleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWPeopleTableViewController.h; sourceTree = "<group>"; };
+		494790F31C28A8EC00D695E5 /* AMWPeopleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWPeopleTableViewController.m; sourceTree = "<group>"; };
 		4952A0641C156B1A00646A61 /* MyWall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyWall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4952A0681C156B1A00646A61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4952A0741C156B1A00646A61 /* MyWall.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyWall.xcdatamodel; sourceTree = "<group>"; };
@@ -114,6 +119,10 @@
 		4981E4BC1C214AC000882888 /* AMWLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWLoginViewController.h; sourceTree = "<group>"; };
 		4981E4BD1C214AC000882888 /* AMWLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWLoginViewController.m; sourceTree = "<group>"; };
 		4981E4BE1C214AC000882888 /* AMWLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWLoginViewController.xib; sourceTree = "<group>"; };
+		49AC6A6E1C28BA4A00823718 /* AMWSearchButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWSearchButtonItem.h; sourceTree = "<group>"; };
+		49AC6A6F1C28BA4A00823718 /* AMWSearchButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWSearchButtonItem.m; sourceTree = "<group>"; };
+		49AC6A711C28C88300823718 /* AMWUserSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWUserSearchViewController.h; sourceTree = "<group>"; };
+		49AC6A721C28C88300823718 /* AMWUserSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWUserSearchViewController.m; sourceTree = "<group>"; };
 		49FA011E1C156EDF0041CC1A /* AMWAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWAccountViewController.h; sourceTree = "<group>"; };
 		49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWAccountViewController.m; sourceTree = "<group>"; };
 		49FA01201C156EDF0041CC1A /* AMWActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWActivityCell.h; sourceTree = "<group>"; };
@@ -475,6 +484,8 @@
 			children = (
 				49FA011E1C156EDF0041CC1A /* AMWAccountViewController.h */,
 				49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */,
+				494790F21C28A8EC00D695E5 /* AMWPeopleTableViewController.h */,
+				494790F31C28A8EC00D695E5 /* AMWPeopleTableViewController.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -526,6 +537,8 @@
 			children = (
 				49FA01421C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.h */,
 				49FA01431C156EDF0041CC1A /* AMWSettingsActionSheetDelegate.m */,
+				49AC6A711C28C88300823718 /* AMWUserSearchViewController.h */,
+				49AC6A721C28C88300823718 /* AMWUserSearchViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -535,6 +548,8 @@
 			children = (
 				49FA01441C156EDF0041CC1A /* AMWSettingsButtonItem.h */,
 				49FA01451C156EDF0041CC1A /* AMWSettingsButtonItem.m */,
+				49AC6A6E1C28BA4A00823718 /* AMWSearchButtonItem.h */,
+				49AC6A6F1C28BA4A00823718 /* AMWSearchButtonItem.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -670,11 +685,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				49FA01771C156F140041CC1A /* UIImage+RoundedCornerAdditions.m in Sources */,
+				49AC6A731C28C88300823718 /* AMWUserSearchViewController.m in Sources */,
 				49FA014E1C156EDF0041CC1A /* AMWCache.m in Sources */,
 				4952A0751C156B1A00646A61 /* MyWall.xcdatamodeld in Sources */,
 				49FA01591C156EDF0041CC1A /* AMWPhotoHeaderView.m in Sources */,
 				49FA015E1C156EDF0041CC1A /* AMWTabBarController.m in Sources */,
 				49FA014A1C156EDF0041CC1A /* AMWAccountViewController.m in Sources */,
+				49AC6A701C28BA4A00823718 /* AMWSearchButtonItem.m in Sources */,
 				49FA01581C156EDF0041CC1A /* AMWPhotoDetailsViewController.m in Sources */,
 				49FA014F1C156EDF0041CC1A /* AMWConstants.m in Sources */,
 				49FA01621C156EF20041CC1A /* AMWWelcomeViewController.m in Sources */,
@@ -684,6 +701,7 @@
 				49FA015F1C156EDF0041CC1A /* AMWUtility.m in Sources */,
 				49FA015A1C156EDF0041CC1A /* AMWPhotoTimelineViewController.m in Sources */,
 				49FA014B1C156EDF0041CC1A /* AMWActivityCell.m in Sources */,
+				494790F41C28A8ED00D695E5 /* AMWPeopleTableViewController.m in Sources */,
 				49FA01761C156F140041CC1A /* UIImage+ResizeAdditions.m in Sources */,
 				49FA014C1C156EDF0041CC1A /* AMWActivityFeedViewController.m in Sources */,
 				4981E4BF1C214AC000882888 /* AMWLoginViewController.m in Sources */,

@@ -12,6 +12,8 @@
 #import "AMWAccountViewController.h"
 #import "MBProgressHUD.h"
 #import "ParseStarterProjectAppDelegate.h"
+#import "AMWSearchButtonItem.h"
+#import "AMWUserSearchViewController.h"
 
 @interface AMWHomeViewController () <UIActionSheetDelegate>
 @property (nonatomic, strong) AMWSettingsActionSheetDelegate *settingsActionSheetDelegate;
@@ -44,6 +46,7 @@
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
     
+    self.navigationItem.leftBarButtonItem = [[AMWSearchButtonItem alloc] initWithTarget:self action:@selector(searchButtonAction:)];
     self.navigationItem.rightBarButtonItem = [[AMWSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
@@ -80,6 +83,12 @@
 
 
 #pragma mark - ()
+
+- (void)searchButtonAction:(id)sender {
+    AMWUserSearchViewController *searchViewController = [[AMWUserSearchViewController alloc] init];
+    
+    [self.navigationController pushViewController:searchViewController animated:NO];
+}
 
 - (void)settingsButtonAction:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"My Profile",@"Find Friends",@"Log Out", nil];
