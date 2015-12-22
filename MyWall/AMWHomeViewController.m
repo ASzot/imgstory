@@ -56,6 +56,8 @@
     [button setBackgroundImage:[UIImage imageNamed:@"HomeTimelineBlank.png"] forState:UIControlStateNormal];
 //    [button addTarget:self action:@selector(inviteFriendsButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.blankTimelineView addSubview:button];
+    
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
 }
 
 

@@ -10,14 +10,12 @@
 
 @interface AMWUserSearchViewController ()
 @property (nonatomic, strong) UIView *headerView;
-@property (nonatomic, strong) UISearchBar *mainSearchBar;
 @property (nonatomic, strong) UIView *blankTimelineView;
 @end
 
 @implementation AMWUserSearchViewController
 @synthesize headerView;
 @synthesize blankTimelineView;
-@synthesize mainSearchBar;
 
 - (void)viewDidLoad {
     self.peopleQuery = [[PFQuery alloc] init];
@@ -29,14 +27,15 @@
     [texturedBackgroundView setBackgroundColor:[UIColor whiteColor]];
     self.tableView.backgroundView = texturedBackgroundView;
     
-    mainSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
+    UISearchBar *mainSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
     mainSearchBar.delegate = self;
-    headerView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, self.tableView.bounds.size.width, 100)];
+    headerView = [[UIView alloc] initWithFrame: CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
     [headerView setBackgroundColor:[UIColor clearColor]];
     
     [headerView addSubview:mainSearchBar];
     
-    
+    UISearchBar *noResultsSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 40)];
+    noResultsSearchBar.delegate = self;
     self.blankTimelineView = [[UIView alloc] initWithFrame:self.tableView.bounds];
     [blankTimelineView addSubview:mainSearchBar];
     [blankTimelineView setBackgroundColor:[UIColor whiteColor]];
@@ -52,8 +51,10 @@
     if (searchStr == nil || searchStr.length == 0)
         return;
     
-    PFQuery *searchQuery = [PFQuery queryWithClassName:@"User"];
-    //[searchQuery whereKey:@"displayName" containsString:@"Andy"];
+    PFQuery *searchQuery = [PFQuery queryWithClassName:@"_User"];
+    [searchQuery whereKey:@"displayName" containsString:searchStr];
+    // Make sure the user cannot get themselves.
+    [searchQuery whereKey:@"objectId" notEqualTo:[PFUser currentUser].objectId];
     
     self.peopleQuery = searchQuery;
     
@@ -65,7 +66,6 @@
     
     if (self.objects.count == 0 && ![[self queryForTable] hasCachedResult]) {
         self.tableView.scrollEnabled = NO;
-        
         self.tableView.tableHeaderView = self.blankTimelineView;
     }
     else {

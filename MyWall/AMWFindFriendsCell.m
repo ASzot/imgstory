@@ -34,7 +34,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor whiteColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.avatarImageView = [[AMWProfileImageView alloc] init];
@@ -54,7 +54,7 @@
         self.nameButton.backgroundColor = [UIColor clearColor];
         self.nameButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
         self.nameButton.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        [self.nameButton setTitleColor:[UIColor whiteColor]
+        [self.nameButton setTitleColor:[UIColor blackColor]
                               forState:UIControlStateNormal];
         [self.nameButton setTitleColor:[UIColor colorWithRed:114.0f/255.0f green:114.0f/255.0f blue:114.0f/255.0f alpha:1.0f]
                               forState:UIControlStateHighlighted];
