@@ -297,6 +297,54 @@
     // Implement.
 }
 
+- (void)photoHeaderView:(AMWPhotoHeaderView *)photoHeaderView didTapDeleteButton:(UIButton *)button photo:(PFObject *)photo {
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@"Are you sure?"
+                                  message:@"Delete the photo?"
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"Yes"
+                         style:UIAlertActionStyleDestructive
+                         handler:^(UIAlertAction * action)
+                         {
+                             [self deletePhoto:photo];
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                             
+                         }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"No"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [alert dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)deletePhoto:(PFObject *)photo {
+    // Delete all activites related to this photo
+    PFQuery *query = [PFQuery queryWithClassName:kAMWActivityClassKey];
+    [query whereKey:kAMWActivityPhotoKey equalTo:photo];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
+        if (!error) {
+            for (PFObject *activity in activities) {
+                [activity deleteEventually];
+            }
+        }
+        
+        // Delete photo
+        [photo deleteEventually];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AMWPhotoDetailsViewControllerUserDeletedPhotoNotification object:[photo objectId]];
+}
+
 - (UITableViewCell *)detailPhotoCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"DetailPhotoCell";
     
@@ -369,11 +417,7 @@
 
 
 - (void)didTapOnPhotoAction:(UIButton *)sender {
-    PFObject *photo = [self.objects objectAtIndex:sender.tag];
-    if (photo) {
-        AMWPhotoDetailsViewController *photoDetailsVC = [[AMWPhotoDetailsViewController alloc] initWithPhoto:photo];
-        [self.navigationController pushViewController:photoDetailsVC animated:YES];
-    }
+    // Fired when the user taps on a photo.
 }
 
 - (NSIndexPath *)indexPathForObjectAtIndex:(NSUInteger)index header:(BOOL)header {

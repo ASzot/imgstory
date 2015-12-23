@@ -245,7 +245,7 @@ static const CGFloat kAMWCellInsetWidth = 0.0f;
         if (!error) {
             NSMutableArray *activityItems = [NSMutableArray arrayWithCapacity:3];
             
-            // Prefill caption if this is the original poster of the photo, and then only if they added a caption initially.
+            // Prefill caption if this is the   poster of the photo, and then only if they added a caption initially.
             if ([[[PFUser currentUser] objectId] isEqualToString:[[self.photo objectForKey:kAMWPhotoUserKey] objectId]] && [self.objects count] > 0) {
                 PFObject *firstActivity = self.objects[0];
                 if ([[[firstActivity objectForKey:kAMWActivityFromUserKey] objectId] isEqualToString:[[self.photo objectForKey:kAMWPhotoUserKey] objectId]]) {

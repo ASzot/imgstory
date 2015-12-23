@@ -35,6 +35,8 @@ typedef enum {
 
 @property (nonatomic, readonly) UIButton *repostButton;
 
+@property (nonatomic, readonly) UIButton *deleteButton;
+
 @property (nonatomic, weak) id<AMWPhotoHeaderViewDelegate> delegate;
 
 @end
@@ -47,5 +49,6 @@ typedef enum {
 
 - (void) photoHeaderView: (AMWPhotoHeaderView*)photoHeaderView didTapRepostButton: (UIButton*) button photo: (PFObject*)photo;
 
+- (void) photoHeaderView: (AMWPhotoHeaderView*)photoHeaderView didTapDeleteButton: (UIButton*) button photo: (PFObject*)photo;
 
 @end

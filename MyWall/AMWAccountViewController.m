@@ -52,7 +52,7 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
     
     
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 230.0f)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 260.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]];
     
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -100,14 +100,7 @@
 //    [photoCountIconImageView setFrame:CGRectMake( 26.0f, 50.0f, 45.0f, 37.0f)];
 //    [self.headerView addSubview:photoCountIconImageView];
     
-//    UILabel *photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 0.0f, 94.0f, 92.0f, 22.0f)];
-//    [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
-//    [photoCountLabel setBackgroundColor:[UIColor clearColor]];
-//    [photoCountLabel setTextColor:[UIColor whiteColor]];
-//    [photoCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-//    [photoCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
-//    [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
-//    [self.headerView addSubview:photoCountLabel];
+
     
     
     
@@ -122,17 +115,7 @@
     userDisplayNameLabel.center = CGPointMake(self.headerView.center.x, userDisplayNameLabel.center.y);
     [self.headerView addSubview:userDisplayNameLabel];
     
-    //[photoCountLabel setText:@"0 photos"];
-    
-//    PFQuery *queryPhotoCount = [PFQuery queryWithClassName:@"Photo"];
-//    [queryPhotoCount whereKey:kAMWPhotoUserKey equalTo:self.user];
-//    [queryPhotoCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
-//    [queryPhotoCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-//        if (!error) {
-//            [photoCountLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number==1?@"":@"s"]];
-//            [[AMWCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
-//        }
-//    }];
+    float yPos = 100.0f;
     
     if (![[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
         UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -159,13 +142,13 @@
         }];
     }
     else {
-        UILabel *followingCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 94.0f, 200.0f, 100.0f, 16.0f)];
+        UILabel *followingCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 200.0f, 100.0f, 25.0f)];
         [followingCountLabel setTextAlignment:NSTextAlignmentCenter];
-        [followingCountLabel setBackgroundColor:[UIColor clearColor]];
+        [followingCountLabel setBackgroundColor:[UIColor whiteColor]];
         [followingCountLabel setTextColor:[UIColor blackColor]];
         [followingCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
         [followingCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
-        [followingCountLabel setFont:[UIFont boldSystemFontOfSize:12.0f]];
+        [followingCountLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
         followingCountLabel.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followingLblAction:)];
         [followingCountLabel addGestureRecognizer:tapGesture];
@@ -187,7 +170,31 @@
                 [followingCountLabel setText:[NSString stringWithFormat:@"%d following", number]];
             }
         }];
+        
+        yPos = 228.0f;
     }
+    
+    UILabel *photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, yPos, 92.0f, 22.0f)];
+    [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
+    [photoCountLabel setBackgroundColor:[UIColor clearColor]];
+    [photoCountLabel setTextColor:[UIColor blackColor]];
+    [photoCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
+    [photoCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
+    [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    photoCountLabel.center = CGPointMake(self.headerView.center.x, photoCountLabel.center.y);
+    [self.headerView addSubview:photoCountLabel];
+    
+    [photoCountLabel setText:@"0 photos"];
+    
+    PFQuery *queryPhotoCount = [PFQuery queryWithClassName:@"Photo"];
+    [queryPhotoCount whereKey:kAMWPhotoUserKey equalTo:self.user];
+    [queryPhotoCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    [queryPhotoCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            [photoCountLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number==1?@"":@"s"]];
+            [[AMWCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
+        }
+    }];
 }
 
 - (void) followingLblAction:(id)sender {

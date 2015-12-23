@@ -29,6 +29,7 @@
 @synthesize photo;
 @synthesize buttons;
 @synthesize repostButton;
+@synthesize deleteButton;
 @synthesize delegate;
 
 #pragma mark - Initialization
@@ -48,39 +49,6 @@
         [self.avatarImageView.profileButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.avatarImageView];
         
-        if (self.buttons & AMWPhotoHeaderButtonsRepost) {
-            // Repost button
-            repostButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [self addSubview:self.repostButton];
-            
-            const float repostBtnWidth = 29.0f;
-            float boundWidth = self.bounds.size.width;
-            [self.repostButton setFrame:CGRectMake(boundWidth, 9.0f, repostBtnWidth, 29.0f)];
-            [self.repostButton setBackgroundColor:[UIColor clearColor]];
-            [self.repostButton setTitle:@"" forState:UIControlStateNormal];
-            [self.repostButton setTitleColor:[UIColor colorWithRed:254.0f / 255.0f green:149.0f / 255.0f blue:50.0f / 255.0f alpha:1.0f] forState:UIControlStateNormal];
-            [self.repostButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-            [self.repostButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
-            [[self.repostButton titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
-            [[self.repostButton titleLabel] setMinimumScaleFactor:0.8f];
-            [[self.repostButton titleLabel] setAdjustsFontSizeToFitWidth:YES];
-            [self.repostButton setAdjustsImageWhenHighlighted:NO];
-            [self.repostButton setAdjustsImageWhenDisabled:NO];
-            [self.repostButton setBackgroundImage:[UIImage imageNamed:@"ButtonLike.png"] forState:UIControlStateNormal];
-            [self.repostButton setSelected:NO];
-        }
-        
-        if (self.buttons & AMWPhotoHeaderButtonsUser) {
-            // This is the user's display name, on a button so that we can tap on it
-            self.userButton = [UIButton buttonWithType:UIButtonTypeCustom];
-            [self addSubview:self.userButton];
-            [self.userButton setBackgroundColor:[UIColor clearColor]];
-            [[self.userButton titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
-            [self.userButton setTitleColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-            [self.userButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-            [[self.userButton titleLabel] setLineBreakMode:NSLineBreakByTruncatingTail];
-        }
-        
         self.timeIntervalFormatter = [[TTTTimeIntervalFormatter alloc] init];
         
         // timestamp
@@ -95,46 +63,100 @@
 }
 
 
+- (BOOL)currentUserOwnsPhoto {
+    NSString *photoId = [[self.photo objectForKey:kAMWPhotoUserKey] objectId];
+    NSString *userId = [[PFUser currentUser] objectId];
+    return [photoId isEqualToString:userId];
+}
+
 #pragma mark - AMWPhotoHeaderView
 
 - (void)setPhoto:(PFObject *)aPhoto {
     photo = aPhoto;
     
-    // user's avatar
+    
+    const float repostBtnWidth = 29.0f;
+    float boundWidth = self.bounds.size.width;
+    BOOL userOwnsPhoto = [self currentUserOwnsPhoto];
+    NSString *imageAssetStr = nil;
+    
+    UIButton *setBtn = nil;
+    if (userOwnsPhoto) {
+        deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [deleteButton addTarget:self action:@selector(didTapDeleteButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        setBtn = deleteButton;
+        imageAssetStr = @"ButtonMore.png";
+    }
+    else {
+        if (self.buttons & AMWPhotoHeaderButtonsRepost) {
+            // Repost button
+            repostButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            [repostButton addTarget:self action:@selector(didTapRepostButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+            setBtn = repostButton;
+            imageAssetStr = @"ButtonLike.png";
+        }
+    }
+    
+    CGFloat constrainWidth = self.bounds.size.width;
+    
+    if (setBtn != nil && imageAssetStr != nil && (self.buttons & AMWPhotoHeaderButtonsRepost)) {
+        [self addSubview:setBtn];
+        
+        
+        [setBtn setFrame:CGRectMake(boundWidth, 9.0f, repostBtnWidth, 29.0f)];
+        [setBtn setBackgroundColor:[UIColor clearColor]];
+        [setBtn setTitle:@"" forState:UIControlStateNormal];
+        [setBtn setTitleColor:[UIColor colorWithRed:254.0f / 255.0f green:149.0f / 255.0f blue:50.0f / 255.0f alpha:1.0f] forState:UIControlStateNormal];
+        [setBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [setBtn setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+        [[setBtn titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
+        [[setBtn titleLabel] setMinimumScaleFactor:0.8f];
+        [[setBtn titleLabel] setAdjustsFontSizeToFitWidth:YES];
+        [setBtn setAdjustsImageWhenHighlighted:NO];
+        [setBtn setAdjustsImageWhenDisabled:NO];
+        [setBtn setBackgroundImage:[UIImage imageNamed:imageAssetStr] forState:UIControlStateNormal];
+        [setBtn setSelected:NO];
+        
+        constrainWidth = setBtn.frame.origin.x;
+    }
+    
     PFUser *user = [self.photo objectForKey:kAMWPhotoUserKey];
+    
+    if (self.buttons & AMWPhotoHeaderButtonsUser) {
+        // This is the user's display name, on a button so that we can tap on it
+        self.userButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self addSubview:self.userButton];
+        [self.userButton setBackgroundColor:[UIColor clearColor]];
+        [[self.userButton titleLabel] setFont:[UIFont boldSystemFontOfSize:15]];
+        [self.userButton setTitleColor:[UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        [self.userButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+        [[self.userButton titleLabel] setLineBreakMode:NSLineBreakByTruncatingTail];
+        
+        NSString *authorName = [user objectForKey:kAMWUserDisplayNameKey];
+        [self.userButton setTitle:authorName forState:UIControlStateNormal];
+        
+        // we resize the button to fit the user's name to avoid having a huge touch area
+        CGPoint userButtonPoint = CGPointMake(50.0f, 6.0f);
+        constrainWidth -= userButtonPoint.x;
+        CGSize constrainSize = CGSizeMake(constrainWidth, self.bounds.size.height - userButtonPoint.y * 2.0f);
+        
+        CGSize userButtonSize = [self.userButton.titleLabel.text boundingRectWithSize:constrainSize
+                                                                              options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
+                                                                           attributes:@{NSFontAttributeName:self.userButton.titleLabel.font}
+                                                                              context:nil].size;
+        
+        CGRect userButtonFrame = CGRectMake(userButtonPoint.x, userButtonPoint.y, userButtonSize.width, userButtonSize.height);
+        [self.userButton setFrame:userButtonFrame];
+        if (userOwnsPhoto)
+            [self.userButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    // user's avatar
     [self.avatarImageView setImage:[AMWUtility defaultProfilePicture]];
     
     [self.avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
     self.avatarImageView.layer.cornerRadius = 17.5;
     self.avatarImageView.layer.masksToBounds = YES;
-    
-    NSString *authorName = [user objectForKey:kAMWUserDisplayNameKey];
-    [self.userButton setTitle:authorName forState:UIControlStateNormal];
-    
-    CGFloat constrainWidth = self.bounds.size.width;
-    
-    if (self.buttons & AMWPhotoHeaderButtonsUser) {
-        [self.userButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    if (self.buttons & AMWPhotoHeaderButtonsRepost) {
-        constrainWidth = self.repostButton.frame.origin.x;
-        // Add the selector for the did tap photo repost button.
-//        [self.repostButton addTarget:self action:@selector(didTapLikePhotoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    // we resize the button to fit the user's name to avoid having a huge touch area
-    CGPoint userButtonPoint = CGPointMake(50.0f, 6.0f);
-    constrainWidth -= userButtonPoint.x;
-    CGSize constrainSize = CGSizeMake(constrainWidth, self.bounds.size.height - userButtonPoint.y * 2.0f);
-    
-    CGSize userButtonSize = [self.userButton.titleLabel.text boundingRectWithSize:constrainSize
-                                                                          options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
-                                                                       attributes:@{NSFontAttributeName:self.userButton.titleLabel.font}
-                                                                          context:nil].size;
-    
-    CGRect userButtonFrame = CGRectMake(userButtonPoint.x, userButtonPoint.y, userButtonSize.width, userButtonSize.height);
-    [self.userButton setFrame:userButtonFrame];
     
     NSTimeInterval timeInterval = [[self.photo createdAt] timeIntervalSinceNow];
     NSString *timestamp = [self.timeIntervalFormatter stringForTimeInterval:timeInterval];
@@ -154,6 +176,18 @@
 - (void)didTapUserButtonAction:(UIButton *)sender {
     if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapUserButton:user:)]) {
         [delegate photoHeaderView:self didTapUserButton:sender user:[self.photo objectForKey:kAMWPhotoUserKey]];
+    }
+}
+
+- (void)didTapRepostButtonAction:(UIButton *)sender {
+    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapRepostButton:photo:)]) {
+        [delegate photoHeaderView:self didTapRepostButton:sender photo:[self.photo objectForKey:kAMWPhotoUserKey]];
+    }
+}
+
+-(void)didTapDeleteButtonAction:(UIButton *)sender {
+    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapDeleteButton:photo:)]) {
+        [delegate photoHeaderView:self didTapDeleteButton:sender photo:self.photo];
     }
 }
 
