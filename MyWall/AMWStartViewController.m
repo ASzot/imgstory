@@ -33,26 +33,29 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin.png"]];
     
     // Position of the buttons.
-    CGFloat yPosition = 360.0f;
+    CGFloat yPosition = 300.0f;
     
     const float loginBtnWidth = 244.0f;
     const float signUpBtnWidth = 244.0f;
-    const float btnHeight = 44.0f;
+    const float btnHeight = 60.0f;
+    const float fontSize = 30.0f;
     
     float xCenter = (self.view.frame.size.width - loginBtnWidth) / 2.0f;
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [loginBtn addTarget:self action:@selector(loginBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [loginBtn setTitle:@"Login" forState:UIControlStateNormal];
+    loginBtn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
     loginBtn.frame = CGRectMake(xCenter, yPosition, loginBtnWidth, btnHeight);
     [self.view addSubview:loginBtn];
     
     xCenter = (self.view.frame.size.width - signUpBtnWidth) / 2.0f;
-    yPosition += 60.0f;
+    yPosition += 100.0f;
     
     UIButton *signUpBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [signUpBtn addTarget:self action:@selector(signUpBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [signUpBtn setTitle:@"Sign Up" forState:UIControlStateNormal];
+    signUpBtn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
     signUpBtn.frame = CGRectMake(xCenter, yPosition, signUpBtnWidth, btnHeight);
     [self.view addSubview:signUpBtn];
 }

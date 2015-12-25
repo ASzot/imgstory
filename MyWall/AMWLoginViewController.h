@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AMWLogSignDelegate.h"
 
-@interface AMWLoginViewController : UIViewController
+@interface AMWLoginViewController : UIViewController<UITextFieldDelegate>
 
 @property (nonatomic, strong) id<AMWLogSignDelegate> delegate;
 

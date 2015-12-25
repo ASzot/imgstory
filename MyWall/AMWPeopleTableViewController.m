@@ -91,7 +91,7 @@
     
     if (cell == nil) {
         cell = [[AMWLoadMoreCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NextPageCellIdentifier];
-        [cell.mainView setBackgroundColor:[UIColor blackColor]];
+        [cell.mainView setBackgroundColor:[UIColor whiteColor]];
         cell.hideSeparatorBottom = YES;
         cell.hideSeparatorTop = YES;
     }
@@ -150,7 +150,7 @@
     [super viewDidLoad];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor blackColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TitleFindFriends.png"]];
     

@@ -14,6 +14,7 @@
 #import "ParseStarterProjectAppDelegate.h"
 #import "AMWSearchButtonItem.h"
 #import "AMWUserSearchViewController.h"
+#import "AMWConstants.h"
 
 @interface AMWHomeViewController () <UIActionSheetDelegate>
 @property (nonatomic, strong) AMWSettingsActionSheetDelegate *settingsActionSheetDelegate;
@@ -86,34 +87,39 @@
 }
 
 - (void)settingsButtonAction:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"My Profile",@"Find Friends",@"Log Out", nil];
     
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
-}
-
-#pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    UIAlertController * view = [UIAlertController alertControllerWithTitle:@"Settings" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    switch (buttonIndex) {
-        case 0: {
-            [self presentViewController: self.presentingAccountNavController animated:YES completion:nil];
-            
-            break;
-        }
-            
-        case 1: {
-            [self presentViewController: self.presentingFriendNavController animated:YES completion:nil];
-            break;
-        }
-            
-        case 2: {
-            // Log out user and present the login view controller
-            [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
-        }
-            
-        default:
-            break;
-    }
+    UIAlertAction* logout = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        [view dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    UIAlertAction* following = [UIAlertAction actionWithTitle:@"Following" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [view dismissViewControllerAnimated:YES completion:nil];
+        AMWPeopleTableViewController *followingViewController = [[AMWPeopleTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        
+        // Query all of the users that this user is following.
+        PFQuery *query = [PFQuery queryWithClassName:kAMWActivityClassKey];
+        [query whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeFollow];
+        [query whereKey:kAMWActivityFromUserKey equalTo:[PFUser currentUser]];
+        query.cachePolicy = kPFCachePolicyNetworkOnly;
+        query.limit = 1000;
+        
+        followingViewController.peopleQuery = query;
+        [self.navigationController pushViewController:followingViewController animated:YES];
+    }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action)
+    {
+        [view dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    
+    [view addAction:logout];
+    [view addAction:following];
+    [view addAction:cancel];
+    [self presentViewController:view animated:YES completion:nil];
 }
 
 @end

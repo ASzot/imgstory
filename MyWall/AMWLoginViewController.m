@@ -20,12 +20,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin.png"]];
+    
+    self.userNameTextField.delegate = self;
+    self.passwordTextField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
 }
 
 - (IBAction)loginBtnAction:(id)sender {
@@ -36,8 +44,8 @@
             [self.delegate performSelector:@selector(logSignActionOccured)];
         }
         else {
-            NSString *errorStr = [error userInfo][@"error"];
-            self.errorMsgLbl.text = errorStr;
+            //NSString *errorStr = [error userInfo][@"error"];
+            self.errorMsgLbl.text = @"Invalid username/password";
         }
     }];
 }

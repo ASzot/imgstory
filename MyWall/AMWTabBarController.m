@@ -45,6 +45,9 @@
     [cameraButton setImage:[UIImage imageNamed:@"ButtonCamera.png"] forState:UIControlStateNormal];
     [cameraButton setImage:[UIImage imageNamed:@"ButtonCameraSelected.png"] forState:UIControlStateHighlighted];
     [cameraButton addTarget:self action:@selector(photoCaptureButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    cameraButton.center = CGPointMake(self.tabBar.center.x, cameraButton.center.y);
+    
     [self.tabBar addSubview:cameraButton];
     
     // The button will be activated whenever the user swipes up.
@@ -93,8 +96,8 @@
         // Display a message to the user asking them how they would like to get a picture.
         // (Take a picture right now?)
         // (Select a picture from their picture library?)
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"My Alert"
-                                                                        message:@"This is an alert."
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Upload a Photo"
+                                                                        message:@""
                                                                         preferredStyle:UIAlertControllerStyleActionSheet];
         
         UIAlertAction* choosePhotoAction = [UIAlertAction actionWithTitle:@"Choose Photo" style:UIAlertActionStyleDefault handler: ^(UIAlertAction * action) {
@@ -104,9 +107,13 @@
         UIAlertAction* takePhotoAction = [UIAlertAction actionWithTitle:@"Take Photo" style:UIAlertActionStyleDefault handler: ^(UIAlertAction *action) {
             [self shouldStartCameraController];
         }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
         
         [alert addAction:choosePhotoAction];
         [alert addAction:takePhotoAction];
+        [alert addAction:cancelAction];
         
         [self presentViewController:alert animated:YES completion:nil];
     }

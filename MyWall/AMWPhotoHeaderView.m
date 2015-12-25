@@ -101,7 +101,6 @@
     if (setBtn != nil && imageAssetStr != nil && (self.buttons & AMWPhotoHeaderButtonsRepost)) {
         [self addSubview:setBtn];
         
-        
         [setBtn setFrame:CGRectMake(boundWidth, 9.0f, repostBtnWidth, 29.0f)];
         [setBtn setBackgroundColor:[UIColor clearColor]];
         [setBtn setTitle:@"" forState:UIControlStateNormal];
@@ -151,7 +150,13 @@
     }
     
     // user's avatar
-    [self.avatarImageView setImage:[AMWUtility defaultProfilePicture]];
+    
+    if ([AMWUtility userHasProfilePictures:user]) {
+        [avatarImageView setFile:[user objectForKey:kAMWUserProfilePicSmallKey]];
+    }
+    else {
+        [self.avatarImageView setImage:[AMWUtility defaultProfilePicture]];
+    }
     
     [self.avatarImageView setContentMode:UIViewContentModeScaleAspectFill];
     self.avatarImageView.layer.cornerRadius = 17.5;

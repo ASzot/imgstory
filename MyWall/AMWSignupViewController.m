@@ -24,12 +24,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.errorMsgLbl.text = @"Error messages will go here.";
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin.png"]];
+    
+    self.usernameTxtField.delegate = self;
+    self.passwordTxtField.delegate = self;
+    self.displayNameTxtField.delegate = self;
+    self.checkPassTxtField.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
+
 - (IBAction)signUpBtnAction:(id)sender {
     // Ensure that the entered passwords are matching.
     

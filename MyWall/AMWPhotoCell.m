@@ -44,7 +44,7 @@
         [self.captionLbl setFont:[UIFont systemFontOfSize:12.0f]];
         [self.captionLbl setBackgroundColor:[UIColor clearColor]];
         [self.captionLbl setTextColor:[UIColor blackColor]];
-        [self.captionLbl setText:@"Tester caption"];
+        [self.captionLbl setText:@""];
         [self.footerView addSubview:self.captionLbl];
         
         [self.contentView bringSubviewToFront:self.imageView];
@@ -55,7 +55,7 @@
 }
 
 - (void)setCaption:(NSString*)captionStr {
-    if (captionStr == nil) {
+    if (captionStr == nil || captionStr.length == 0) {
         self.footerView.frame = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
     }
     else
