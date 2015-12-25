@@ -145,7 +145,7 @@
         
         CGRect userButtonFrame = CGRectMake(userButtonPoint.x, userButtonPoint.y, userButtonSize.width, userButtonSize.height);
         [self.userButton setFrame:userButtonFrame];
-        if (userOwnsPhoto)
+        if (!userOwnsPhoto)
             [self.userButton addTarget:self action:@selector(didTapUserButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     

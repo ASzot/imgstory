@@ -92,14 +92,15 @@
     return self;
 }
 
-
-#pragma mark - AMWFindFriendsCell
-
 - (void)setUser:(PFUser *)aUser {
     user = aUser;
     
     // Configure the cell
-    [self.avatarImageView setImage:[AMWUtility defaultProfilePicture]];
+    if ([AMWUtility userHasProfilePictures:user]) {
+        [self.avatarImageView setFile:[user objectForKey:kAMWUserProfilePicSmallKey]];
+    } else {
+        [self.avatarImageView setImage:[AMWUtility defaultProfilePicture]];
+    }
     
     // Set name
     NSString *nameString = [self.user objectForKey:kAMWUserDisplayNameKey];

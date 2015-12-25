@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) PFImageView *profileImageView;
 @property (nonatomic, strong) UIView *profilePictureBackgroundView;
+@property (nonatomic, strong) UIButton *followStatusBtn;
 @end
 
 @implementation AMWAccountViewController
@@ -28,6 +29,7 @@
 @synthesize user;
 @synthesize profileImageView;
 @synthesize profilePictureBackgroundView;
+@synthesize followStatusBtn;
 
 #pragma mark - Initialization
 
@@ -102,8 +104,6 @@
     userDisplayNameLabel.center = CGPointMake(self.headerView.center.x, userDisplayNameLabel.center.y);
     [self.headerView addSubview:userDisplayNameLabel];
     
-    float yPos = 100.0f;
-    
     if (![[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
         UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [loadingActivityIndicatorView startAnimating];
@@ -119,12 +119,28 @@
             if (error && [error code] != kPFErrorCacheMiss) {
                 NSLog(@"Couldn't determine follow relationship: %@", error);
                 self.navigationItem.rightBarButtonItem = nil;
-            } else {
+            }
+            else {
+                followStatusBtn = [[UIButton alloc] initWithFrame:CGRectMake(100.0f, 200.0f, 80.0f, 30.0f)];
+                [followStatusBtn setBackgroundColor:[UIColor greenColor]];
+                NSString *titleStr;
+                SEL selecta;
                 if (number == 0) {
                     [self configureFollowButton];
+                    titleStr = @"Follow";
+                    selecta = @selector(followButtonAction:);
                 } else {
                     [self configureUnfollowButton];
+                    titleStr = @"Unfollow";
+                    selecta = @selector(unfollowButtonAction:);
                 }
+                [followStatusBtn setTitle:titleStr forState:UIControlStateNormal];
+                [followStatusBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                followStatusBtn.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+                followStatusBtn.center = CGPointMake(self.headerView.center.x, followStatusBtn.center.y);
+                UITapGestureRecognizer *followBtnTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:selecta];
+                [followStatusBtn addGestureRecognizer:followBtnTapGesture];
+                [self.headerView addSubview:followStatusBtn];
             }
         }];
     }
@@ -157,11 +173,9 @@
                 [followingCountLabel setText:[NSString stringWithFormat:@"%d following", number]];
             }
         }];
-        
-        yPos = 228.0f;
     }
     
-    UILabel *photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, yPos, 92.0f, 22.0f)];
+    UILabel *photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 228.0f, 92.0f, 22.0f)];
     [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
     [photoCountLabel setBackgroundColor:[UIColor clearColor]];
     [photoCountLabel setTextColor:[UIColor blackColor]];
@@ -394,11 +408,9 @@
         cell.hideSeparatorBottom = YES;
         cell.mainView.backgroundColor = [UIColor clearColor];
     }
+    
     return cell;
 }
-
-
-#pragma mark - ()
 
 - (void)followButtonAction:(id)sender {
     UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -406,6 +418,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
     
     [self configureUnfollowButton];
+    [followStatusBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
     
     [AMWUtility followUserEventually:self.user block:^(BOOL succeeded, NSError *error) {
         if (error) {
@@ -420,6 +433,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
     
     [self configureFollowButton];
+    [followStatusBtn setTitle:@"Follow" forState:UIControlStateNormal];
     
     [AMWUtility unfollowUserEventually:self.user];
 }

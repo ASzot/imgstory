@@ -23,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.errorMsgLbl.text = @"Error messages will go here.";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin.png"]];
     
     self.usernameTxtField.delegate = self;
