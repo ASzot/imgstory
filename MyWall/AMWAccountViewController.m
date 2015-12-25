@@ -14,14 +14,20 @@
 #import "AMWConstants.h"
 #import "AMWCache.h"
 #import "AMWPeopleTableViewController.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "UIImage+ImageEffects.h"
 
 @interface AMWAccountViewController()
 @property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) PFImageView *profileImageView;
+@property (nonatomic, strong) UIView *profilePictureBackgroundView;
 @end
 
 @implementation AMWAccountViewController
 @synthesize headerView;
 @synthesize user;
+@synthesize profileImageView;
+@synthesize profilePictureBackgroundView;
 
 #pragma mark - Initialization
 
@@ -61,7 +67,7 @@
     
     CGRect profileIconRect = CGRectMake( 50.0f, 38.0f, 132.0f, 132.0f);
     
-    UIView *profilePictureBackgroundView = [[UIView alloc] initWithFrame:profileIconRect];
+    profilePictureBackgroundView = [[UIView alloc] initWithFrame:profileIconRect];
     [profilePictureBackgroundView setBackgroundColor:[UIColor darkGrayColor]];
     profilePictureBackgroundView.alpha = 0.0f;
     CALayer *layer = [profilePictureBackgroundView layer];
@@ -71,38 +77,19 @@
     [self.headerView addSubview:profilePictureBackgroundView];
     
     
-    PFImageView *profilePictureImageView = [[PFImageView alloc] initWithFrame:profileIconRect];
-    profilePictureImageView.center = CGPointMake(self.headerView.center.x, profilePictureImageView.center.y);
-    [self.headerView addSubview:profilePictureImageView];
-    [profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
-    layer = [profilePictureImageView layer];
+    profileImageView = [[PFImageView alloc] initWithFrame:profileIconRect];
+    profileImageView.center = CGPointMake(self.headerView.center.x, profileImageView.center.y);
+    [self.headerView addSubview:profileImageView];
+    [profileImageView setContentMode:UIViewContentModeScaleAspectFill];
+    layer = [profileImageView layer];
     layer.cornerRadius = 66.0f;
     layer.masksToBounds = YES;
-    profilePictureImageView.alpha = 0.0f;
+    profileImageView.alpha = 0.0f;
+    profileImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(profileImageAction:)];
+    [profileImageView addGestureRecognizer:tapGesture];
     
-    profilePictureImageView.image = [AMWUtility defaultProfilePicture];
-    [UIView animateWithDuration:0.2f animations:^{
-        profilePictureBackgroundView.alpha = 1.0f;
-        profilePictureImageView.alpha = 1.0f;
-    }];
-    
-    //UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[[AMWUtility defaultProfilePicture] applyDarkEffect]];
-//    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[AMWUtility defaultProfilePicture]];
-//    backgroundImageView.frame = self.tableView.backgroundView.bounds;
-//    backgroundImageView.alpha = 0.0f;
-//    [self.tableView.backgroundView addSubview:backgroundImageView];
-//    
-//    [UIView animateWithDuration:0.2f animations:^{
-//        backgroundImageView.alpha = 1.0f;
-//    }];
-//    UIImageView *photoCountIconImageView = [[UIImageView alloc] initWithImage:nil];
-//    [photoCountIconImageView setImage:[UIImage imageNamed:@"IconPics.png"]];
-//    [photoCountIconImageView setFrame:CGRectMake( 26.0f, 50.0f, 45.0f, 37.0f)];
-//    [self.headerView addSubview:photoCountIconImageView];
-    
-
-    
-    
+    [self loadUserProfilePic];
     
     UILabel *userDisplayNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 176.0f, self.headerView.bounds.size.width, 22.0f)];
     [userDisplayNameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -197,6 +184,28 @@
     }];
 }
 
+- (void) loadUserProfilePic {
+    if ([AMWUtility userHasProfilePictures:self.user]) {
+        PFFile *imageFile = [self.user objectForKey:kAMWUserProfilePicMediumKey];
+        [profileImageView setFile:imageFile];
+        [profileImageView loadInBackground:^(UIImage *image, NSError *error) {
+            if (!error) {
+                [UIView animateWithDuration:0.2f animations:^{
+                    profilePictureBackgroundView.alpha = 1.0f;
+                    profileImageView.alpha = 1.0f;
+                }];
+            }
+        }];
+    }
+    else {
+        profileImageView.image = [AMWUtility defaultProfilePicture];
+        [UIView animateWithDuration:0.2f animations:^{
+            profilePictureBackgroundView.alpha = 1.0f;
+            profileImageView.alpha = 1.0f;
+        }];
+    }
+}
+
 - (void) followingLblAction:(id)sender {
     AMWPeopleTableViewController *followingViewController = [[AMWPeopleTableViewController alloc] initWithStyle:UITableViewStylePlain];
     
@@ -209,6 +218,137 @@
     
     followingViewController.peopleQuery = query;
     [self.navigationController pushViewController:followingViewController animated:YES];
+}
+
+- (void) profileImageAction:(id)sender {
+    UIAlertController * view=   [UIAlertController
+                                 alertControllerWithTitle:@"Set your profile picture"
+                                 message:@"Select you Choice"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* choosePicture = [UIAlertAction
+                                     actionWithTitle:@"Choose Picture"
+                                     style:UIAlertActionStyleDefault
+                                     handler:^(UIAlertAction * action)
+                                     {
+                                         [self shouldStartPhotoLibraryPickerController];
+                                         [view dismissViewControllerAnimated:YES completion:nil];
+                                         
+                                     }];
+    UIAlertAction *takePicture = [UIAlertAction actionWithTitle:@"Take Picture" style:UIAlertActionStyleDefault handler:
+                                  ^(UIAlertAction *action) {
+                                      [self shouldPresentPhotoCaptureController];
+                                      [view dismissViewControllerAnimated:YES completion:nil];
+                                  }];
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [view dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    
+    
+    [view addAction:choosePicture];
+    [view addAction:takePicture];
+    [view addAction:cancel];
+    [self presentViewController:view animated:YES completion:nil];
+}
+
+
+
+- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    // The user canceled choosing the picture.
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    // The user chose the picture.
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    NSArray *profilePics = [AMWUtility setProfileImage:image];
+    UIImage *largeImage = profilePics[0];
+    
+    [profileImageView setImage:largeImage];
+}
+
+- (BOOL)shouldStartPhotoLibraryPickerController {
+    if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
+         && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) {
+        return NO;
+    }
+    
+    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
+        && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary] containsObject:(NSString *)kUTTypeImage]) {
+        
+        cameraUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
+        
+    } else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]
+               && [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum] containsObject:(NSString *)kUTTypeImage]) {
+        
+        cameraUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
+        
+    } else {
+        return NO;
+    }
+    
+    cameraUI.allowsEditing = YES;
+    cameraUI.delegate = self;
+    
+    [self presentViewController:cameraUI animated:YES completion:nil];
+    
+    return YES;
+}
+
+- (BOOL) shouldPresentPhotoCaptureController {
+    BOOL presentedPhotoCaptureController = [self shouldStartCameraController];
+    
+    if (!presentedPhotoCaptureController) {
+        presentedPhotoCaptureController = [self shouldStartPhotoLibraryPickerController];
+    }
+    
+    return presentedPhotoCaptureController;
+}
+
+- (BOOL)shouldStartCameraController {
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) {
+        return NO;
+    }
+    
+    UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]
+        && [[UIImagePickerController availableMediaTypesForSourceType:
+             UIImagePickerControllerSourceTypeCamera] containsObject:(NSString *)kUTTypeImage]) {
+        
+        cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
+        cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
+        
+        if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+            cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+        } else if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
+            cameraUI.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+        }
+        
+    } else {
+        return NO;
+    }
+    
+    cameraUI.allowsEditing = YES;
+    cameraUI.showsCameraControls = YES;
+    cameraUI.delegate = self;
+    
+    [self presentViewController:cameraUI animated:YES completion:nil];
+    
+    return YES;
 }
 
 - (void)dismissPresentingViewController {

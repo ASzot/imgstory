@@ -36,6 +36,7 @@ extern NSString *const AMWPhotoDetailsViewControllerUserCommentedOnPhotoNotifica
 
 extern NSString *const kAMWInstallationUserKey;
 
+extern NSString *const kAMWEditPhotoViewControllerUserInfoCaptionKey;
 
 extern NSString *const kAMWActivityClassKey;
 
@@ -77,7 +78,7 @@ extern NSString *const kAMWPhotoAttributesIsLikedByCurrentUserKey;
 extern NSString *const kAMWPhotoAttributesLikeCountKey;
 extern NSString *const kAMWPhotoAttributesLikersKey;
 extern NSString *const kAMWPhotoAttributesCommentCountKey;
-extern NSString *const kAMWPhotoAttributesCommentersKey;
+extern NSString *const kAMWPhotoAttributesCaptionKey;
 
 
 extern NSString *const kAMWUserAttributesPhotoCountKey;

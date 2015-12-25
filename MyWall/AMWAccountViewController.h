@@ -8,7 +8,7 @@
 
 #import "AMWPhotoTimelineViewController.h"
 
-@interface AMWAccountViewController : AMWPhotoTimelineViewController
+@interface AMWAccountViewController : AMWPhotoTimelineViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) PFUser *user;
 

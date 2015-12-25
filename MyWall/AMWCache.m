@@ -40,16 +40,16 @@
     [self.cache removeAllObjects];
 }
 
-- (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser {
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSNumber numberWithBool:likedByCurrentUser],kAMWPhotoAttributesIsLikedByCurrentUserKey,
-                                @([likers count]), kAMWPhotoAttributesLikeCountKey,
-                                likers,kAMWPhotoAttributesLikersKey,
-                                @([commenters count]),kAMWPhotoAttributesCommentCountKey,
-                                commenters,kAMWPhotoAttributesCommentersKey,
-                                nil];
-    [self setAttributes:attributes forPhoto:photo];
-}
+//- (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser {
+//    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+//                                [NSNumber numberWithBool:likedByCurrentUser],kAMWPhotoAttributesIsLikedByCurrentUserKey,
+//                                @([likers count]), kAMWPhotoAttributesLikeCountKey,
+//                                likers,kAMWPhotoAttributesLikersKey,
+//                                @([commenters count]),kAMWPhotoAttributesCommentCountKey,
+//                                commenters,kAMWPhotoAttributesCommentersKey,
+//                                nil];
+//    [self setAttributes:attributes forPhoto:photo];
+//}
 
 - (NSDictionary *)attributesForPhoto:(PFObject *)photo {
     NSString *key = [self keyForPhoto:photo];

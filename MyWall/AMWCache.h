@@ -14,7 +14,6 @@
 + (id)sharedCache;
 
 - (void)clear;
-- (void)setAttributesForPhoto:(PFObject *)photo likers:(NSArray *)likers commenters:(NSArray *)commenters likedByCurrentUser:(BOOL)likedByCurrentUser;
 - (NSDictionary *)attributesForPhoto:(PFObject *)photo;
 
 - (NSDictionary *)attributesForUser:(PFUser *)user;

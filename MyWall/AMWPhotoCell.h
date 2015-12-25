@@ -15,4 +15,6 @@
 
 @property (nonatomic, strong) UIButton *photoButton;
 
+-(void)setCaption:(NSString *)captionStr;
+
 @end

@@ -74,7 +74,6 @@
 - (void)setPhoto:(PFObject *)aPhoto {
     photo = aPhoto;
     
-    
     const float repostBtnWidth = 29.0f;
     float boundWidth = self.bounds.size.width;
     BOOL userOwnsPhoto = [self currentUserOwnsPhoto];

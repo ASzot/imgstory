@@ -13,134 +13,14 @@
 
 @implementation AMWUtility
 
-+ (void)likePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
-    PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kAMWActivityClassKey];
-    [queryExistingLikes whereKey:kAMWActivityPhotoKey equalTo:photo];
-    [queryExistingLikes whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeLike];
-    [queryExistingLikes whereKey:kAMWActivityFromUserKey equalTo:[PFUser currentUser]];
-    [queryExistingLikes setCachePolicy:kPFCachePolicyNetworkOnly];
-    [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-        if (!error) {
-            for (PFObject *activity in activities) {
-                [activity delete];
-            }
-        }
-        
-        // proceed to creating new like
-        PFObject *likeActivity = [PFObject objectWithClassName:kAMWActivityClassKey];
-        [likeActivity setObject:kAMWActivityTypeLike forKey:kAMWActivityTypeKey];
-        [likeActivity setObject:[PFUser currentUser] forKey:kAMWActivityFromUserKey];
-        [likeActivity setObject:[photo objectForKey:kAMWPhotoUserKey] forKey:kAMWActivityToUserKey];
-        [likeActivity setObject:photo forKey:kAMWActivityPhotoKey];
-        
-        PFACL *likeACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [likeACL setPublicReadAccess:YES];
-        [likeACL setWriteAccess:YES forUser:[photo objectForKey:kAMWPhotoUserKey]];
-        likeActivity.ACL = likeACL;
-        
-        [likeActivity saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (completionBlock) {
-                completionBlock(succeeded,error);
-            }
-            
-            // refresh cache
-            PFQuery *query = [AMWUtility queryForActivitiesOnPhoto:photo cachePolicy:kPFCachePolicyNetworkOnly];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                if (!error) {
-                    
-                    NSMutableArray *likers = [NSMutableArray array];
-                    NSMutableArray *commenters = [NSMutableArray array];
-                    
-                    BOOL isLikedByCurrentUser = NO;
-                    
-                    for (PFObject *activity in objects) {
-                        if ([[activity objectForKey:kAMWActivityTypeKey] isEqualToString:kAMWActivityTypeLike] && [activity objectForKey:kAMWActivityFromUserKey]) {
-                            [likers addObject:[activity objectForKey:kAMWActivityFromUserKey]];
-                        } else if ([[activity objectForKey:kAMWActivityTypeKey] isEqualToString:kAMWActivityTypeComment] && [activity objectForKey:kAMWActivityFromUserKey]) {
-                            [commenters addObject:[activity objectForKey:kAMWActivityFromUserKey]];
-                        }
-                        
-                        if ([[[activity objectForKey:kAMWActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                            if ([[activity objectForKey:kAMWActivityTypeKey] isEqualToString:kAMWActivityTypeLike]) {
-                                isLikedByCurrentUser = YES;
-                            }
-                        }
-                    }
-                    
-                    [[AMWCache sharedCache] setAttributesForPhoto:photo likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
-                }
-                
-            }];
-            
-        }];
-    }];
++ (BOOL)userHasProfilePictures:(PFUser *)user {
+    PFFile *profilePictureMedium = [user objectForKey:kAMWUserProfilePicMediumKey];
+    PFFile *profilePictureSmall = [user objectForKey:kAMWUserProfilePicSmallKey];
     
+    return (profilePictureMedium && profilePictureSmall);
 }
 
-+ (void)unlikePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
-    PFQuery *queryExistingLikes = [PFQuery queryWithClassName:kAMWActivityClassKey];
-    [queryExistingLikes whereKey:kAMWActivityPhotoKey equalTo:photo];
-    [queryExistingLikes whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeLike];
-    [queryExistingLikes whereKey:kAMWActivityFromUserKey equalTo:[PFUser currentUser]];
-    [queryExistingLikes setCachePolicy:kPFCachePolicyNetworkOnly];
-    [queryExistingLikes findObjectsInBackgroundWithBlock:^(NSArray *activities, NSError *error) {
-        if (!error) {
-            for (PFObject *activity in activities) {
-                [activity delete];
-            }
-            
-            if (completionBlock) {
-                completionBlock(YES,nil);
-            }
-            
-            // refresh cache
-            PFQuery *query = [AMWUtility queryForActivitiesOnPhoto:photo cachePolicy:kPFCachePolicyNetworkOnly];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                if (!error) {
-                    
-                    NSMutableArray *likers = [NSMutableArray array];
-                    NSMutableArray *commenters = [NSMutableArray array];
-                    
-                    BOOL isLikedByCurrentUser = NO;
-                    
-                    for (PFObject *activity in objects) {
-                        if ([[activity objectForKey:kAMWActivityTypeKey] isEqualToString:kAMWActivityTypeLike]) {
-                            [likers addObject:[activity objectForKey:kAMWActivityFromUserKey]];
-                        } else if ([[activity objectForKey:kAMWActivityTypeKey] isEqualToString:kAMWActivityTypeComment]) {
-                            [commenters addObject:[activity objectForKey:kAMWActivityFromUserKey]];
-                        }
-                        
-                        if ([[[activity objectForKey:kAMWActivityFromUserKey] objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
-                            if ([[activity objectForKey:kAMWActivityTypeKey] isEqualToString:kAMWActivityTypeLike]) {
-                                isLikedByCurrentUser = YES;
-                            }
-                        }
-                    }
-                    
-                    [[AMWCache sharedCache] setAttributesForPhoto:photo likers:likers commenters:commenters likedByCurrentUser:isLikedByCurrentUser];
-                }
-                
-            }];
-            
-        } else {
-            if (completionBlock) {
-                completionBlock(NO,error);
-            }
-        }
-    }];
-}
-
-
-#pragma mark Facebook
-
-+ (void)processFacebookProfilePictureData:(NSData *)newProfilePictureData {
-    NSLog(@"Processing profile picture of size: %@", @(newProfilePictureData.length));
-    if (newProfilePictureData.length == 0) {
-        return;
-    }
-    
-    UIImage *image = [UIImage imageWithData:newProfilePictureData];
-    
++ (NSArray*)setProfileImage:(UIImage *)image {
     UIImage *mediumImage = [image thumbnailImage:280 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationHigh];
     UIImage *smallRoundedImage = [image thumbnailImage:64 transparentBorder:0 cornerRadius:0 interpolationQuality:kCGInterpolationLow];
     
@@ -166,7 +46,8 @@
             }
         }];
     }
-    NSLog(@"Processed profile picture");
+    
+    return @[ mediumImage, smallRoundedImage ];
 }
 
 + (UIImage *)defaultProfilePicture {

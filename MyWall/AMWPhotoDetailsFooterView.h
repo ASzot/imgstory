@@ -10,8 +10,7 @@
 
 @interface AMWPhotoDetailsFooterView : UIView
 
+@property (nonatomic, strong) UITextField *captionTextField;
 @property (nonatomic) BOOL hideDropShadow;
-
-+ (CGRect)rectForView;
 
 @end

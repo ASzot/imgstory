@@ -81,11 +81,6 @@ static const CGFloat kAMWCellInsetWidth = 0.0f;
     
     self.tableView.tableHeaderView = self.headerView;
     
-    // Set table footer
-    AMWPhotoDetailsFooterView *footerView = [[AMWPhotoDetailsFooterView alloc] initWithFrame:[AMWPhotoDetailsFooterView rectForView]];
-
-    self.tableView.tableFooterView = footerView;
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(activityButtonAction:)];
     
     // Register to be notified when the keyboard will be shown to scroll the view

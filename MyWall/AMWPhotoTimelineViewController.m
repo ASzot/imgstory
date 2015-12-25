@@ -72,7 +72,7 @@
     [super viewDidLoad];
     
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
-    texturedBackgroundView.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f];
+    texturedBackgroundView.backgroundColor = [UIColor whiteColor];
     self.tableView.backgroundView = texturedBackgroundView;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidPublishPhoto:) name:AMWTabBarControllerDidFinishEditingPhotoNotification object:nil];
@@ -131,7 +131,7 @@
         return 44.0f;
     }
     
-    return 320.0f;
+    return 370.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -241,6 +241,8 @@
         
         if (object) {
             cell.imageView.file = [object objectForKey:kAMWPhotoPictureKey];
+            NSString *caption = [object objectForKey:kAMWPhotoAttributesCaptionKey];
+            [cell setCaption:caption];
             
             // PFQTVC will take care of asynchronously downloading files, but will only load them when the tableview is not moving. If the data is there, let's load it right away.
             if ([cell.imageView.file isDataAvailable]) {

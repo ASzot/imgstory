@@ -27,6 +27,8 @@ NSString *const AMWPhotoDetailsViewControllerUserCommentedOnPhotoNotification   
 
 NSString *const kAMWInstallationUserKey = @"user";
 
+NSString *const kAMWEditPhotoViewControllerUserInfoCaptionKey = @"comment";
+
 
 NSString *const kAMWActivityClassKey = @"Activity";
 
@@ -68,7 +70,7 @@ NSString *const kAMWPhotoAttributesIsLikedByCurrentUserKey = @"isLikedByCurrentU
 NSString *const kAMWPhotoAttributesLikeCountKey            = @"likeCount";
 NSString *const kAMWPhotoAttributesLikersKey               = @"likers";
 NSString *const kAMWPhotoAttributesCommentCountKey         = @"commentCount";
-NSString *const kAMWPhotoAttributesCommentersKey           = @"commenters";
+NSString *const kAMWPhotoAttributesCaptionKey              = @"caption";
 
 
 NSString *const kAMWUserAttributesPhotoCountKey                 = @"photoCount";

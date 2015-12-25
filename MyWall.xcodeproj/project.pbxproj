@@ -34,6 +34,7 @@
 		4981E4C01C214AC000882888 /* AMWLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4981E4BE1C214AC000882888 /* AMWLoginViewController.xib */; };
 		49AC6A701C28BA4A00823718 /* AMWSearchButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC6A6F1C28BA4A00823718 /* AMWSearchButtonItem.m */; };
 		49AC6A731C28C88300823718 /* AMWUserSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC6A721C28C88300823718 /* AMWUserSearchViewController.m */; };
+		49AC6A761C2B699C00823718 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC6A751C2B699C00823718 /* UIImage+ImageEffects.m */; };
 		49FA014A1C156EDF0041CC1A /* AMWAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */; };
 		49FA014B1C156EDF0041CC1A /* AMWActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01211C156EDF0041CC1A /* AMWActivityCell.m */; };
 		49FA014C1C156EDF0041CC1A /* AMWActivityFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01231C156EDF0041CC1A /* AMWActivityFeedViewController.m */; };
@@ -123,6 +124,8 @@
 		49AC6A6F1C28BA4A00823718 /* AMWSearchButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWSearchButtonItem.m; sourceTree = "<group>"; };
 		49AC6A711C28C88300823718 /* AMWUserSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWUserSearchViewController.h; sourceTree = "<group>"; };
 		49AC6A721C28C88300823718 /* AMWUserSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWUserSearchViewController.m; sourceTree = "<group>"; };
+		49AC6A741C2B699C00823718 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		49AC6A751C2B699C00823718 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		49FA011E1C156EDF0041CC1A /* AMWAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWAccountViewController.h; sourceTree = "<group>"; };
 		49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWAccountViewController.m; sourceTree = "<group>"; };
 		49FA01201C156EDF0041CC1A /* AMWActivityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWActivityCell.h; sourceTree = "<group>"; };
@@ -407,6 +410,8 @@
 				49FA01711C156F140041CC1A /* UIImage+ResizeAdditions.m */,
 				49FA01721C156F140041CC1A /* UIImage+RoundedCornerAdditions.h */,
 				49FA01731C156F140041CC1A /* UIImage+RoundedCornerAdditions.m */,
+				49AC6A741C2B699C00823718 /* UIImage+ImageEffects.h */,
+				49AC6A751C2B699C00823718 /* UIImage+ImageEffects.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -686,6 +691,7 @@
 			files = (
 				49FA01771C156F140041CC1A /* UIImage+RoundedCornerAdditions.m in Sources */,
 				49AC6A731C28C88300823718 /* AMWUserSearchViewController.m in Sources */,
+				49AC6A761C2B699C00823718 /* UIImage+ImageEffects.m in Sources */,
 				49FA014E1C156EDF0041CC1A /* AMWCache.m in Sources */,
 				4952A0751C156B1A00646A61 /* MyWall.xcdatamodeld in Sources */,
 				49FA01591C156EDF0041CC1A /* AMWPhotoHeaderView.m in Sources */,

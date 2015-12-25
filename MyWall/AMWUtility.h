@@ -11,11 +11,8 @@
 
 @interface AMWUtility : NSObject
 
-+ (void)likePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
-+ (void)unlikePhotoInBackground:(id)photo block:(void (^)(BOOL succeeded, NSError *error))completionBlock;
-
-+ (void)processFacebookProfilePictureData:(NSData *)data;
-
++ (NSArray *)setProfileImage:(UIImage *)image;
++ (BOOL)userHasProfilePictures:(PFUser *)user;
 + (UIImage *)defaultProfilePicture;
 
 + (NSString *)firstNameForDisplayName:(NSString *)displayName;
