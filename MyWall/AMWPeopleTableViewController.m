@@ -32,24 +32,30 @@
         [cell setDelegate:self];
     }
     
-    [cell setUser:(PFUser*)object];
+    // The PFObject is the Activity class.
+    PFUser *toUser = object[@"toUser"];
+    NSString *userId = [toUser objectId];
+    toUser = [PFQuery getUserObjectWithId:userId];
+    
+    [cell setUser:toUser];
     
     [cell.photoLabel setText:@"0 photos"];
     
-    NSDictionary *attributes = [[AMWCache sharedCache] attributesForUser:(PFUser *)object];
+    NSDictionary *attributes = [[AMWCache sharedCache] attributesForUser:toUser];
     
     if (attributes) {
         // set them now
-        NSNumber *number = [[AMWCache sharedCache] photoCountForUser:(PFUser *)object];
+        NSNumber *number = [[AMWCache sharedCache] photoCountForUser:toUser];
         [cell.photoLabel setText:[NSString stringWithFormat:@"%@ photo%@", number, [number intValue] == 1 ? @"": @"s"]];
-    } else {
+    }
+    else {
         @synchronized(self) {
             PFQuery *photoNumQuery = [PFQuery queryWithClassName:kAMWPhotoClassKey];
-            [photoNumQuery whereKey:kAMWPhotoUserKey equalTo:object];
+            [photoNumQuery whereKey:kAMWPhotoUserKey equalTo:toUser];
             [photoNumQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
             [photoNumQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
                 @synchronized(self) {
-                    [[AMWCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:(PFUser *)object];
+                    [[AMWCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:toUser];
                 }
                 AMWFindFriendsCell *actualCell = (AMWFindFriendsCell*)[tableView cellForRowAtIndexPath:indexPath];
                 [actualCell.photoLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number == 1 ? @"" : @"s"]];
@@ -61,18 +67,19 @@
     cell.tag = indexPath.row;
     
     if (attributes) {
-        [cell.followButton setSelected:[[AMWCache sharedCache] followStatusForUser:(PFUser *)object]];
-    } else {
+        [cell.followButton setSelected:[[AMWCache sharedCache] followStatusForUser:toUser]];
+    }
+    else {
         @synchronized(self) {
             PFQuery *isFollowingQuery = [PFQuery queryWithClassName:kAMWActivityClassKey];
             [isFollowingQuery whereKey:kAMWActivityFromUserKey equalTo:[PFUser currentUser]];
             [isFollowingQuery whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeFollow];
-            [isFollowingQuery whereKey:kAMWActivityToUserKey equalTo:object];
+            [isFollowingQuery whereKey:kAMWActivityToUserKey equalTo:toUser];
             [isFollowingQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
             
             [isFollowingQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
                 @synchronized(self) {
-                    [[AMWCache sharedCache] setFollowStatus:(!error && number > 0) user:(PFUser *)object];
+                    [[AMWCache sharedCache] setFollowStatus:(!error && number > 0) user:toUser];
                 }
                 if (cell.tag == indexPath.row) {
                     [cell.followButton setSelected:(!error && number > 0)];
