@@ -16,6 +16,7 @@
 #import "AMWAccountViewController.h"
 #import "AMWCache.h"
 #import "AMWPhotoDetailsViewController.h"
+#import "AMWEditPhotoViewController.h"
 
 @interface AMWPhotoTimelineViewController ()
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
@@ -295,8 +296,20 @@
 }
 
 - (void)photoHeaderView:(AMWPhotoHeaderView *)photoHeaderView didTapRepostPhotoButton:(UIButton *)button photo:(PFObject *)photo {
-    //TODO:
-    // Implement.
+    // Post the picture with the specified caption and image data under the current user.
+    NSString *imageCaptionStr = photo[@"caption"];
+    if (imageCaptionStr == nil)
+        imageCaptionStr = @"";
+    
+    
+    PFFile *imageFile = [photo objectForKey:kAMWPhotoPictureKey];
+    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        if (!error) {
+            UIImage *image = [UIImage imageWithData:data];
+            AMWEditPhotoViewController *repostPhotoViewController = [[AMWEditPhotoViewController alloc] initWithImage:image withCaption:imageCaptionStr];
+            [self.navigationController pushViewController:repostPhotoViewController animated:YES];
+        }
+    }];
 }
 
 - (void)photoHeaderView:(AMWPhotoHeaderView *)photoHeaderView didTapDeleteButton:(UIButton *)button photo:(PFObject *)photo {

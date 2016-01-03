@@ -12,5 +12,6 @@
 @interface AMWEditPhotoViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
 
 - (id) initWithImage:(UIImage *)aImage;
+- (id) initWithImage:(UIImage *)aImage withCaption:(NSString*)caption;
 
 @end

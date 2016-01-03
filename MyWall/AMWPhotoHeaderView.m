@@ -184,8 +184,8 @@
 }
 
 - (void)didTapRepostButtonAction:(UIButton *)sender {
-    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapRepostButton:photo:)]) {
-        [delegate photoHeaderView:self didTapRepostButton:sender photo:[self.photo objectForKey:kAMWPhotoUserKey]];
+    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapRepostPhotoButton:photo:)]) {
+        [delegate photoHeaderView:self didTapRepostPhotoButton:sender photo:self.photo];
     }
 }
 

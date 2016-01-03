@@ -47,7 +47,7 @@ typedef enum {
 
 - (void) photoHeaderView: (AMWPhotoHeaderView*)photoHeaderView didTapUserButton: (UIButton*) button user: (PFUser*)user;
 
-- (void) photoHeaderView: (AMWPhotoHeaderView*)photoHeaderView didTapRepostButton: (UIButton*) button photo: (PFObject*)photo;
+- (void) photoHeaderView: (AMWPhotoHeaderView*)photoHeaderView didTapRepostPhotoButton: (UIButton*) button photo: (PFObject*)photo;
 
 - (void) photoHeaderView: (AMWPhotoHeaderView*)photoHeaderView didTapDeleteButton: (UIButton*) button photo: (PFObject*)photo;
 

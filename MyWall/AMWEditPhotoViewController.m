@@ -23,9 +23,12 @@
 @property (nonatomic, strong) UITextField *captionTextField;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier fileUploadBackgroundTaskId;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier photoPostBackgroundTaskId;
+@property (nonatomic, weak) NSString *caption;
 @end
 
-@implementation AMWEditPhotoViewController
+@implementation AMWEditPhotoViewController {
+    BOOL isReposting;
+}
 @synthesize scrollView;
 @synthesize image;
 @synthesize captionTextField;
@@ -42,6 +45,10 @@
 }
 
 - (id)initWithImage:(UIImage *)aImage {
+    return [self initWithImage:aImage withCaption:nil];
+}
+
+- (id)initWithImage:(UIImage *)aImage withCaption:(NSString*)caption {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         if (!aImage) {
@@ -49,6 +56,10 @@
         }
         
         self.image = aImage;
+        isReposting = caption != nil;
+        
+        self.caption = caption == nil ? @"" : caption;
+        
         self.fileUploadBackgroundTaskId = UIBackgroundTaskInvalid;
         self.photoPostBackgroundTaskId = UIBackgroundTaskInvalid;
     }
@@ -86,6 +97,7 @@
     
     captionTextField = footerView.captionTextField;
     captionTextField.delegate = self;
+    captionTextField.text = self.caption;
     
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.bounds.size.width, photoImageView.frame.origin.y + photoImageView.frame.size.height + footerView.frame.size.height)];
 }
@@ -93,11 +105,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setHidesBackButton:YES];
+    if (!isReposting)
+        [self.navigationItem setHidesBackButton:YES];
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonAction:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Publish" style:UIBarButtonItemStyleDone target:self action:@selector(publishButtonAction:)];
+    if (!isReposting) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelButtonAction:)];
+    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:(isReposting ? @"Repost" : @"Post") style:UIBarButtonItemStyleDone target:self action:@selector(publishButtonAction:)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
