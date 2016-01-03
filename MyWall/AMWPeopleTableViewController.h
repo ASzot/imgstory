@@ -13,4 +13,5 @@
 
 @interface AMWPeopleTableViewController : PFQueryTableViewController<AMWFindFriendsCellDelegate>
 @property (nonatomic, strong) PFQuery *peopleQuery;
+@property (nonatomic) BOOL recalculateUser;
 @end

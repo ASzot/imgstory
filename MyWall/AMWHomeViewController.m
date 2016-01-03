@@ -107,6 +107,7 @@
         query.limit = 1000;
         
         followingViewController.peopleQuery = query;
+        followingViewController.recalculateUser = YES;
         [self.navigationController pushViewController:followingViewController animated:YES];
     }];
     

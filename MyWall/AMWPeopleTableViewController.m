@@ -33,9 +33,14 @@
     }
     
     // The PFObject is the Activity class.
-    PFUser *toUser = object[@"toUser"];
-    NSString *userId = [toUser objectId];
-    toUser = [PFQuery getUserObjectWithId:userId];
+    PFUser *toUser;
+    if (self.recalculateUser) {
+        toUser = object[@"toUser"];
+        NSString *userId = [toUser objectId];
+        toUser = [PFQuery getUserObjectWithId:userId];
+    }
+    else
+        toUser = (PFUser*)object;
     
     [cell setUser:toUser];
     

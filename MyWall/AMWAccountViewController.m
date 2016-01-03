@@ -22,6 +22,8 @@
 @property (nonatomic, strong) PFImageView *profileImageView;
 @property (nonatomic, strong) UIView *profilePictureBackgroundView;
 @property (nonatomic, strong) UIButton *followStatusBtn;
+@property (nonatomic, strong) UILabel *photoCountLbl;
+@property (nonatomic, strong) UILabel *followingCountLbl;
 @end
 
 @implementation AMWAccountViewController
@@ -30,6 +32,8 @@
 @synthesize profileImageView;
 @synthesize profilePictureBackgroundView;
 @synthesize followStatusBtn;
+@synthesize photoCountLbl;
+@synthesize followingCountLbl;
 
 #pragma mark - Initialization
 
@@ -121,78 +125,110 @@
                 self.navigationItem.rightBarButtonItem = nil;
             }
             else {
-                followStatusBtn = [[UIButton alloc] initWithFrame:CGRectMake(100.0f, 200.0f, 80.0f, 30.0f)];
-                [followStatusBtn setBackgroundColor:[UIColor greenColor]];
-                NSString *titleStr;
+                followStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+                followStatusBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0f];
+                followStatusBtn.titleEdgeInsets = UIEdgeInsetsMake( 0.0f, 10.0f, 0.0f, 0.0f);
+                [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"] forState:UIControlStateNormal];
+                [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollowing.png"] forState:UIControlStateSelected];
+                [followStatusBtn setImage:[UIImage imageNamed:@"IconTick.png"] forState:UIControlStateSelected];
+                [followStatusBtn setTitle:NSLocalizedString(@"Follow  ", @"Follow string, with spaces added for centering") forState:UIControlStateNormal];
+                [followStatusBtn setTitle:@"Following" forState:UIControlStateSelected];
+                [followStatusBtn setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+                [followStatusBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+                [followStatusBtn addTarget:self action:@selector(didTapFollowButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+                
+                
                 SEL selecta;
                 if (number == 0) {
                     [self configureFollowButton];
-                    titleStr = @"Follow";
                     selecta = @selector(followButtonAction:);
-                } else {
+                }
+                else {
                     [self configureUnfollowButton];
-                    titleStr = @"Unfollow";
                     selecta = @selector(unfollowButtonAction:);
                 }
-                [followStatusBtn setTitle:titleStr forState:UIControlStateNormal];
-                [followStatusBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                followStatusBtn.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+                
+                [followStatusBtn setSelected:(number > 0)];
+                
+                [followStatusBtn setFrame:CGRectMake( 208.0f, 200.0f, 103.0f, 32.0f)];
                 followStatusBtn.center = CGPointMake(self.headerView.center.x, followStatusBtn.center.y);
                 UITapGestureRecognizer *followBtnTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:selecta];
                 [followStatusBtn addGestureRecognizer:followBtnTapGesture];
+                
                 [self.headerView addSubview:followStatusBtn];
             }
         }];
     }
     else {
-        UILabel *followingCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 200.0f, 100.0f, 25.0f)];
-        [followingCountLabel setTextAlignment:NSTextAlignmentCenter];
-        [followingCountLabel setBackgroundColor:[UIColor whiteColor]];
-        [followingCountLabel setTextColor:[UIColor blackColor]];
-        [followingCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-        [followingCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
-        [followingCountLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
-        followingCountLabel.userInteractionEnabled = YES;
+        followingCountLbl = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 200.0f, 100.0f, 25.0f)];
+        [followingCountLbl setTextAlignment:NSTextAlignmentCenter];
+        [followingCountLbl setBackgroundColor:[UIColor whiteColor]];
+        [followingCountLbl setTextColor:[UIColor blackColor]];
+        [followingCountLbl setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
+        [followingCountLbl setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
+        [followingCountLbl setFont:[UIFont boldSystemFontOfSize:16.0f]];
+        followingCountLbl.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followingLblAction:)];
-        [followingCountLabel addGestureRecognizer:tapGesture];
-        followingCountLabel.center = CGPointMake(self.headerView.center.x, followingCountLabel.center.y);
-        [self.headerView addSubview:followingCountLabel];
+        [followingCountLbl addGestureRecognizer:tapGesture];
+        followingCountLbl.center = CGPointMake(self.headerView.center.x, followingCountLbl.center.y);
+        [self.headerView addSubview:followingCountLbl];
         
-        NSDictionary *followingDictionary = [[PFUser currentUser] objectForKey:@"following"];
-        [followingCountLabel setText:@"0 following"];
-        if (followingDictionary) {
-            [followingCountLabel setText:[NSString stringWithFormat:@"%lu following", (unsigned long)[[followingDictionary allValues] count]]];
-        }
-        
-        PFQuery *queryFollowingCount = [PFQuery queryWithClassName:kAMWActivityClassKey];
-        [queryFollowingCount whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeFollow];
-        [queryFollowingCount whereKey:kAMWActivityFromUserKey equalTo:self.user];
-        [queryFollowingCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
-        [queryFollowingCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-            if (!error) {
-                [followingCountLabel setText:[NSString stringWithFormat:@"%d following", number]];
-            }
-        }];
+        [self loadFollowingCount];
     }
     
-    UILabel *photoCountLabel = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 228.0f, 92.0f, 22.0f)];
-    [photoCountLabel setTextAlignment:NSTextAlignmentCenter];
-    [photoCountLabel setBackgroundColor:[UIColor clearColor]];
-    [photoCountLabel setTextColor:[UIColor blackColor]];
-    [photoCountLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
-    [photoCountLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
-    [photoCountLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
-    photoCountLabel.center = CGPointMake(self.headerView.center.x, photoCountLabel.center.y);
-    [self.headerView addSubview:photoCountLabel];
+    photoCountLbl = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 228.0f, 92.0f, 22.0f)];
+    [photoCountLbl setTextAlignment:NSTextAlignmentCenter];
+    [photoCountLbl setBackgroundColor:[UIColor clearColor]];
+    [photoCountLbl setTextColor:[UIColor blackColor]];
+    [photoCountLbl setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
+    [photoCountLbl setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
+    [photoCountLbl setFont:[UIFont boldSystemFontOfSize:14.0f]];
+    photoCountLbl.center = CGPointMake(self.headerView.center.x, photoCountLbl.center.y);
+    [self.headerView addSubview:photoCountLbl];
     
-    [photoCountLabel setText:@"0 photos"];
+    [photoCountLbl setText:@"0 photos"];
     
+    [self loadPhotoCount];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    // Reload the number of photos and the number of followings.
+    
+    // Is this the current user?
+    // Reload the following count.
+    if ([[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
+        [self loadFollowingCount];
+    }
+    
+    // Reload the photo count.
+    [self loadPhotoCount];
+}
+
+- (void) loadFollowingCount {
+    NSDictionary *followingDictionary = [[PFUser currentUser] objectForKey:@"following"];
+    [followingCountLbl setText:@"0 following"];
+    if (followingDictionary) {
+        [followingCountLbl setText:[NSString stringWithFormat:@"%lu following", (unsigned long)[[followingDictionary allValues] count]]];
+    }
+    
+    PFQuery *queryFollowingCount = [PFQuery queryWithClassName:kAMWActivityClassKey];
+    [queryFollowingCount whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeFollow];
+    [queryFollowingCount whereKey:kAMWActivityFromUserKey equalTo:self.user];
+    [queryFollowingCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
+    [queryFollowingCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (!error) {
+            [followingCountLbl setText:[NSString stringWithFormat:@"%d following", number]];
+        }
+    }];
+}
+
+- (void) loadPhotoCount {
     PFQuery *queryPhotoCount = [PFQuery queryWithClassName:@"Photo"];
     [queryPhotoCount whereKey:kAMWPhotoUserKey equalTo:self.user];
     [queryPhotoCount setCachePolicy:kPFCachePolicyCacheThenNetwork];
     [queryPhotoCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
-            [photoCountLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number==1?@"":@"s"]];
+            [photoCountLbl setText:[NSString stringWithFormat:@"%d photo%@", number, number == 1 ? @"" : @"s"]];
             [[AMWCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
         }
     }];
@@ -231,6 +267,7 @@
     query.limit = 1000;
     
     followingViewController.peopleQuery = query;
+    followingViewController.recalculateUser = YES;
     [self.navigationController pushViewController:followingViewController animated:YES];
 }
 
@@ -418,7 +455,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
     
     [self configureUnfollowButton];
-    [followStatusBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
+    //[followStatusBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
     
     [AMWUtility followUserEventually:self.user block:^(BOOL succeeded, NSError *error) {
         if (error) {
@@ -433,7 +470,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
     
     [self configureFollowButton];
-    [followStatusBtn setTitle:@"Follow" forState:UIControlStateNormal];
+    //[followStatusBtn setTitle:@"Follow" forState:UIControlStateNormal];
     
     [AMWUtility unfollowUserEventually:self.user];
 }
