@@ -15,6 +15,8 @@
 #import "AMWCache.h"
 #import "AMWConstants.h"
 
+#define MAX_PHOTOS_PER_DAY 1
+
 @interface AMWEditPhotoViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImage *image;
@@ -132,6 +134,38 @@
 #pragma mark - ()
 
 - (BOOL)shouldUploadImage:(UIImage *)anImage {
+    // First check that the user has not posted MAX_PHOTOS_PER_DAY images in the past day.
+    NSDate *oneDayAgo = [[NSDate date] dateByAddingTimeInterval:(-24*60*60)];
+    
+    PFQuery *imageCountQuery = [PFQuery queryWithClassName:kAMWPhotoClassKey];
+    [imageCountQuery whereKey:kAMWPhotoUserKey equalTo:[PFUser currentUser]];
+    [imageCountQuery whereKey:@"createdAt" greaterThan:oneDayAgo];
+    imageCountQuery.limit = MAX_PHOTOS_PER_DAY;
+    [imageCountQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (number != MAX_PHOTOS_PER_DAY) {
+            // Actually upload the image.
+            [self uploadImage:anImage];
+        }
+        else {
+            // Display a message to the user saying they have reached the max photo count for the day.
+            NSString *message = [@"" stringByAppendingFormat:@"The max number of %@ photos per day have been uploaded", @MAX_PHOTOS_PER_DAY];
+            UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Could not upload image" message:message preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action)
+                                 {
+                                     [alert dismissViewControllerAnimated:YES completion:nil];
+                                     [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+                                 }];
+            
+            [alert addAction:ok];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
+    
+    return YES;
+}
+
+- (BOOL)uploadImage:(UIImage*)anImage {
     UIImage *resizedImage = [anImage resizedImageWithContentMode:UIViewContentModeScaleAspectFit bounds:CGSizeMake(560.0f, 560.0f) interpolationQuality:kCGInterpolationHigh];
     UIImage *thumbnailImage = [anImage thumbnailImage:86.0f transparentBorder:0.0f cornerRadius:10.0f interpolationQuality:kCGInterpolationDefault];
     
@@ -151,7 +185,7 @@
         [[UIApplication sharedApplication] endBackgroundTask:self.fileUploadBackgroundTaskId];
     }];
     
-    NSLog(@"Requested background expiration task with id %lu for Anypic photo upload", (unsigned long)self.fileUploadBackgroundTaskId);
+    NSLog(@"Requested background expiration task with id %lu for MyWall photo upload", (unsigned long)self.fileUploadBackgroundTaskId);
     [self.photoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"Photo uploaded successfully");

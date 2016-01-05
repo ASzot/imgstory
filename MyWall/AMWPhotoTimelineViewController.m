@@ -60,7 +60,7 @@
         self.reusableSectionHeaderViews = [NSMutableSet setWithCapacity:3];
         
         // The Loading text clashes with the dark Anypic design
-        self.loadingViewEnabled = YES;
+        //sself.loadingViewEnabled = YES;
         
         self.shouldReloadOnAppear = NO;
     }
