@@ -262,13 +262,14 @@
     // save
     [photo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            NSLog(@"Photo uploaded");
-            
             [[NSNotificationCenter defaultCenter] postNotificationName:AMWTabBarControllerDidFinishEditingPhotoNotification object:photo];
         } else {
-            NSLog(@"Photo failed to save: %@", error);
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-            [alert show];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Couldn't post your photo" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alert) {
+                [alertController dismissViewControllerAnimated:YES completion:nil];
+            }];
+            [alertController addAction:dismissAction];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
         [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
     }];

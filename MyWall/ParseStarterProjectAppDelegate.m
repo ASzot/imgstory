@@ -20,7 +20,6 @@
 #import "AMWAccountViewController.h"
 #import "AMWWelcomeViewController.h"
 #import "AMWHomeViewController.h"
-#import "AMWPhotoDetailsViewController.h"
 #import "AMWConstants.h"
 #import "AMWCache.h"
 #import "Reachability.h"
@@ -39,7 +38,6 @@
 
 - (void) setuAMWpearance;
 - (BOOL) shouldProceedToMainInterface: (PFUser *)user;
-- (BOOL) handleActionURL: (NSURL *)url;
 
 @end
 
@@ -77,8 +75,6 @@
     
     self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
-    
-    [self handlePush:launchOptions];
 
     return YES;
 }
@@ -226,7 +222,6 @@
 
 #pragma mark - ()
 
-// Set up appearance parameters to achieve Anypic's custom look and feel
 - (void)setuAMWpearance {
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
@@ -236,9 +231,7 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSForegroundColorAttributeName: [UIColor whiteColor]
                                                            }];
-    
-    [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]
+    [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f]
      forState:UIControlStateNormal];
     
     [[UIBarButtonItem appearance] setTitleTextAttributes:@{
@@ -269,44 +262,6 @@
     [hostReach startNotifier];
 }
 
-- (void)handlePush:(NSDictionary *)launchOptions {
-    
-    // If the app was launched in response to a push notification, we'll handle the payload here
-    NSDictionary *remoteNotificationPayload = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (remoteNotificationPayload) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:AMWAppDelegationApplicationDidReceiveRemoteNotification object:nil userInfo:remoteNotificationPayload];
-        
-        if (![PFUser currentUser]) {
-            return;
-        }
-        
-        // If the push notification payload references a photo, we will attempt to push this view controller into view
-        NSString *photoObjectId = [remoteNotificationPayload objectForKey:kAMWPushPayloadPhotoObjectIdKey];
-        if (photoObjectId && photoObjectId.length > 0) {
-            [self shouldNavigateToPhoto:[PFObject objectWithoutDataWithClassName: kAMWPhotoClassKey objectId:photoObjectId]];
-            return;
-        }
-        
-        // If the push notification payload references a user, we will attempt to push their profile into view
-        NSString *fromObjectId = [remoteNotificationPayload objectForKey: kAMWPushPayloadFromUserObjectIdKey];
-        if (fromObjectId && fromObjectId.length > 0) {
-            PFQuery *query = [PFUser query];
-            query.cachePolicy = kPFCachePolicyCacheElseNetwork;
-            [query getObjectInBackgroundWithId:fromObjectId block:^(PFObject *user, NSError *error) {
-                if (!error) {
-                    UINavigationController *homeNavigationController = self.tabBarController.viewControllers[AMWHomeTabBarItemIndex];
-                    self.tabBarController.selectedViewController = homeNavigationController;
-                    
-                    AMWAccountViewController *accountViewController = [[AMWAccountViewController alloc] initWithStyle:UITableViewStylePlain];
-                    NSLog(@"Presenting account view controller with user: %@", user);
-                    accountViewController.user = (PFUser *)user;
-                    [homeNavigationController pushViewController:accountViewController animated:YES];
-                }
-            }];
-        }
-    }
-}
-
 - (void)autoFollowTimerFired:(NSTimer *)aTimer {
     [MBProgressHUD hideHUDForView:self.navController.presentedViewController.view animated:YES];
     [MBProgressHUD hideHUDForView:self.homeViewController.view animated:YES];
@@ -320,47 +275,6 @@
     [self.navController dismissViewControllerAnimated:YES completion:nil];
     return YES;
 }
-
-- (BOOL)handleActionURL:(NSURL *)url {
-    if ([[url host] isEqualToString:kAMWLaunchURLHostTakePicture]) {
-        if ([PFUser currentUser]) {
-            return [self.tabBarController shouldPresentPhotoCaptureController];
-        }
-    } else {
-        if ([[url fragment] rangeOfString:@"^pic/[A-Za-z0-9]{10}$" options:NSRegularExpressionSearch].location != NSNotFound) {
-            NSString *photoObjectId = [[url fragment] substringWithRange:NSMakeRange(4, 10)];
-            if (photoObjectId && photoObjectId.length > 0) {
-                NSLog(@"WOOP: %@", photoObjectId);
-                [self shouldNavigateToPhoto:[PFObject objectWithoutDataWithClassName:kAMWPhotoClassKey objectId:photoObjectId]];
-                return YES;
-            }
-        }
-    }
-    
-    return NO;
-}
-
-- (void)shouldNavigateToPhoto:(PFObject *)targetPhoto {
-    for (PFObject *photo in self.homeViewController.objects) {
-        if ([photo.objectId isEqualToString:targetPhoto.objectId]) {
-            targetPhoto = photo;
-            break;
-        }
-    }
-    
-    // if we have a local copy of this photo, this won't result in a network fetch
-    [targetPhoto fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
-        if (!error) {
-            UINavigationController *homeNavigationController = [[self.tabBarController viewControllers] objectAtIndex:AMWHomeTabBarItemIndex];
-            [self.tabBarController setSelectedViewController:homeNavigationController];
-            
-            AMWPhotoDetailsViewController *detailViewController = [[AMWPhotoDetailsViewController alloc] initWithPhoto:object];
-            [homeNavigationController pushViewController:detailViewController animated:YES];
-        }
-    }];
-}
-
-
 
 - (void)autoFollowUsers {
     firstLaunch = YES;

@@ -15,7 +15,6 @@
 #import "AMWLoadMoreCell.h"
 #import "AMWAccountViewController.h"
 #import "AMWCache.h"
-#import "AMWPhotoDetailsViewController.h"
 #import "AMWEditPhotoViewController.h"
 
 @interface AMWPhotoTimelineViewController ()

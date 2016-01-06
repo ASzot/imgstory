@@ -7,7 +7,6 @@
 //
 
 #import "AMWHomeViewController.h"
-#import "AMWSettingsActionSheetDelegate.h"
 #import "AMWSettingsButtonItem.h"
 #import "AMWAccountViewController.h"
 #import "MBProgressHUD.h"
@@ -17,7 +16,6 @@
 #import "AMWConstants.h"
 
 @interface AMWHomeViewController () <UIActionSheetDelegate>
-@property (nonatomic, strong) AMWSettingsActionSheetDelegate *settingsActionSheetDelegate;
 @property (nonatomic, strong) UINavigationController *presentingAccountNavController;
 @property (nonatomic, strong) UINavigationController *presentingFriendNavController;
 @property (nonatomic, strong) UIView *blankTimelineView;
@@ -27,7 +25,6 @@
 @implementation AMWHomeViewController
 
 @synthesize firstLaunch;
-@synthesize settingsActionSheetDelegate;
 @synthesize blankTimelineView;
 
 
