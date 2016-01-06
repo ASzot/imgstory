@@ -15,7 +15,7 @@
 #import "AMWCache.h"
 #import "AMWConstants.h"
 
-#define MAX_PHOTOS_PER_DAY 1
+#define MAX_PHOTOS_PER_DAY 5
 
 @interface AMWEditPhotoViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -229,8 +229,14 @@
     NSString *trimmedComment = [self.captionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if (!self.photoFile || !self.thumbnailFile) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Couldn't post your photo" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Dismiss", nil];
-        [alert show];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Couldn't post your photo" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alert) {
+            [alertController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alertController addAction:dismissAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
         return;
     }
     

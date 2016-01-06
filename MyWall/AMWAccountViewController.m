@@ -16,6 +16,11 @@
 #import "AMWPeopleTableViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImage+ImageEffects.h"
+#import "AMWSearchButtonItem.h"
+#import "AMWSettingsButtonItem.h"
+#import "AMWUserSearchViewController.h"
+#import "ParseStarterProjectAppDelegate.h"
+
 
 @interface AMWAccountViewController()
 @property (nonatomic, strong) UIView *headerView;
@@ -63,6 +68,8 @@
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
     
+    self.navigationItem.rightBarButtonItem = [[AMWSearchButtonItem alloc] initWithTarget:self action:@selector(searchButtonAction:)];
+    self.navigationItem.leftBarButtonItem = [[AMWSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 260.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]];
@@ -189,6 +196,48 @@
     [photoCountLbl setText:@"0 photos"];
     
     [self loadPhotoCount];
+}
+
+- (void)searchButtonAction:(id)sender {
+    AMWUserSearchViewController *searchViewController = [[AMWUserSearchViewController alloc] init];
+    
+    [self.navigationController pushViewController:searchViewController animated:NO];
+}
+
+- (void)settingsButtonAction:(id)sender {
+    UIAlertController * view = [UIAlertController alertControllerWithTitle:@"Settings" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* logout = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        [view dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    UIAlertAction* following = [UIAlertAction actionWithTitle:@"Following" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [view dismissViewControllerAnimated:YES completion:nil];
+        AMWPeopleTableViewController *followingViewController = [[AMWPeopleTableViewController alloc] initWithStyle:UITableViewStylePlain];
+        
+        // Query all of the users that this user is following.
+        PFQuery *query = [PFQuery queryWithClassName:kAMWActivityClassKey];
+        [query whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeFollow];
+        [query whereKey:kAMWActivityFromUserKey equalTo:[PFUser currentUser]];
+        query.cachePolicy = kPFCachePolicyNetworkOnly;
+        query.limit = 1000;
+        
+        followingViewController.peopleQuery = query;
+        followingViewController.recalculateUser = YES;
+        [self.navigationController pushViewController:followingViewController animated:YES];
+    }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action)
+                             {
+                                 [view dismissViewControllerAnimated:YES completion:nil];
+                             }];
+    
+    
+    [view addAction:logout];
+    [view addAction:following];
+    [view addAction:cancel];
+    [self presentViewController:view animated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

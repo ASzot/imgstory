@@ -20,7 +20,6 @@
 #import "AMWAccountViewController.h"
 #import "AMWWelcomeViewController.h"
 #import "AMWHomeViewController.h"
-#import "AMWActivityFeedViewController.h"
 #import "AMWPhotoDetailsViewController.h"
 #import "AMWConstants.h"
 #import "AMWCache.h"

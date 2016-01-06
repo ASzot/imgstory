@@ -172,27 +172,6 @@ static const CGFloat kAMWCellInsetWidth = 0.0f;
     return cell;
 }
 
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (actionSheet.tag == MainActionSheetTag) {
-        if ([actionSheet destructiveButtonIndex] == buttonIndex) {
-            // prompt to delete
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Are you sure you want to delete this photo?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:NSLocalizedString(@"Yes, delete photo", nil) otherButtonTitles:nil];
-            actionSheet.tag = ConfirmDeleteActionSheetTag;
-            [actionSheet showFromTabBar:self.tabBarController.tabBar];
-        } else {
-            [self activityButtonAction:actionSheet];
-        }
-    } else if (actionSheet.tag == ConfirmDeleteActionSheetTag) {
-        if ([actionSheet destructiveButtonIndex] == buttonIndex) {
-            
-            [self shouldDeletePhoto];
-        }
-    }
-}
-
 #pragma mark - AMWBaseTextCellDelegate
 
 - (void)cell:(AMWBaseTextCell *)cellView didTapUserButton:(PFUser *)aUser {
@@ -204,18 +183,6 @@ static const CGFloat kAMWCellInsetWidth = 0.0f;
 
 -(void)photoDetailsHeaderView:(AMWPhotoDetailsHeaderView *)headerView didTapUserButton:(UIButton *)button user:(PFUser *)user {
     [self shouldPresentAccountViewForUser:user];
-}
-
-- (void)actionButtonAction:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] init];
-    actionSheet.delegate = self;
-    actionSheet.tag = MainActionSheetTag;
-    actionSheet.destructiveButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"Delete Photo", nil)];
-    if (NSClassFromString(@"UIActivityViewController")) {
-        [actionSheet addButtonWithTitle:NSLocalizedString(@"Share Photo", nil)];
-    }
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
 }
 
 - (void)activityButtonAction:(id)sender {
@@ -256,12 +223,6 @@ static const CGFloat kAMWCellInsetWidth = 0.0f;
             [self.navigationController presentViewController:activityViewController animated:YES completion:nil];
         }
     }];
-}
-
-- (void)handleCommentTimeout:(NSTimer *)aTimer {
-    [MBProgressHUD hideHUDForView:self.view.superview animated:YES];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"New Comment", nil) message:NSLocalizedString(@"Your comment will be posted next time there is an Internet connection.", nil)  delegate:nil cancelButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Dismiss", nil), nil];
-    [alert show];
 }
 
 - (void)shouldPresentAccountViewForUser:(PFUser *)user {
