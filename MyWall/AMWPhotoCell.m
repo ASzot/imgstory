@@ -55,11 +55,7 @@
 }
 
 - (void)setCaption:(NSString*)captionStr {
-    if (captionStr == nil || captionStr.length == 0) {
-        self.footerView.frame = CGRectMake(0.0f, 0.0f, 0.0f, 0.0f);
-    }
-    else
-        self.captionLbl.text = captionStr;
+    self.captionLbl.text = captionStr;
 }
 
 

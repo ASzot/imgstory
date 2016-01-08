@@ -69,7 +69,11 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoNavigationBar.png"]];
     
     self.navigationItem.rightBarButtonItem = [[AMWSearchButtonItem alloc] initWithTarget:self action:@selector(searchButtonAction:)];
-    self.navigationItem.leftBarButtonItem = [[AMWSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
+    
+    // Only allow the settings icon if the user is at their own account. Otherwise display the default back button.
+    if (self.user == [PFUser currentUser]) {
+        self.navigationItem.leftBarButtonItem = [[AMWSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
+    }
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 260.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]];
@@ -136,11 +140,11 @@
                 followStatusBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0f];
                 followStatusBtn.titleEdgeInsets = UIEdgeInsetsMake( 0.0f, 10.0f, 0.0f, 0.0f);
                 [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"] forState:UIControlStateNormal];
-                [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollowing.png"] forState:UIControlStateSelected];
+                [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollowSelected.png"] forState:UIControlStateSelected];
                 [followStatusBtn setImage:[UIImage imageNamed:@"IconTick.png"] forState:UIControlStateSelected];
                 [followStatusBtn setTitle:NSLocalizedString(@"Follow  ", @"Follow string, with spaces added for centering") forState:UIControlStateNormal];
                 [followStatusBtn setTitle:@"Following" forState:UIControlStateSelected];
-                [followStatusBtn setTitleColor:[UIColor colorWithRed:254.0f/255.0f green:149.0f/255.0f blue:50.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+                [followStatusBtn setTitleColor:[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
                 [followStatusBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
                 [followStatusBtn addTarget:self action:@selector(didTapFollowButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 

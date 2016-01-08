@@ -30,10 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"BackgroundLogin.png"]];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.view.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor], (id)[[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] CGColor], nil];
+    [self.view.layer insertSublayer:gradient atIndex:0];
     
     // Position of the buttons.
-    CGFloat yPosition = 300.0f;
+    CGFloat yPosition = 200.0f;
     
     const float loginBtnWidth = 244.0f;
     const float signUpBtnWidth = 244.0f;
@@ -58,6 +61,13 @@
     signUpBtn.titleLabel.font = [UIFont systemFontOfSize:fontSize];
     signUpBtn.frame = CGRectMake(xCenter, yPosition, signUpBtnWidth, btnHeight);
     [self.view addSubview:signUpBtn];
+    
+    UIImage *titleImage = [UIImage imageNamed:@"TitleIconLarge.png"];
+    UIImageView *titleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 50.0f, titleImage.size.width, titleImage.size.height)];
+    [titleImageView setImage:titleImage];
+    titleImageView.center = CGPointMake(self.view.center.x, titleImageView.center.y);
+    
+    [self.view addSubview:titleImageView];
 }
 
 - (void)loginBtnAction:(id)sender {

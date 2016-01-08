@@ -84,7 +84,7 @@
         deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [deleteButton addTarget:self action:@selector(didTapDeleteButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         setBtn = deleteButton;
-        imageAssetStr = @"ButtonMore.png";
+        imageAssetStr = @"DeleteIcon.png";
     }
     else {
         if (self.buttons & AMWPhotoHeaderButtonsRepost) {
@@ -92,7 +92,7 @@
             repostButton = [UIButton buttonWithType:UIButtonTypeCustom];
             [repostButton addTarget:self action:@selector(didTapRepostButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             setBtn = repostButton;
-            imageAssetStr = @"ButtonLike.png";
+            imageAssetStr = @"ButtonRepost.png";
         }
     }
     
@@ -104,7 +104,7 @@
         [setBtn setFrame:CGRectMake(boundWidth, 9.0f, repostBtnWidth, 29.0f)];
         [setBtn setBackgroundColor:[UIColor clearColor]];
         [setBtn setTitle:@"" forState:UIControlStateNormal];
-        [setBtn setTitleColor:[UIColor colorWithRed:254.0f / 255.0f green:149.0f / 255.0f blue:50.0f / 255.0f alpha:1.0f] forState:UIControlStateNormal];
+        [setBtn setTitleColor:[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
         [setBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [setBtn setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
         [[setBtn titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];

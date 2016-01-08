@@ -32,7 +32,7 @@
         mainView.backgroundColor = [UIColor whiteColor];
         [self addSubview:mainView];
         
-        UIImageView *messageIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconAddComment.png"]];
+        UIImageView *messageIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"IconAddCaption.png"]];
         messageIcon.frame = CGRectMake( 20.0f, 15.0f, 22.0f, 22.0f);
         [mainView addSubview:messageIcon];
         

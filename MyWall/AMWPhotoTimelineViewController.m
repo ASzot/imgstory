@@ -59,7 +59,7 @@
         self.reusableSectionHeaderViews = [NSMutableSet setWithCapacity:3];
         
         // The Loading text clashes with the dark Anypic design
-        //sself.loadingViewEnabled = YES;
+        self.loadingViewEnabled = NO;
         
         self.shouldReloadOnAppear = NO;
     }
@@ -131,7 +131,7 @@
         return 44.0f;
     }
     
-    return 430.0f;
+    return 380.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
