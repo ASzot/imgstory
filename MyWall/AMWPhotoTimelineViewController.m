@@ -17,6 +17,7 @@
 #import "AMWCache.h"
 #import "AMWEditPhotoViewController.h"
 
+
 @interface AMWPhotoTimelineViewController ()
 @property (nonatomic, assign) BOOL shouldReloadOnAppear;
 @property (nonatomic, strong) NSMutableSet *reusableSectionHeaderViews;
@@ -130,6 +131,11 @@
     else if (indexPath.row % 2 == 0) {
         return 44.0f;
     }
+    
+    if (IS_IPHONE_6)
+        return 430.0f;
+    else if (IS_IPHONE_6P)
+        return 470.0f;
     
     return 380.0f;
 }

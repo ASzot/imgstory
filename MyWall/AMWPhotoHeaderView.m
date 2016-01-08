@@ -75,7 +75,10 @@
     photo = aPhoto;
     
     const float repostBtnWidth = 29.0f;
-    float boundWidth = self.bounds.size.width;
+    float subtractWidth = 50.0f;
+    if (IS_IPHONE_6 || IS_IPHONE_6P)
+        subtractWidth = 0.0f;
+    float boundWidth = self.bounds.size.width - subtractWidth;
     BOOL userOwnsPhoto = [self currentUserOwnsPhoto];
     NSString *imageAssetStr = nil;
     
@@ -112,6 +115,7 @@
         [[setBtn titleLabel] setAdjustsFontSizeToFitWidth:YES];
         [setBtn setAdjustsImageWhenHighlighted:NO];
         [setBtn setAdjustsImageWhenDisabled:NO];
+        //[setBtn setBackgroundColor:[UIColor redColor]];
         [setBtn setBackgroundImage:[UIImage imageNamed:imageAssetStr] forState:UIControlStateNormal];
         [setBtn setSelected:NO];
         

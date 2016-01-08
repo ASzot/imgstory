@@ -8,13 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+
 typedef enum {
     AMWHomeTabBarItemIndex = 0,
     AMWEmptyTabBarItemIndex = 1,
     AMWActivityTabBarItemIndex = 2
 } AMWTabBarControllerViewControllerIndex;
-
-#define kAMWParseEmployeeAccounts [NSArray arrayWithObjects:@"400680", @"403902", @"1225726", @"4806789", @"6409809", @"12800553", @"121800083", @"500011038", @"558159381", @"723748661", nil]
 
 
 extern NSString *const kAMWUserDefaultsActivityFeedViewControllerLastRefreshKey;
