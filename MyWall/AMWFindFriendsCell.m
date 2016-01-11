@@ -106,11 +106,12 @@
     [nameButton setFrame:CGRectMake( 60.0f, 17.0f, nameSize.width, nameSize.height)];
     
     // Set photo number label
-    CGSize photoLabelSize = [@"photos" boundingRectWithSize:CGSizeMake(144.0f, CGFLOAT_MAX)
+    CGSize photoLabelSize = [@"Could not load username" boundingRectWithSize:CGSizeMake(144.0f, CGFLOAT_MAX)
                                                     options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin
                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:11.0f]}
                                                     context:nil].size;
     [photoLabel setFrame:CGRectMake( 60.0f, 17.0f + nameSize.height, 140.0f, photoLabelSize.height)];
+    [photoLabel setText:[self.user objectForKey:@"username"]];
     
     // Set follow button
     [followButton setFrame:CGRectMake( 208.0f, 20.0f, 103.0f, 32.0f)];

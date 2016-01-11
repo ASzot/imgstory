@@ -826,6 +826,7 @@
 					"$(PROJECT_DIR)/MyWall",
 				);
 				INFOPLIST_FILE = MyWall/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AMW.MyWall;
 				PRODUCT_NAME = imgStory;
@@ -846,6 +847,7 @@
 					"$(PROJECT_DIR)/MyWall",
 				);
 				INFOPLIST_FILE = MyWall/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AMW.MyWall;
 				PRODUCT_NAME = imgStory;

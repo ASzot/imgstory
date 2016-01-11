@@ -22,13 +22,17 @@
 #import "ParseStarterProjectAppDelegate.h"
 
 
-@interface AMWAccountViewController()
+@interface AMWAccountViewController() {
+    UITapGestureRecognizer *followTGR;
+    UITapGestureRecognizer *unfollowTGR;
+}
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) PFImageView *profileImageView;
 @property (nonatomic, strong) UIView *profilePictureBackgroundView;
 @property (nonatomic, strong) UIButton *followStatusBtn;
 @property (nonatomic, strong) UILabel *photoCountLbl;
 @property (nonatomic, strong) UILabel *followingCountLbl;
+
 @end
 
 @implementation AMWAccountViewController
@@ -75,7 +79,7 @@
         self.navigationItem.leftBarButtonItem = [[AMWSettingsButtonItem alloc] initWithTarget:self action:@selector(settingsButtonAction:)];
     }
     
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 260.0f)];
+    self.headerView = [[UIView alloc] initWithFrame:CGRectMake( 0.0f, 0.0f, self.tableView.bounds.size.width, 290.0f)];
     [self.headerView setBackgroundColor:[UIColor clearColor]];
     
     UIView *texturedBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -119,6 +123,17 @@
     userDisplayNameLabel.center = CGPointMake(self.headerView.center.x, userDisplayNameLabel.center.y);
     [self.headerView addSubview:userDisplayNameLabel];
     
+    UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 200.0f, self.headerView.bounds.size.width, 22.0f)];
+    [usernameLabel setTextAlignment:NSTextAlignmentCenter];
+    [usernameLabel setBackgroundColor:[UIColor clearColor]];
+    [usernameLabel setTextColor:[UIColor grayColor]];
+    [usernameLabel setShadowColor:[UIColor colorWithWhite:0.0f alpha:0.300f]];
+    [usernameLabel setShadowOffset:CGSizeMake( 0.0f, -1.0f)];
+    [usernameLabel setText:[self.user objectForKey:@"username"]];
+    [usernameLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
+    usernameLabel.center = CGPointMake(self.headerView.center.x, usernameLabel.center.y);
+    [self.headerView addSubview:usernameLabel];
+    
     if (![[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
         UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [loadingActivityIndicatorView startAnimating];
@@ -139,39 +154,30 @@
                 followStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
                 followStatusBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15.0f];
                 followStatusBtn.titleEdgeInsets = UIEdgeInsetsMake( 0.0f, 10.0f, 0.0f, 0.0f);
-                [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"] forState:UIControlStateNormal];
-                [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollowSelected.png"] forState:UIControlStateSelected];
-                [followStatusBtn setImage:[UIImage imageNamed:@"IconTick.png"] forState:UIControlStateSelected];
-                [followStatusBtn setTitle:NSLocalizedString(@"Follow  ", @"Follow string, with spaces added for centering") forState:UIControlStateNormal];
-                [followStatusBtn setTitle:@"Following" forState:UIControlStateSelected];
-                [followStatusBtn setTitleColor:[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
-                [followStatusBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
                 [followStatusBtn addTarget:self action:@selector(didTapFollowButtonAction:) forControlEvents:UIControlEventTouchUpInside];
                 
-                
-                SEL selecta;
-                if (number == 0) {
-                    [self configureFollowButton];
-                    selecta = @selector(followButtonAction:);
-                }
-                else {
-                    [self configureUnfollowButton];
-                    selecta = @selector(unfollowButtonAction:);
-                }
+                followTGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followButtonAction:)];
+                unfollowTGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(unfollowButtonAction:)];
                 
                 [followStatusBtn setSelected:(number > 0)];
                 
-                [followStatusBtn setFrame:CGRectMake( 208.0f, 200.0f, 103.0f, 32.0f)];
+                [followStatusBtn setFrame:CGRectMake( 208.0f, 225.0f, 103.0f, 32.0f)];
                 followStatusBtn.center = CGPointMake(self.headerView.center.x, followStatusBtn.center.y);
-                UITapGestureRecognizer *followBtnTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:selecta];
-                [followStatusBtn addGestureRecognizer:followBtnTapGesture];
+                if (number > 0) {
+                    [followStatusBtn addGestureRecognizer:unfollowTGR];
+                    [self configureUnfollowButton];
+                }
+                else {
+                    [followStatusBtn addGestureRecognizer:followTGR];
+                    [self configureFollowButton];
+                }
                 
                 [self.headerView addSubview:followStatusBtn];
             }
         }];
     }
     else {
-        followingCountLbl = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 200.0f, 100.0f, 25.0f)];
+        followingCountLbl = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 225.0f, 100.0f, 25.0f)];
         [followingCountLbl setTextAlignment:NSTextAlignmentCenter];
         [followingCountLbl setBackgroundColor:[UIColor whiteColor]];
         [followingCountLbl setTextColor:[UIColor blackColor]];
@@ -187,7 +193,7 @@
         [self loadFollowingCount];
     }
     
-    photoCountLbl = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 228.0f, 92.0f, 22.0f)];
+    photoCountLbl = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 253.0f, 92.0f, 22.0f)];
     [photoCountLbl setTextAlignment:NSTextAlignmentCenter];
     [photoCountLbl setBackgroundColor:[UIColor clearColor]];
     [photoCountLbl setTextColor:[UIColor blackColor]];
@@ -508,13 +514,15 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
     
     [self configureUnfollowButton];
-    //[followStatusBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
     
     [AMWUtility followUserEventually:self.user block:^(BOOL succeeded, NSError *error) {
         if (error) {
             [self configureFollowButton];
         }
     }];
+    
+    [followStatusBtn removeGestureRecognizer:followTGR];
+    [followStatusBtn addGestureRecognizer:unfollowTGR];
 }
 
 - (void)unfollowButtonAction:(id)sender {
@@ -523,9 +531,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:loadingActivityIndicatorView];
     
     [self configureFollowButton];
-    //[followStatusBtn setTitle:@"Follow" forState:UIControlStateNormal];
     
     [AMWUtility unfollowUserEventually:self.user];
+    
+    [followStatusBtn removeGestureRecognizer:unfollowTGR];
+    [followStatusBtn addGestureRecognizer:followTGR];
 }
 
 - (void)backButtonAction:(id)sender {
@@ -535,11 +545,21 @@
 - (void)configureFollowButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow" style:UIBarButtonItemStylePlain target:self action:@selector(followButtonAction:)];
     [[AMWCache sharedCache] setFollowStatus:NO user:self.user];
+    
+    [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"] forState:UIControlStateNormal];
+    [followStatusBtn setTitle:@"Follow  " forState:UIControlStateNormal];
+    [followStatusBtn setImage:nil forState:UIControlStateNormal];
+    [followStatusBtn setTitleColor:[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
 }
 
 - (void)configureUnfollowButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowButtonAction:)];
     [[AMWCache sharedCache] setFollowStatus:YES user:self.user];
+    
+    [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollowSelected.png"] forState:UIControlStateNormal];
+    [followStatusBtn setTitle:@"Following" forState:UIControlStateNormal];
+    [followStatusBtn setImage:[UIImage imageNamed:@"IconTick.png"] forState:UIControlStateNormal];
+    [followStatusBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 @end

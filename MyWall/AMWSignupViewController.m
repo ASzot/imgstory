@@ -56,6 +56,19 @@
     NSString *username = self.usernameTxtField.text;
     NSString *displayName = self.displayNameTxtField.text;
     
+    NSString *errorText = nil;
+    if (password.length > 100)
+        errorText = @"Password must be less than 100 characters.";
+    else if (username.length > 25)
+        errorText = @"Usernames must be less than 25 characters.";
+    else if (displayName.length > 25)
+        errorText = @"Display name must be less than 25 characters.";
+    
+    if (errorText != nil) {
+        self.errorMsgLbl.text = errorText;
+        return;
+    }
+    
     PFUser *user = [PFUser user];
     user.username = username;
     user.password = password;

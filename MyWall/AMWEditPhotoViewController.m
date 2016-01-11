@@ -227,6 +227,8 @@
 
 - (void)publishButtonAction:(id)sender {
     NSString *trimmedComment = [self.captionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    // Keep the caption to under 100 characters.
+    trimmedComment = [trimmedComment substringWithRange:NSMakeRange(0, 100)];
     
     if (!self.photoFile || !self.thumbnailFile) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Couldn't post your photo" message:nil preferredStyle:UIAlertControllerStyleAlert];

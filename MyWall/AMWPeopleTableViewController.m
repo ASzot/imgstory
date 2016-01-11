@@ -44,29 +44,7 @@
     
     [cell setUser:toUser];
     
-    [cell.photoLabel setText:@"0 photos"];
-    
     NSDictionary *attributes = [[AMWCache sharedCache] attributesForUser:toUser];
-    
-    if (attributes) {
-        // set them now
-        NSNumber *number = [[AMWCache sharedCache] photoCountForUser:toUser];
-        [cell.photoLabel setText:[NSString stringWithFormat:@"%@ photo%@", number, [number intValue] == 1 ? @"": @"s"]];
-    }
-    else {
-        @synchronized(self) {
-            PFQuery *photoNumQuery = [PFQuery queryWithClassName:kAMWPhotoClassKey];
-            [photoNumQuery whereKey:kAMWPhotoUserKey equalTo:toUser];
-            [photoNumQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
-            [photoNumQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-                @synchronized(self) {
-                    [[AMWCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:toUser];
-                }
-                AMWFindFriendsCell *actualCell = (AMWFindFriendsCell*)[tableView cellForRowAtIndexPath:indexPath];
-                [actualCell.photoLabel setText:[NSString stringWithFormat:@"%d photo%@", number, number == 1 ? @"" : @"s"]];
-            }];
-        }
-    }
     
     cell.followButton.selected = NO;
     cell.tag = indexPath.row;
