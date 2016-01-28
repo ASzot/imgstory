@@ -74,7 +74,7 @@
 - (void)setPhoto:(PFObject *)aPhoto {
     photo = aPhoto;
     
-    const float repostBtnWidth = 29.0f;
+    const float btnWidth = 29.0f;
     float subtractWidth = 50.0f;
     if (IS_IPHONE_6 || IS_IPHONE_6P)
         subtractWidth = 0.0f;
@@ -104,7 +104,9 @@
     if (setBtn != nil && imageAssetStr != nil && (self.buttons & AMWPhotoHeaderButtonsRepost)) {
         [self addSubview:setBtn];
         
-        [setBtn setFrame:CGRectMake(boundWidth, 9.0f, repostBtnWidth, 29.0f)];
+        float moreInfoBtnOffset = userOwnsPhoto ? 0.0f : (btnWidth + 20.0f);
+        
+        [setBtn setFrame:CGRectMake(boundWidth - moreInfoBtnOffset, 9.0f, btnWidth, 29.0f)];
         [setBtn setBackgroundColor:[UIColor clearColor]];
         [setBtn setTitle:@"" forState:UIControlStateNormal];
         [setBtn setTitleColor:[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
@@ -120,6 +122,29 @@
         [setBtn setSelected:NO];
         
         constrainWidth = setBtn.frame.origin.x;
+    }
+    
+    if (!userOwnsPhoto) {
+        UIButton *moreInfoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [moreInfoBtn setFrame:CGRectMake(boundWidth, 9.0f, btnWidth, 29.0f)];
+        [moreInfoBtn setBackgroundColor:[UIColor clearColor]];
+        [moreInfoBtn setTitle:@"" forState:UIControlStateNormal];
+        [moreInfoBtn setTitleColor:[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        [moreInfoBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [moreInfoBtn setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+        [[moreInfoBtn titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
+        [[moreInfoBtn titleLabel] setMinimumScaleFactor:0.8f];
+        [[moreInfoBtn titleLabel] setAdjustsFontSizeToFitWidth:YES];
+        [moreInfoBtn setAdjustsImageWhenHighlighted:NO];
+        [moreInfoBtn setAdjustsImageWhenDisabled:NO];
+        //[setBtn setBackgroundColor:[UIColor redColor]];
+        [moreInfoBtn setBackgroundImage:[UIImage imageNamed:@"InfoIcon.png"] forState:UIControlStateNormal];
+        [moreInfoBtn addTarget:self action:@selector(didTapMoreInfoButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [moreInfoBtn setSelected:NO];
+        [self addSubview:moreInfoBtn];
+        
+        //constrainWidth = moreInfoBtn.frame.origin.x;
     }
     
     PFUser *user = [self.photo objectForKey:kAMWPhotoUserKey];
@@ -190,6 +215,12 @@
 - (void)didTapRepostButtonAction:(UIButton *)sender {
     if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapRepostPhotoButton:photo:)]) {
         [delegate photoHeaderView:self didTapRepostPhotoButton:sender photo:self.photo];
+    }
+}
+
+- (void)didTapMoreInfoButtonAction:(UIButton*)sender {
+    if (delegate && [delegate respondsToSelector:@selector(photoHeaderView:didTapMoreInfoButton:photo:)]) {
+        [delegate photoHeaderView:self didTapMoreInfoButton:sender photo:self.photo];
     }
 }
 

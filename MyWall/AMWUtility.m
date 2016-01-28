@@ -244,4 +244,16 @@
     // Save context
     CGContextRestoreGState(context);
 }
+
+
++ (NSString*) checkPassword:(NSString*)passStr {
+    NSString *errorText = nil;
+    if (passStr.length > 100)
+        errorText = @"Password must be less than 100 characters.";
+    else if (passStr.length < 6)
+        errorText = @"Password must be more than 6 characters";
+    
+    return errorText;
+}
+
 @end

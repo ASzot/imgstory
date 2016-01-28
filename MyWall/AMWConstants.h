@@ -45,6 +45,13 @@ extern NSString *const kAMWInstallationUserKey;
 
 extern NSString *const kAMWEditPhotoViewControllerUserInfoCaptionKey;
 
+
+extern NSString *const kAMWAbuseReportClassKey;
+extern NSString *const kAMWAbuseReportPhoto;
+extern NSString *const KAMWAbuseReportToUser;
+extern NSString *const kAMWAbuseReportFromUser;
+
+
 extern NSString *const kAMWActivityClassKey;
 
 

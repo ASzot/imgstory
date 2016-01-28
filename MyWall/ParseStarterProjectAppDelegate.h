@@ -26,6 +26,7 @@
 -(void)presentTabBarController;
 
 -(void)logOut;
+-(void)logOutShouldDeleteAccount: (BOOL)shouldDelete;
 
 -(void)autoFollowUsers;
 

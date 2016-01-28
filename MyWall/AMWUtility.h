@@ -27,6 +27,8 @@
 + (void)drawSideAndBottomDropShadowForRect:(CGRect)rect inContext:(CGContextRef)context;
 + (void)drawSideAndTopDropShadowForRect:(CGRect)rect inContext:(CGContextRef)context;
 
++ (NSString*)checkPassword:(NSString*)passStr;
+
 + (PFQuery *)queryForActivitiesOnPhoto:(PFObject *)photo cachePolicy:(PFCachePolicy)cachePolicy;
 
 @end

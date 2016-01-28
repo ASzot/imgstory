@@ -195,8 +195,15 @@
 }
 
 - (void)logOut {
+    [self logOutShouldDeleteAccount:NO];
+}
+
+- (void)logOutShouldDeleteAccount: (BOOL)shouldDelete {
     // clear cache
     [[AMWCache sharedCache] clear];
+    
+    // Save the id for potential deleting later.
+    NSString *userId = [PFUser currentUser].objectId;
     
     // clear NSUserDefaults
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAMWUserDefaultsActivityFeedViewControllerLastRefreshKey];
@@ -211,6 +218,19 @@
     
     // Log out
     [PFUser logOut];
+    
+    if (shouldDelete) {
+        PFQuery *deleteUserQuery = [PFQuery queryWithClassName:@"_User"];
+        [deleteUserQuery whereKey:@"objectId" equalTo:userId];
+        [deleteUserQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError * error) {
+            // There should only be one result.
+            if (!error) {
+                for (PFObject *object in objects) {
+                    [object deleteInBackground];
+                }
+            }
+        }];
+    }
     
     // clear out cached data, view controllers, etc
     [self.navController popToRootViewControllerAnimated:NO];

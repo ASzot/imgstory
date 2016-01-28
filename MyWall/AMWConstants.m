@@ -30,6 +30,12 @@ NSString *const kAMWInstallationUserKey = @"user";
 NSString *const kAMWEditPhotoViewControllerUserInfoCaptionKey = @"comment";
 
 
+NSString *const kAMWAbuseReportClassKey = @"AbuseReports";
+NSString *const kAMWAbuseReportPhoto = @"image";
+NSString *const KAMWAbuseReportToUser = @"user";
+NSString *const kAMWAbuseReportFromUser = @"fromUser";
+
+
 NSString *const kAMWActivityClassKey = @"Activity";
 
 

@@ -134,6 +134,7 @@
     usernameLabel.center = CGPointMake(self.headerView.center.x, usernameLabel.center.y);
     [self.headerView addSubview:usernameLabel];
     
+    SEL moreInfoAction;
     if (![[self.user objectId] isEqualToString:[[PFUser currentUser] objectId]]) {
         UIActivityIndicatorView *loadingActivityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [loadingActivityIndicatorView startAnimating];
@@ -175,6 +176,7 @@
                 [self.headerView addSubview:followStatusBtn];
             }
         }];
+        moreInfoAction = @selector(userReportButtonAction:);
     }
     else {
         followingCountLbl = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 225.0f, 100.0f, 25.0f)];
@@ -191,8 +193,35 @@
         [self.headerView addSubview:followingCountLbl];
         
         [self loadFollowingCount];
+        
+        moreInfoAction = @selector(userAccountOptionsButtonAction:);
     }
     
+    
+    // Add the more information button.
+    const float btnWidth = 29.0f;
+    UIButton *userReportBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [userReportBtn setFrame:CGRectMake(self.headerView.frame.size.width - (btnWidth + 10.0f), 15.0f, btnWidth, 29.0f)];
+    [userReportBtn setBackgroundColor:[UIColor clearColor]];
+    [userReportBtn setTitle:@"" forState:UIControlStateNormal];
+    [userReportBtn setTitleColor:[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    [userReportBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [userReportBtn setTitleEdgeInsets:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+    [[userReportBtn titleLabel] setFont:[UIFont systemFontOfSize:12.0f]];
+    [[userReportBtn titleLabel] setMinimumScaleFactor:0.8f];
+    [[userReportBtn titleLabel] setAdjustsFontSizeToFitWidth:YES];
+    [userReportBtn setAdjustsImageWhenHighlighted:NO];
+    [userReportBtn setAdjustsImageWhenDisabled:NO];
+    //[setBtn setBackgroundColor:[UIColor redColor]];
+    [userReportBtn setBackgroundImage:[UIImage imageNamed:@"InfoIcon"] forState:UIControlStateNormal];
+    [userReportBtn addTarget:self action:moreInfoAction forControlEvents:UIControlEventTouchUpInside];
+    [userReportBtn setSelected:NO];
+    
+    [self.headerView addSubview:userReportBtn];
+    
+    
+    // Add the photo count label.
     photoCountLbl = [[UILabel alloc] initWithFrame:CGRectMake( 100.0f, 253.0f, 92.0f, 22.0f)];
     [photoCountLbl setTextAlignment:NSTextAlignmentCenter];
     [photoCountLbl setBackgroundColor:[UIColor clearColor]];
@@ -206,6 +235,122 @@
     [photoCountLbl setText:@"0 photos"];
     
     [self loadPhotoCount];
+}
+
+- (void)userAccountOptionsButtonAction:(id)sender {
+    UIAlertController *moreInfoAlert = [UIAlertController alertControllerWithTitle:@"Account Options" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *changePasswordAction = [UIAlertAction actionWithTitle:@"Change Password" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [moreInfoAlert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    UIAlertAction *deleteAccountAction = [UIAlertAction actionWithTitle:@"Delete Account" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        [moreInfoAlert dismissViewControllerAnimated:YES completion:nil];
+        
+        UIAlertController *confirmAlert = [UIAlertController alertControllerWithTitle:@"Are you sure?" message:@"There is no undoing this action" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+            
+            [confirmAlert dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *denyAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            
+            [confirmAlert dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        [confirmAlert addAction:confirmAction];
+        [confirmAlert addAction:denyAction];
+        
+        [self presentViewController:confirmAlert animated:YES completion:nil];
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [moreInfoAlert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [moreInfoAlert addAction:changePasswordAction];
+    [moreInfoAlert addAction:deleteAccountAction];
+    [moreInfoAlert addAction:cancelAction];
+    
+    [self presentViewController:moreInfoAlert animated:YES completion:nil];
+}
+
+- (void)deleteUser {
+    // Delete the current user.
+    
+    // First delete all of the following relationships the user is involved in.
+    PFQuery *followActivityQuery = [PFQuery queryWithClassName:kAMWActivityClassKey];
+    [followActivityQuery whereKey:kAMWActivityToUserKey equalTo:user];
+    
+    PFQuery *followingActivityQuery = [PFQuery queryWithClassName:kAMWActivityClassKey];
+    [followingActivityQuery whereKey:kAMWActivityFromUserKey equalTo:user];
+    
+    PFQuery *activityQuery = [PFQuery orQueryWithSubqueries:@[followActivityQuery, followingActivityQuery]];
+    [activityQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *object in objects) {
+                [object deleteInBackground];
+            }
+        }
+    }];
+    
+    
+    // Next delete all of the user's pictures.
+    PFQuery *userImagesQuery = [PFQuery queryWithClassName:kAMWPhotoClassKey];
+    [userImagesQuery whereKey:kAMWPhotoUserKey equalTo:user];
+    [userImagesQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            for (PFObject *object in objects) {
+                [object deleteInBackground];
+            }
+        }
+    }];
+    
+    
+    // Delete the user account itself.
+    [user deleteInBackground];
+    user = nil;
+    
+    [(ParseStarterProjectAppDelegate*)[[UIApplication sharedApplication] delegate] logOutShouldDeleteAccount:YES];
+}
+
+- (void)userReportButtonAction:(id)sender {
+    
+    UIAlertController *moreInfoAlert = [UIAlertController alertControllerWithTitle:@"More" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *reportUserAction = [UIAlertAction actionWithTitle:@"Report User" style:UIAlertActionStyleDefault handler:^(UIAlertAction* alert) {
+        PFObject *userReport = [PFObject objectWithClassName:kAMWAbuseReportClassKey];
+        userReport[kAMWAbuseReportFromUser] = [PFUser currentUser];
+        userReport[KAMWAbuseReportToUser] = user;
+        
+        
+        [userReport saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error) {
+            NSString *title;
+            NSString *message;
+            if (error) {
+                title = @"Server Error";
+                message = @"Couldn't file the report.";
+            }
+            else {
+                title = @"Success";
+                message = @"Report filed.";
+            }
+            UIAlertController *statusAlert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alert) {
+                [statusAlert dismissViewControllerAnimated:YES completion:nil];
+            }];
+            [statusAlert addAction:ok];
+            [self presentViewController:statusAlert animated:YES completion:nil];
+        }];
+    }];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [moreInfoAlert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [moreInfoAlert addAction:reportUserAction];
+    [moreInfoAlert addAction:cancelAction];
+    
+    [self presentViewController:moreInfoAlert animated:YES completion:nil];
 }
 
 - (void)searchButtonAction:(id)sender {

@@ -60,6 +60,8 @@
 		49FA01751C156F140041CC1A /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016F1C156F140041CC1A /* UIImage+AlphaAdditions.m */; };
 		49FA01761C156F140041CC1A /* UIImage+ResizeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01711C156F140041CC1A /* UIImage+ResizeAdditions.m */; };
 		49FA01771C156F140041CC1A /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01731C156F140041CC1A /* UIImage+RoundedCornerAdditions.m */; };
+		696199641C59D58D00C69933 /* AMWChangePassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696199621C59D58D00C69933 /* AMWChangePassViewController.m */; };
+		696199651C59D58D00C69933 /* AMWChangePassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696199631C59D58D00C69933 /* AMWChangePassViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +174,9 @@
 		49FA01711C156F140041CC1A /* UIImage+ResizeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeAdditions.m"; sourceTree = "<group>"; };
 		49FA01721C156F140041CC1A /* UIImage+RoundedCornerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCornerAdditions.h"; sourceTree = "<group>"; };
 		49FA01731C156F140041CC1A /* UIImage+RoundedCornerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCornerAdditions.m"; sourceTree = "<group>"; };
+		696199611C59D58D00C69933 /* AMWChangePassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWChangePassViewController.h; sourceTree = "<group>"; };
+		696199621C59D58D00C69933 /* AMWChangePassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWChangePassViewController.m; sourceTree = "<group>"; };
+		696199631C59D58D00C69933 /* AMWChangePassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWChangePassViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -466,6 +471,7 @@
 		49A490C61C18101F00685660 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				696199601C59D55B00C69933 /* ChangePass */,
 				49FA011E1C156EDF0041CC1A /* AMWAccountViewController.h */,
 				49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */,
 				494790F21C28A8EC00D695E5 /* AMWPeopleTableViewController.h */,
@@ -525,6 +531,16 @@
 				49AC6A6F1C28BA4A00823718 /* AMWSearchButtonItem.m */,
 			);
 			name = Settings;
+			sourceTree = "<group>";
+		};
+		696199601C59D55B00C69933 /* ChangePass */ = {
+			isa = PBXGroup;
+			children = (
+				696199611C59D58D00C69933 /* AMWChangePassViewController.h */,
+				696199621C59D58D00C69933 /* AMWChangePassViewController.m */,
+				696199631C59D58D00C69933 /* AMWChangePassViewController.xib */,
+			);
+			name = ChangePass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,6 +653,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				494790F01C2603B200D695E5 /* AMWSignupViewController.xib in Resources */,
+				696199651C59D58D00C69933 /* AMWChangePassViewController.xib in Resources */,
 				4981E4C01C214AC000882888 /* AMWLoginViewController.xib in Resources */,
 				4952A0771C156B1A00646A61 /* Assets.xcassets in Resources */,
 			);
@@ -695,6 +712,7 @@
 				49FA01511C156EDF0041CC1A /* AMWFindFriendsCell.m in Sources */,
 				49FA014D1C156EDF0041CC1A /* AMWBaseTextCell.m in Sources */,
 				49FA01571C156EDF0041CC1A /* AMWPhotoDetailsHeaderView.m in Sources */,
+				696199641C59D58D00C69933 /* AMWChangePassViewController.m in Sources */,
 				49FA01741C156F140041CC1A /* TTTTimeIntervalFormatter.m in Sources */,
 				49FA015D1C156EDF0041CC1A /* AMWSettingsButtonItem.m in Sources */,
 			);

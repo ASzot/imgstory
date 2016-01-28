@@ -317,6 +317,80 @@
     }];
 }
 
+
+- (void) photoHeaderView: (AMWPhotoHeaderView*)photoHeaderView didTapMoreInfoButton: (UIButton*) button photo: (PFObject*)photo {
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@"More"
+                                  message:@""
+                                  preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* saveImageAction = [UIAlertAction actionWithTitle:@"Save Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        PFFile *imageFile = [photo objectForKey:kAMWPhotoPictureKey];
+        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            NSString *title;
+            NSString *message;
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:data];
+                UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+                title = @"Success";
+                message = @"Saved photo.";
+            }
+            else {
+                title = @"Failure";
+                message = @"Could not save photo.";
+            }
+            
+            UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alert) {
+                [errorAlert dismissViewControllerAnimated:YES completion:nil];
+            }];
+            [errorAlert addAction:ok];
+            [self presentViewController:errorAlert animated:YES completion:nil];
+            
+        }];
+        [alert dismissViewControllerAnimated:YES completion:nil];
+        
+    }];
+    UIAlertAction* reportPhotoAction = [UIAlertAction actionWithTitle:@"Report" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+        // Save a abuse report for this photo.
+        PFObject *abuseReport = [PFObject objectWithClassName:kAMWAbuseReportClassKey];
+        abuseReport[kAMWAbuseReportPhoto] = photo;
+        abuseReport[kAMWAbuseReportFromUser] = [PFUser currentUser];
+        [abuseReport saveInBackgroundWithBlock:^(BOOL succeeded, NSError* error) {
+            NSString *title;
+            NSString *message;
+            if (!error) {
+                title = @"Success";
+                message = @"Report filed.";
+            }
+            else {
+                title = @"Server error";
+                message = @"Could not file the report at this moment. Please try again later.";
+            }
+            
+            UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alert) {
+                [errorAlert dismissViewControllerAnimated:YES completion:nil];
+            }];
+            [errorAlert addAction:ok];
+            [self presentViewController:errorAlert animated:YES completion:nil];
+        }];
+        
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    UIAlertAction *dismissAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        [alert dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [alert addAction:saveImageAction];
+    [alert addAction:reportPhotoAction];
+    [alert addAction:dismissAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
 - (void)photoHeaderView:(AMWPhotoHeaderView *)photoHeaderView didTapDeleteButton:(UIButton *)button photo:(PFObject *)photo {
     UIAlertController * alert=   [UIAlertController
                                   alertControllerWithTitle:@"Are you sure?"
