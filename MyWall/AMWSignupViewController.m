@@ -7,6 +7,7 @@
 //
 
 #import "AMWSignupViewController.h"
+#import "AMWAcceptTOUViewController.h"
 #import "AMWUtility.h"
 #import <Parse/Parse.h>
 
@@ -84,7 +85,10 @@
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             // The user is now signed up.
-            [self.delegate performSelector:@selector(logSignActionOccured)];
+            // Make sure they agree the EULA first.
+            AMWAcceptTOUViewController *acceptTOUViewController = [[AMWAcceptTOUViewController alloc] init];
+            acceptTOUViewController.delegate = self;
+            [self presentViewController:acceptTOUViewController animated:YES completion:nil];
         }
         else {
             NSString *errorStr = [error userInfo][@"error"];
@@ -94,6 +98,17 @@
 }
 - (IBAction)cancelBtnAction:(id)sender {
     [self.delegate performSelector:@selector(logSignActionOccured)];
+}
+
+// Accepted the EULA.
+- (void)onAccept {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate performSelector:@selector(logSignActionOccured)];
+}
+
+// Declined the EULA.
+- (void)onDecline {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

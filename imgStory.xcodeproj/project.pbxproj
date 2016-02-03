@@ -62,6 +62,8 @@
 		49FA01771C156F140041CC1A /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01731C156F140041CC1A /* UIImage+RoundedCornerAdditions.m */; };
 		696199641C59D58D00C69933 /* AMWChangePassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696199621C59D58D00C69933 /* AMWChangePassViewController.m */; };
 		696199651C59D58D00C69933 /* AMWChangePassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696199631C59D58D00C69933 /* AMWChangePassViewController.xib */; };
+		6983652D1C5AC3F300F5566A /* AMWAcceptTOUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6983652B1C5AC3F300F5566A /* AMWAcceptTOUViewController.m */; };
+		6983652E1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6983652C1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -177,6 +179,9 @@
 		696199611C59D58D00C69933 /* AMWChangePassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWChangePassViewController.h; sourceTree = "<group>"; };
 		696199621C59D58D00C69933 /* AMWChangePassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWChangePassViewController.m; sourceTree = "<group>"; };
 		696199631C59D58D00C69933 /* AMWChangePassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWChangePassViewController.xib; sourceTree = "<group>"; };
+		6983652A1C5AC3F300F5566A /* AMWAcceptTOUViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWAcceptTOUViewController.h; sourceTree = "<group>"; };
+		6983652B1C5AC3F300F5566A /* AMWAcceptTOUViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWAcceptTOUViewController.m; sourceTree = "<group>"; };
+		6983652C1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWAcceptTOUViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +250,9 @@
 				494790EC1C2603B200D695E5 /* AMWSignupViewController.h */,
 				494790ED1C2603B200D695E5 /* AMWSignupViewController.m */,
 				494790EE1C2603B200D695E5 /* AMWSignupViewController.xib */,
+				6983652A1C5AC3F300F5566A /* AMWAcceptTOUViewController.h */,
+				6983652B1C5AC3F300F5566A /* AMWAcceptTOUViewController.m */,
+				6983652C1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib */,
 			);
 			name = Signup;
 			sourceTree = "<group>";
@@ -656,6 +664,7 @@
 				696199651C59D58D00C69933 /* AMWChangePassViewController.xib in Resources */,
 				4981E4C01C214AC000882888 /* AMWLoginViewController.xib in Resources */,
 				4952A0771C156B1A00646A61 /* Assets.xcassets in Resources */,
+				6983652E1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +696,7 @@
 				4952A0751C156B1A00646A61 /* MyWall.xcdatamodeld in Sources */,
 				49FA01591C156EDF0041CC1A /* AMWPhotoHeaderView.m in Sources */,
 				49FA015E1C156EDF0041CC1A /* AMWTabBarController.m in Sources */,
+				6983652D1C5AC3F300F5566A /* AMWAcceptTOUViewController.m in Sources */,
 				49FA014A1C156EDF0041CC1A /* AMWAccountViewController.m in Sources */,
 				49AC6A701C28BA4A00823718 /* AMWSearchButtonItem.m in Sources */,
 				49FA014F1C156EDF0041CC1A /* AMWConstants.m in Sources */,
