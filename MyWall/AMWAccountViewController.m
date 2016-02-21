@@ -238,12 +238,17 @@
     [self loadPhotoCount];
 }
 
+- (void) onDismissChangePassViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)userAccountOptionsButtonAction:(id)sender {
     UIAlertController *moreInfoAlert = [UIAlertController alertControllerWithTitle:@"Account Options" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *changePasswordAction = [UIAlertAction actionWithTitle:@"Change Password" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         AMWChangePassViewController *changePassViewController = [[AMWChangePassViewController alloc] init];
         [moreInfoAlert dismissViewControllerAnimated:YES completion:nil];
+        changePassViewController.delegate = self;
         
         [self presentViewController:changePassViewController animated:YES completion:nil];
     }];

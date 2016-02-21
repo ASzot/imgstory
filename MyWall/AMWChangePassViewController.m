@@ -12,9 +12,10 @@
 @interface AMWChangePassViewController () {
     PFUser *user;
 }
+
 @property (weak, nonatomic) IBOutlet UITextField *currentPassTxtField;
-@property (weak, nonatomic) IBOutlet UITextField *confirmNewPassTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *enterNewPassTxtField;
+@property (weak, nonatomic) IBOutlet UITextField *confirmNewPassTxtField;
 @property (weak, nonatomic) IBOutlet UILabel *errorLbl;
 
 @end
@@ -30,6 +31,10 @@
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor], (id)[[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] CGColor], nil];
     [self.view.layer insertSublayer:gradient atIndex:0];
     
+    self.currentPassTxtField.delegate = self;
+    self.enterNewPassTxtField.delegate = self;
+    self.confirmNewPassTxtField.delegate = self;
+    
     user = [PFUser currentUser];
     if (user == nil) {
         [self cancelBtnAction:nil];
@@ -41,7 +46,12 @@
     NSString *confirmPassStr = self.confirmNewPassTxtField.text;
     
     NSString *errorTxt = nil;
-    if (![user.password isEqualToString:currentPassStr])
+    NSString *checkPass = user.password;
+    if (user.password == nil)
+        errorTxt = @"No data connection to get password";
+    else if ([checkPass isEqualToString:@""])
+        errorTxt = @"Enter your current password";
+    else if (![checkPass isEqualToString:currentPassStr])
         errorTxt = @"Invalid current password";
     else if (![passStr isEqualToString:confirmPassStr])
         errorTxt = @"Passwords do not match";
@@ -54,11 +64,11 @@
     else {
         user.password = passStr;
         [user saveInBackground];
-        [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+        [self.delegate onDismissChangePassViewController];
     }
 }
 - (IBAction)cancelBtnAction:(id)sender {
-    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate onDismissChangePassViewController];
 }
 
 - (void)didReceiveMemoryWarning {
