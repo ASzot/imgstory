@@ -154,7 +154,7 @@
                                                        handler:^(UIAlertAction * action)
                                  {
                                      [alert dismissViewControllerAnimated:YES completion:nil];
-                                     [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+                                     [self.delegate onDismissed];
                                  }];
             
             [alert addAction:ok];
@@ -228,7 +228,8 @@
 - (void)publishButtonAction:(id)sender {
     NSString *trimmedComment = [self.captionTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     // Keep the caption to under 100 characters.
-    trimmedComment = [trimmedComment substringWithRange:NSMakeRange(0, 100)];
+    if (trimmedComment.length > 101)
+        trimmedComment = [trimmedComment substringWithRange:NSMakeRange(0, 100)];
     
     if (!self.photoFile || !self.thumbnailFile) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Couldn't post your photo" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -276,7 +277,7 @@
         [[UIApplication sharedApplication] endBackgroundTask:self.photoPostBackgroundTaskId];
     }];
     
-    [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.delegate onDismissed];
 }
 
 - (void)doneButtonAction:(id)sender {

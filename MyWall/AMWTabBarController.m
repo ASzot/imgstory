@@ -70,12 +70,17 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     
     AMWEditPhotoViewController *viewController = [[AMWEditPhotoViewController alloc] initWithImage:image];
+    viewController.delegate = self;
     [viewController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     
     [self.navController setModalTransitionStyle:UIModalTransitionStyleCrossDissolve];
     [self.navController pushViewController:viewController animated:NO];
     
     [self presentViewController:self.navController animated:YES completion:nil];
+}
+
+- (void) onDismissed {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL) shouldPresentPhotoCaptureController {

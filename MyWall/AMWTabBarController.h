@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMWEditPhotoViewController.h"
 
 @protocol AMWTabBarControllerDelegate;
 
-@interface AMWTabBarController : UITabBarController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface AMWTabBarController : UITabBarController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, AMWEditPhotoViewControllerDelegate>
 
 - (BOOL)shouldPresentPhotoCaptureController;
 

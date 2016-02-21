@@ -20,6 +20,7 @@
 #import "AMWSettingsButtonItem.h"
 #import "AMWUserSearchViewController.h"
 #import "ParseStarterProjectAppDelegate.h"
+#import "AMWChangePassViewController.h"
 
 
 @interface AMWAccountViewController() {
@@ -241,8 +242,10 @@
     UIAlertController *moreInfoAlert = [UIAlertController alertControllerWithTitle:@"Account Options" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *changePasswordAction = [UIAlertAction actionWithTitle:@"Change Password" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
+        AMWChangePassViewController *changePassViewController = [[AMWChangePassViewController alloc] init];
         [moreInfoAlert dismissViewControllerAnimated:YES completion:nil];
+        
+        [self presentViewController:changePassViewController animated:YES completion:nil];
     }];
     
     UIAlertAction *deleteAccountAction = [UIAlertAction actionWithTitle:@"Delete Account" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -250,8 +253,8 @@
         
         UIAlertController *confirmAlert = [UIAlertController alertControllerWithTitle:@"Are you sure?" message:@"There is no undoing this action" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-            
             [confirmAlert dismissViewControllerAnimated:YES completion:nil];
+            [self deleteUser];
         }];
         UIAlertAction *denyAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
             

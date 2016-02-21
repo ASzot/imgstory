@@ -312,11 +312,15 @@
         if (!error) {
             UIImage *image = [UIImage imageWithData:data];
             AMWEditPhotoViewController *repostPhotoViewController = [[AMWEditPhotoViewController alloc] initWithImage:image withCaption:imageCaptionStr];
+            repostPhotoViewController.delegate = self;
             [self.navigationController pushViewController:repostPhotoViewController animated:YES];
         }
     }];
 }
 
+- (void)onDismissed {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void) photoHeaderView: (AMWPhotoHeaderView*)photoHeaderView didTapMoreInfoButton: (UIButton*) button photo: (PFObject*)photo {
     UIAlertController * alert=   [UIAlertController

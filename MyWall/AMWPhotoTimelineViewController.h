@@ -8,8 +8,9 @@
 
 #import "AMWPhotoHeaderView.h"
 #import "ParseUI/ParseUI.h"
+#import "AMWEditPhotoViewController.h"
 
-@interface AMWPhotoTimelineViewController : PFQueryTableViewController<AMWPhotoHeaderViewDelegate>
+@interface AMWPhotoTimelineViewController : PFQueryTableViewController<AMWPhotoHeaderViewDelegate, AMWEditPhotoViewControllerDelegate>
 
 - (AMWPhotoHeaderView *)dequeueReusableSectionHeaderView;
 
