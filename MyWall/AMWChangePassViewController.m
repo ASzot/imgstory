@@ -8,12 +8,12 @@
 
 #import "AMWChangePassViewController.h"
 #import "AMWUtility.h"
+#import "ParseStarterProjectAppDelegate.h"
 
 @interface AMWChangePassViewController () {
     PFUser *user;
 }
 
-@property (weak, nonatomic) IBOutlet UITextField *currentPassTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *enterNewPassTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmNewPassTxtField;
 @property (weak, nonatomic) IBOutlet UILabel *errorLbl;
@@ -31,7 +31,6 @@
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor], (id)[[UIColor colorWithRed:74.0f/255.0f green:163.0f/255.0f blue:223.0f/255.0f alpha:1.0f] CGColor], nil];
     [self.view.layer insertSublayer:gradient atIndex:0];
     
-    self.currentPassTxtField.delegate = self;
     self.enterNewPassTxtField.delegate = self;
     self.confirmNewPassTxtField.delegate = self;
     
@@ -41,19 +40,11 @@
     }
 }
 - (IBAction)applyBtnAction:(id)sender {
-    NSString *currentPassStr = self.currentPassTxtField.text;
-    NSString *passStr = self.currentPassTxtField.text;
+    NSString *passStr = self.enterNewPassTxtField.text;
     NSString *confirmPassStr = self.confirmNewPassTxtField.text;
     
     NSString *errorTxt = nil;
-    NSString *checkPass = user.password;
-    if (user.password == nil)
-        errorTxt = @"No data connection to get password";
-    else if ([checkPass isEqualToString:@""])
-        errorTxt = @"Enter your current password";
-    else if (![checkPass isEqualToString:currentPassStr])
-        errorTxt = @"Invalid current password";
-    else if (![passStr isEqualToString:confirmPassStr])
+    if (![passStr isEqualToString:confirmPassStr])
         errorTxt = @"Passwords do not match";
     else
         errorTxt = [AMWUtility checkPassword:passStr];
@@ -64,7 +55,17 @@
     else {
         user.password = passStr;
         [user saveInBackground];
-        [self.delegate onDismissChangePassViewController];
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Password Changed" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            //[self.delegate onDismissChangePassViewController];
+            // Just log the user out.
+            [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        }];
+        
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
 }
 - (IBAction)cancelBtnAction:(id)sender {
