@@ -12,7 +12,6 @@
 #import "AMWPhotoDetailsFooterView.h"
 #import <Parse/Parse.h>
 #import "UIImage+ResizeAdditions.h"
-#import "AMWCache.h"
 #import "AMWConstants.h"
 
 #define MAX_PHOTOS_PER_DAY 5

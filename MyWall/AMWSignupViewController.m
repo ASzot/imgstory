@@ -7,7 +7,6 @@
 //
 
 #import "AMWSignupViewController.h"
-#import "AMWAcceptTOUViewController.h"
 #import "AMWUtility.h"
 #import <Parse/Parse.h>
 
@@ -76,19 +75,6 @@
         return;
     }
     
-    // Make sure they agree the EULA first.
-    AMWAcceptTOUViewController *acceptTOUViewController = [[AMWAcceptTOUViewController alloc] init];
-    acceptTOUViewController.delegate = self;
-    [self presentViewController:acceptTOUViewController animated:YES completion:nil];
-}
-- (IBAction)cancelBtnAction:(id)sender {
-    [self.delegate performSelector:@selector(logSignActionOccured)];
-}
-
-// Accepted the EULA.
-- (void)onAccept {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
     
     
     PFUser *user = [PFUser user];
@@ -108,10 +94,8 @@
         }
     }];
 }
-
-// Declined the EULA.
-- (void)onDecline {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)cancelBtnAction:(id)sender {
+    [self.delegate performSelector:@selector(logSignActionOccured)];
 }
 
 @end

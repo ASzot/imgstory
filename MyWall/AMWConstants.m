@@ -8,11 +8,6 @@
 
 #import "AMWConstants.h"
 
-NSString *const kAMWUserDefaultsActivityFeedViewControllerLastRefreshKey = @"com.parse.Anypic.userDefaults.activityFeedViewController.lastRefresh";
-
-
-NSString *const kAMWLaunchURLHostTakePicture = @"camera";
-
 NSString *const AMWAppDelegationApplicationDidReceiveRemoteNotification =
 @"com.parse.ParseStarterProject.parseStarterProjectAppDelegate.applicationDidReceiveRemoteNotification";
 NSString *const AMWUtilityUserFollowingChangedNotification                      = @"com.parse.Anypic.utility.userFollowingChanged";
@@ -77,21 +72,3 @@ NSString *const kAMWPhotoAttributesLikeCountKey            = @"likeCount";
 NSString *const kAMWPhotoAttributesLikersKey               = @"likers";
 NSString *const kAMWPhotoAttributesCommentCountKey         = @"commentCount";
 NSString *const kAMWPhotoAttributesCaptionKey              = @"caption";
-
-
-NSString *const kAMWUserAttributesPhotoCountKey                 = @"photoCount";
-NSString *const kAMWUserAttributesIsFollowedByCurrentUserKey    = @"isFollowedByCurrentUser";
-
-
-NSString *const kAMWPushPayloadPayloadTypeKey          = @"p";
-NSString *const kAMWPushPayloadPayloadTypeActivityKey  = @"a";
-
-NSString *const kAMWPushPayloadActivityTypeKey     = @"t";
-NSString *const kAMWPushPayloadActivityLikeKey     = @"l";
-NSString *const kAMWPushPayloadActivityCommentKey  = @"c";
-NSString *const kAMWPushPayloadActivityFollowKey   = @"f";
-
-NSString *const kAMWPushPayloadFromUserObjectIdKey = @"fu";
-NSString *const kAMWPushPayloadToUserObjectIdKey   = @"tu";
-NSString *const kAMWPushPayloadPhotoObjectIdKey    = @"pid";
-

@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "AMWLogSignDelegate.h"
-#import "AMWAcceptTOUViewController.h"
 
-@interface AMWSignupViewController : UIViewController<UITextFieldDelegate, AMWToUserActionDelegate>
+@interface AMWSignupViewController : UIViewController<UITextFieldDelegate>
 
 @property (nonatomic, strong) id<AMWLogSignDelegate> delegate;
 

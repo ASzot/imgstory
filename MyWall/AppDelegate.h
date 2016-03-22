@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "AMWTabBarController.h"
 
-@interface ParseStarterProjectAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate>
+@interface AppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 

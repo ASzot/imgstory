@@ -12,7 +12,7 @@
 // #import <ParseFacebookUtils/PFFacebookUtils.h>
 // #import <ParseCrashReporting/ParseCrashReporting.h>
 
-#import "ParseStarterProjectAppDelegate.h"
+#import "AppDelegate.h"
 #import "AMWConstants.h"
 #import "MBProgressHUD.h"
 #import "AMWStartViewController.h"
@@ -21,11 +21,10 @@
 #import "AMWWelcomeViewController.h"
 #import "AMWHomeViewController.h"
 #import "AMWConstants.h"
-#import "AMWCache.h"
 #import "Reachability.h"
 
 
-@interface ParseStarterProjectAppDelegate () {
+@interface AppDelegate () {
     BOOL firstLaunch;
 }
 
@@ -42,7 +41,7 @@
 @end
 
 
-@implementation ParseStarterProjectAppDelegate
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
@@ -199,15 +198,8 @@
 }
 
 - (void)logOutShouldDeleteAccount: (BOOL)shouldDelete {
-    // clear cache
-    [[AMWCache sharedCache] clear];
-    
     // Save the id for potential deleting later.
     NSString *userId = [PFUser currentUser].objectId;
-    
-    // clear NSUserDefaults
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kAMWUserDefaultsActivityFeedViewControllerLastRefreshKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
     // Unsubscribe from push notifications by removing the user association from the current installation.
     [[PFInstallation currentInstallation] removeObjectForKey: kAMWInstallationUserKey];

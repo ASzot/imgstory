@@ -19,7 +19,7 @@
 #import "AMWSearchButtonItem.h"
 #import "AMWSettingsButtonItem.h"
 #import "AMWUserSearchViewController.h"
-#import "ParseStarterProjectAppDelegate.h"
+#import "AppDelegate.h"
 #import "AMWChangePassViewController.h"
 
 
@@ -319,7 +319,7 @@
     [user deleteInBackground];
     user = nil;
     
-    [(ParseStarterProjectAppDelegate*)[[UIApplication sharedApplication] delegate] logOutShouldDeleteAccount:YES];
+    [(AppDelegate*)[[UIApplication sharedApplication] delegate] logOutShouldDeleteAccount:YES];
 }
 
 - (void)userReportButtonAction:(id)sender {
@@ -371,7 +371,7 @@
     UIAlertController * view = [UIAlertController alertControllerWithTitle:@"Settings" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction* logout = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         [view dismissViewControllerAnimated:YES completion:nil];
     }];
     
@@ -441,7 +441,6 @@
     [queryPhotoCount countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (!error) {
             [photoCountLbl setText:[NSString stringWithFormat:@"%d photo%@", number, number == 1 ? @"" : @"s"]];
-            [[AMWCache sharedCache] setPhotoCount:[NSNumber numberWithInt:number] user:self.user];
         }
     }];
 }
@@ -697,7 +696,6 @@
 
 - (void)configureFollowButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Follow" style:UIBarButtonItemStylePlain target:self action:@selector(followButtonAction:)];
-    [[AMWCache sharedCache] setFollowStatus:NO user:self.user];
     
     [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollow.png"] forState:UIControlStateNormal];
     [followStatusBtn setTitle:@"Follow  " forState:UIControlStateNormal];
@@ -707,7 +705,6 @@
 
 - (void)configureUnfollowButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Unfollow" style:UIBarButtonItemStylePlain target:self action:@selector(unfollowButtonAction:)];
-    [[AMWCache sharedCache] setFollowStatus:YES user:self.user];
     
     [followStatusBtn setBackgroundImage:[UIImage imageNamed:@"ButtonFollowSelected.png"] forState:UIControlStateNormal];
     [followStatusBtn setTitle:@"Following" forState:UIControlStateNormal];

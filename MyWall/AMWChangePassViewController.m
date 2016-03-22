@@ -8,7 +8,7 @@
 
 #import "AMWChangePassViewController.h"
 #import "AMWUtility.h"
-#import "ParseStarterProjectAppDelegate.h"
+#import "AppDelegate.h"
 
 @interface AMWChangePassViewController () {
     PFUser *user;
@@ -61,7 +61,7 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             //[self.delegate onDismissChangePassViewController];
             // Just log the user out.
-            [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+            [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         }];
         
         [alertController addAction:okAction];

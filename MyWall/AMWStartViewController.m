@@ -8,7 +8,7 @@
 //
 
 #import "AMWStartViewController.h"
-#import "ParseStarterProjectAppDelegate.h"
+#import "AppDelegate.h"
 #import "AMWLoginViewController.h"
 #import "AMWSignupViewController.h"
 #import "MBProgressHUD.h"
@@ -110,7 +110,7 @@
     
     [self.hud removeFromSuperview];
     [PFUser logOut];
-    [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] presentLoginViewController:NO];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] presentLoginViewController:NO];
 }
 
 - (void)handleLogInError:(NSError *)error {

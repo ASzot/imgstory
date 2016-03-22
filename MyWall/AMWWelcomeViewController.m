@@ -7,7 +7,7 @@
 //
 
 #import "AMWWelcomeViewController.h"
-#import "ParseStarterProjectAppDelegate.h"
+#import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "AMWUtility.h"
 
@@ -37,7 +37,7 @@
     }
     
     // Present Anypic UI
-    [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] presentTabBarController];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] presentTabBarController];
     
     // Refresh current user with server side data -- checks if user is still valid and so on
     [[PFUser currentUser] fetchInBackgroundWithTarget:self selector:@selector(refreshCurrentUserCallbackWithResult:error:)];
@@ -76,14 +76,14 @@
     // A kPFErrorObjectNotFound error on currentUser refresh signals a deleted user
     if (error && error.code == kPFErrorObjectNotFound) {
         NSLog(@"User does not exist.");
-        [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         return;
     }
     
     PFUser *currentParseUser = [PFUser currentUser];
     if (!currentParseUser) {
         NSLog(@"Current Parse user does not exist, logout");
-        [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         return;
     }
 }

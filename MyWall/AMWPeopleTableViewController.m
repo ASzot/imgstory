@@ -44,31 +44,21 @@
     
     [cell setUser:toUser];
     
-    NSDictionary *attributes = [[AMWCache sharedCache] attributesForUser:toUser];
-    
     cell.followButton.selected = NO;
     cell.tag = indexPath.row;
     
-    if (attributes) {
-        [cell.followButton setSelected:[[AMWCache sharedCache] followStatusForUser:toUser]];
-    }
-    else {
-        @synchronized(self) {
-            PFQuery *isFollowingQuery = [PFQuery queryWithClassName:kAMWActivityClassKey];
-            [isFollowingQuery whereKey:kAMWActivityFromUserKey equalTo:[PFUser currentUser]];
-            [isFollowingQuery whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeFollow];
-            [isFollowingQuery whereKey:kAMWActivityToUserKey equalTo:toUser];
-            [isFollowingQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
-            
-            [isFollowingQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-                @synchronized(self) {
-                    [[AMWCache sharedCache] setFollowStatus:(!error && number > 0) user:toUser];
-                }
-                if (cell.tag == indexPath.row) {
-                    [cell.followButton setSelected:(!error && number > 0)];
-                }
-            }];
-        }
+    @synchronized(self) {
+        PFQuery *isFollowingQuery = [PFQuery queryWithClassName:kAMWActivityClassKey];
+        [isFollowingQuery whereKey:kAMWActivityFromUserKey equalTo:[PFUser currentUser]];
+        [isFollowingQuery whereKey:kAMWActivityTypeKey equalTo:kAMWActivityTypeFollow];
+        [isFollowingQuery whereKey:kAMWActivityToUserKey equalTo:toUser];
+        [isFollowingQuery setCachePolicy:kPFCachePolicyCacheThenNetwork];
+        
+        [isFollowingQuery countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+            if (cell.tag == indexPath.row) {
+                [cell.followButton setSelected:(!error && number > 0)];
+            }
+        }];
     }
     
     return cell;

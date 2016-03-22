@@ -24,11 +24,6 @@ typedef enum {
 } AMWTabBarControllerViewControllerIndex;
 
 
-extern NSString *const kAMWUserDefaultsActivityFeedViewControllerLastRefreshKey;
-
-
-extern NSString *const kAMWLaunchURLHostTakePicture;
-
 
 extern NSString *const AMWAppDelegationApplicationDidReceiveRemoteNotification;
 extern NSString *const AMWUtilityUserFollowingChangedNotification;
@@ -93,21 +88,4 @@ extern NSString *const kAMWPhotoAttributesLikeCountKey;
 extern NSString *const kAMWPhotoAttributesLikersKey;
 extern NSString *const kAMWPhotoAttributesCommentCountKey;
 extern NSString *const kAMWPhotoAttributesCaptionKey;
-
-
-extern NSString *const kAMWUserAttributesPhotoCountKey;
-extern NSString *const kAMWUserAttributesIsFollowedByCurrentUserKey;
-
-
-extern NSString *const kAMWPushPayloadPayloadTypeKey;
-extern NSString *const kAMWPushPayloadPayloadTypeActivityKey;
-
-extern NSString *const kAMWPushPayloadActivityTypeKey;
-extern NSString *const kAMWPushPayloadActivityLikeKey;
-extern NSString *const kAMWPushPayloadActivityCommentKey;
-extern NSString *const kAMWPushPayloadActivityFollowKey;
-
-extern NSString *const kAMWPushPayloadFromUserObjectIdKey;
-extern NSString *const kAMWPushPayloadToUserObjectIdKey;
-extern NSString *const kAMWPushPayloadPhotoObjectIdKey;
 

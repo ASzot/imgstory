@@ -36,7 +36,6 @@
 		49AC6A761C2B699C00823718 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC6A751C2B699C00823718 /* UIImage+ImageEffects.m */; };
 		49FA014A1C156EDF0041CC1A /* AMWAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */; };
 		49FA014D1C156EDF0041CC1A /* AMWBaseTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01251C156EDF0041CC1A /* AMWBaseTextCell.m */; };
-		49FA014E1C156EDF0041CC1A /* AMWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01271C156EDF0041CC1A /* AMWCache.m */; };
 		49FA014F1C156EDF0041CC1A /* AMWConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01291C156EDF0041CC1A /* AMWConstants.m */; };
 		49FA01501C156EDF0041CC1A /* AMWEditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA012B1C156EDF0041CC1A /* AMWEditPhotoViewController.m */; };
 		49FA01511C156EDF0041CC1A /* AMWFindFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA012D1C156EDF0041CC1A /* AMWFindFriendsCell.m */; };
@@ -54,7 +53,7 @@
 		49FA015F1C156EDF0041CC1A /* AMWUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01491C156EDF0041CC1A /* AMWUtility.m */; };
 		49FA01621C156EF20041CC1A /* AMWWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01611C156EF20041CC1A /* AMWWelcomeViewController.m */; };
 		49FA01651C156F000041CC1A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01641C156F000041CC1A /* MBProgressHUD.m */; };
-		49FA01681C156F080041CC1A /* ParseStarterProjectAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01671C156F080041CC1A /* ParseStarterProjectAppDelegate.m */; };
+		49FA01681C156F080041CC1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01671C156F080041CC1A /* AppDelegate.m */; };
 		49FA016B1C156F0E0041CC1A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016A1C156F0E0041CC1A /* Reachability.m */; };
 		49FA01741C156F140041CC1A /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016D1C156F140041CC1A /* TTTTimeIntervalFormatter.m */; };
 		49FA01751C156F140041CC1A /* UIImage+AlphaAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA016F1C156F140041CC1A /* UIImage+AlphaAdditions.m */; };
@@ -62,8 +61,6 @@
 		49FA01771C156F140041CC1A /* UIImage+RoundedCornerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FA01731C156F140041CC1A /* UIImage+RoundedCornerAdditions.m */; };
 		696199641C59D58D00C69933 /* AMWChangePassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 696199621C59D58D00C69933 /* AMWChangePassViewController.m */; };
 		696199651C59D58D00C69933 /* AMWChangePassViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 696199631C59D58D00C69933 /* AMWChangePassViewController.xib */; };
-		6983652D1C5AC3F300F5566A /* AMWAcceptTOUViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6983652B1C5AC3F300F5566A /* AMWAcceptTOUViewController.m */; };
-		6983652E1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6983652C1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,8 +125,6 @@
 		49FA011F1C156EDF0041CC1A /* AMWAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWAccountViewController.m; sourceTree = "<group>"; };
 		49FA01241C156EDF0041CC1A /* AMWBaseTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWBaseTextCell.h; sourceTree = "<group>"; };
 		49FA01251C156EDF0041CC1A /* AMWBaseTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWBaseTextCell.m; sourceTree = "<group>"; };
-		49FA01261C156EDF0041CC1A /* AMWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWCache.h; sourceTree = "<group>"; };
-		49FA01271C156EDF0041CC1A /* AMWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWCache.m; sourceTree = "<group>"; };
 		49FA01281C156EDF0041CC1A /* AMWConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWConstants.h; sourceTree = "<group>"; };
 		49FA01291C156EDF0041CC1A /* AMWConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWConstants.m; sourceTree = "<group>"; };
 		49FA012A1C156EDF0041CC1A /* AMWEditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWEditPhotoViewController.h; sourceTree = "<group>"; };
@@ -164,8 +159,8 @@
 		49FA01611C156EF20041CC1A /* AMWWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWWelcomeViewController.m; sourceTree = "<group>"; };
 		49FA01631C156EFC0041CC1A /* MBProgressHUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		49FA01641C156F000041CC1A /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		49FA01661C156F050041CC1A /* ParseStarterProjectAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParseStarterProjectAppDelegate.h; sourceTree = "<group>"; };
-		49FA01671C156F080041CC1A /* ParseStarterProjectAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseStarterProjectAppDelegate.m; sourceTree = "<group>"; };
+		49FA01661C156F050041CC1A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		49FA01671C156F080041CC1A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		49FA01691C156F0B0041CC1A /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		49FA016A1C156F0E0041CC1A /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		49FA016C1C156F140041CC1A /* TTTTimeIntervalFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTTimeIntervalFormatter.h; sourceTree = "<group>"; };
@@ -179,9 +174,6 @@
 		696199611C59D58D00C69933 /* AMWChangePassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWChangePassViewController.h; sourceTree = "<group>"; };
 		696199621C59D58D00C69933 /* AMWChangePassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWChangePassViewController.m; sourceTree = "<group>"; };
 		696199631C59D58D00C69933 /* AMWChangePassViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWChangePassViewController.xib; sourceTree = "<group>"; };
-		6983652A1C5AC3F300F5566A /* AMWAcceptTOUViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWAcceptTOUViewController.h; sourceTree = "<group>"; };
-		6983652B1C5AC3F300F5566A /* AMWAcceptTOUViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWAcceptTOUViewController.m; sourceTree = "<group>"; };
-		6983652C1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMWAcceptTOUViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,9 +242,6 @@
 				494790EC1C2603B200D695E5 /* AMWSignupViewController.h */,
 				494790ED1C2603B200D695E5 /* AMWSignupViewController.m */,
 				494790EE1C2603B200D695E5 /* AMWSignupViewController.xib */,
-				6983652A1C5AC3F300F5566A /* AMWAcceptTOUViewController.h */,
-				6983652B1C5AC3F300F5566A /* AMWAcceptTOUViewController.m */,
-				6983652C1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib */,
 			);
 			name = Signup;
 			sourceTree = "<group>";
@@ -343,8 +332,8 @@
 				49A490BD1C180F8200685660 /* Helper */,
 				49A490BC1C180F7D00685660 /* View */,
 				49A490BB1C180F7400685660 /* Controllers */,
-				49FA01661C156F050041CC1A /* ParseStarterProjectAppDelegate.h */,
-				49FA01671C156F080041CC1A /* ParseStarterProjectAppDelegate.m */,
+				49FA01661C156F050041CC1A /* AppDelegate.h */,
+				49FA01671C156F080041CC1A /* AppDelegate.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -433,8 +422,6 @@
 		49A490C21C180FCF00685660 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				49FA01261C156EDF0041CC1A /* AMWCache.h */,
-				49FA01271C156EDF0041CC1A /* AMWCache.m */,
 				49FA01281C156EDF0041CC1A /* AMWConstants.h */,
 				49FA01291C156EDF0041CC1A /* AMWConstants.m */,
 				49FA01481C156EDF0041CC1A /* AMWUtility.h */,
@@ -664,7 +651,6 @@
 				696199651C59D58D00C69933 /* AMWChangePassViewController.xib in Resources */,
 				4981E4C01C214AC000882888 /* AMWLoginViewController.xib in Resources */,
 				4952A0771C156B1A00646A61 /* Assets.xcassets in Resources */,
-				6983652E1C5AC3F300F5566A /* AMWAcceptTOUViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,11 +678,9 @@
 				49FA01771C156F140041CC1A /* UIImage+RoundedCornerAdditions.m in Sources */,
 				49AC6A731C28C88300823718 /* AMWUserSearchViewController.m in Sources */,
 				49AC6A761C2B699C00823718 /* UIImage+ImageEffects.m in Sources */,
-				49FA014E1C156EDF0041CC1A /* AMWCache.m in Sources */,
 				4952A0751C156B1A00646A61 /* MyWall.xcdatamodeld in Sources */,
 				49FA01591C156EDF0041CC1A /* AMWPhotoHeaderView.m in Sources */,
 				49FA015E1C156EDF0041CC1A /* AMWTabBarController.m in Sources */,
-				6983652D1C5AC3F300F5566A /* AMWAcceptTOUViewController.m in Sources */,
 				49FA014A1C156EDF0041CC1A /* AMWAccountViewController.m in Sources */,
 				49AC6A701C28BA4A00823718 /* AMWSearchButtonItem.m in Sources */,
 				49FA014F1C156EDF0041CC1A /* AMWConstants.m in Sources */,
@@ -713,7 +697,7 @@
 				49FA01521C156EDF0041CC1A /* AMWHomeViewController.m in Sources */,
 				494790EF1C2603B200D695E5 /* AMWSignupViewController.m in Sources */,
 				49FA015B1C156EDF0041CC1A /* AMWProfileImageView.m in Sources */,
-				49FA01681C156F080041CC1A /* ParseStarterProjectAppDelegate.m in Sources */,
+				49FA01681C156F080041CC1A /* AppDelegate.m in Sources */,
 				49FA01551C156EDF0041CC1A /* AMWPhotoCell.m in Sources */,
 				4952A0691C156B1A00646A61 /* main.m in Sources */,
 				49FA01501C156EDF0041CC1A /* AMWEditPhotoViewController.m in Sources */,

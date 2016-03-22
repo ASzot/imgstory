@@ -10,7 +10,7 @@
 #import "AMWSettingsButtonItem.h"
 #import "AMWAccountViewController.h"
 #import "MBProgressHUD.h"
-#import "ParseStarterProjectAppDelegate.h"
+#import "AppDelegate.h"
 #import "AMWSearchButtonItem.h"
 #import "AMWUserSearchViewController.h"
 #import "AMWConstants.h"
@@ -88,7 +88,7 @@
     UIAlertController * view = [UIAlertController alertControllerWithTitle:@"Settings" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction* logout = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        [(ParseStarterProjectAppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] logOut];
         [view dismissViewControllerAnimated:YES completion:nil];
     }];
     

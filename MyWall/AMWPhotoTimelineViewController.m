@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AMWPhotoTimelineViewController.h"
 #import "AMWPhotoCell.h"
-#import "ParseStarterProjectAppDelegate.h"
+#import "AppDelegate.h"
 #import "AMWConstants.h"
 #import "AMWPhotoHeaderView.h"
 #import "AMWLoadMoreCell.h"

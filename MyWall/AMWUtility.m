@@ -8,7 +8,6 @@
 
 #import "AMWUtility.h"
 #import "AMWConstants.h"
-#import "AMWCache.h"
 #import "UIImage+ResizeAdditions.h"
 
 @implementation AMWUtility
@@ -93,7 +92,6 @@
             completionBlock(succeeded, error);
         }
     }];
-    [[AMWCache sharedCache] setFollowStatus:YES user:user];
 }
 
 + (void)followUserEventually:(PFUser *)user block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
@@ -111,13 +109,11 @@
     followActivity.ACL = followACL;
     
     [followActivity saveEventually:completionBlock];
-    [[AMWCache sharedCache] setFollowStatus:YES user:user];
 }
 
 + (void)followUsersEventually:(NSArray *)users block:(void (^)(BOOL succeeded, NSError *error))completionBlock {
     for (PFUser *user in users) {
         [AMWUtility followUserEventually:user block:completionBlock];
-        [[AMWCache sharedCache] setFollowStatus:YES user:user];
     }
 }
 
@@ -135,7 +131,6 @@
             }
         }
     }];
-    [[AMWCache sharedCache] setFollowStatus:NO user:user];
 }
 
 + (void)unfollowUsersEventually:(NSArray *)users {
@@ -148,9 +143,6 @@
             [activity deleteEventually];
         }
     }];
-    for (PFUser *user in users) {
-        [[AMWCache sharedCache] setFollowStatus:NO user:user];
-    }
 }
 
 
