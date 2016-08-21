@@ -48,8 +48,9 @@
     self.window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
     
     //[ParseCrashReporting enable];
-    NSString *appId = @"xLMm2VLcNHOhSLy7DXeOohEcExyZQMdovI759MYm";
-    NSString *clientKey = @"buH1i2ML3usHLGLnZDzR7xK9uqlkwroX8CGEhm88";
+    // Put app id and client key here.
+    NSString *appId = @"";
+    NSString *clientKey = @"";
     [Parse setApplicationId: appId clientKey: clientKey];
 
     if (application.applicationIconBadgeNumber != 0) {
